@@ -1,0 +1,261 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\setlength{\parindent}{0in}
+
+
+\begin{document}
+
+{\bf \large Thesis Outline \\ \\}
+
+Author: Brett Friedman \\
+Updated: \today \\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+- The problem of anomalous transport in tokamaks \\
+- Understanding the nature of turbulence in LAPD \\
+- The use of simulation to acquire spatial data and theoretical understanding \\
+- The nonlinear instability in LAPD \\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Turbulence and Instability}
+
+\subsection{The Kolmogorov Paradigm of Turbulence}
+
+- High Reynolds number neutral fluid turbulence \\
+- Energy injection, cascading, and dissipation \\
+- \emph{Figure}: Standard cascading figure \\
+
+\subsection{The Standard Plasma Paradigm of Linear Instability}
+
+- The plethora of linear instabilities in plasma physics \\
+- The dual cascade \\
+- The problem of low Reynolds number, lack of inertial range, etc. in plasmas \\
+- The reliance on linear theory for understanding and quasi-linear calculations \\
+
+\subsection{Nonlinear Instability: Subcritical and Supercritical Instability}
+
+- Subcritical turbulence in pipe (Poiselle) flow \\
+- \emph{Figure}: Pitchfork diagrams and explanation of sub and supercritical instability \\
+- Note that other kinds of nonlinear instabilities exist \\
+
+\subsection{Nonlinear Instability in Plasmas}
+
+- ITG (Dimits shift) in GK Simulations \\
+- TEM (Ernst) GK Simulations \\
+- Various subcritical plasma instabilities \\
+- Bruce Scott self-organization findings \\
+- Drake, Biskamp, Zeiler papers \\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The Braginskii Fluid Model and LAPD}
+
+\subsection{LAPD Suitability to Fluid Model}
+
+- High collisionality (collision mfp over the machine length) and neglect of Landau damping \\
+- FLR effects \\
+
+\subsection{Braginskii Equations}
+
+- Origin of the equations \\
+- Assumptions and orderings \\
+- Write the full equations (Tokamaks book?) \\
+- Describe the meaning of the terms \\
+
+\subsection{The Vorticity Equation}
+
+- Justify the quasi-neutrality condition \\
+- Derive the Vorticity Equation \\
+
+\subsection{Minimizing the Equation Set for LAPD parameters}
+
+- Neglect of ion temperature and parallel velocity fluctuations \\
+- The electrostatic justification \\
+- Make a comparison of the collision to mass to inductive effects on the adiabatic response (see B.D. Scott paper) \\
+- \emph{Figure}: Beta scans comparing ES vs EM growth rates \\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The BOUT++ Code}
+
+\subsection{The Object-Oriented Fluid Framework}
+
+- The original BOUT \\
+- The advantage of BOUT++ \\
+- Parallel framework \\
+
+\subsection{Explicit Finite Differences}
+
+- The time solver options and the one I use \\
+- The spatial finite difference schemes \\
+
+\subsection{The Physics Inputs}
+
+- Put lapd-drift.cxx in an appendix \\
+- The grid file \\
+- The input file \\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{LAPD Simulation Details}
+
+\subsection{The Equations}
+
+- Partially linearized equations (with $\phi_0$?) \\
+
+\subsection{Finite Difference Schemes}
+
+- Quasi-staggered method \\
+- Advection schemes and positivity \\
+
+\subsection{Artificial Diffusion and Grid Convergence}
+
+- Grid convergence paper \\
+- \emph{Figure}: U1 advection figures in the paper \\
+- \emph{Figure}: Arakawa advection figures in the paper \\
+
+\subsection{Sources}
+
+- \emph{Figure}: Relaxation without the sources caused by transport \\
+- Simple density and temperature sources (removal of azimuthal average) \\
+- Positivity-preserving sources \\
+
+\subsection{Boundary Conditions}
+
+- The annular geometry and justification of zero-value radial boundaries \\
+- Periodic, zero-value, and zero-derivative axial boundaries \\
+- Sheath boundary condition and specific implementation \\
+
+\subsection{Profiles and Parameters}
+
+- \emph{Figure}: Density and temperature profiles \\
+- Zero mean potential profile justified by biasing experiment \\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Linear Instabilities}
+
+\subsection{Drift waves}
+
+- Linearized equations \\
+- \emph{Figure}: Physical mechanism \\
+- \emph{Figure}: Growth rates with periodic, zero-value and zero-derivative boundary conditions \\
+
+\subsection{Conducting Wall Mode}
+
+- Physical mechanism \\
+- The reduced fluid equations used in BOUT++ \\
+- Specific implementation of the boundary condition \\
+- \emph{Figure}: Growth rates with comparison to drift waves \\
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The Nature of the Turbulence}
+
+\subsection{A Visual Examination}
+
+- \emph{Figure}: 2D and 3D movies of the turbulence \\
+- \emph{Figure}: Movie comparison to camera data \\
+- Note the formation of long parallel wavelength structures \\
+
+\subsection{A Statistical Examination}
+
+- \emph{Figure}: Spectra, PDFs, Fluctuation Levels \\
+- Note that the experimental and simulation frequency spectra are not exponential \\
+- \emph{Figure}: Correlation Plots: simulation and exp. \\
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Energy Dynamics Formalism}
+
+\subsection{Total Energy and Dynamics}
+
+- State the physical energy \\
+- Derive the full energy evolution \\
+- Discuss the meaning of the pieces (sources, transfers, etc.) \\
+- Discuss the conservation (and lack of it) for the advective nonlinearities with reference to first paper \\
+
+\subsection{Spectral Energy Dynamics}
+
+- Derive the spectral density energy evolution \\
+- State the results for the other energy expressions \\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Nonlinear Instability for the Periodic Simulation}
+
+\subsection{The Energy Spectra}
+
+- \emph{Figure}: The energy spectra
+- The energetic dominance of $k_\parallel = 0$ fluctuations \\
+- Our original misunderstanding of the $k_\parallel = 0$ structure origins due to the standard linear instability picture \\
+
+\subsection{Energy Dynamics Result}
+
+- \emph{Figure}: The full detailed dynamics from first paper \\
+- \emph{Figure}: The full diagram from the second paper \\
+- \emph{Figure}: The reduced diagram from the first paper \\
+- \emph{Figure}: The growth rate, linear vs nonlinear \\
+
+\subsection{n=0 Suppression}
+
+- \emph{Figure}: The coherent turbulence (movie or snapshot) 
+- \emph{Figure}: The statistical difference \\
+- \emph{Figure}: The energy dynamics and growth rates \\
+- \emph{Figure}: The role of zonal flows \\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Energy Dynamics for the Non-periodic Simulations}
+
+\subsection{The Importance of Axial Boundary Conditions}
+
+- Discuss the need to explore different boundary conditions with reference to linear growth rate curves \\
+- \emph{Figure}: The statistics of the different cases \\
+
+\subsection{Fourier Decomposing Non-periodic Functions}
+
+- \emph{Figure}: The power law vs exponential convergence \\
+- The appendix of the second paper \\
+
+\subsection{Energy Dynamics Results}
+
+- \emph{Figure}: Energy flow diagrams (at least for the sheath case, maybe one more) \\
+- Growth rate plots: linear vs nonlinear \\
+
+\subsection{Linear vs Nonlinear Structure Correlation}
+
+- Section from the second paper \\
+- \emph{Figure}: Ratio of fastest growing mode energy to total energy \\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The Finite Mean Flow Simulations}
+
+\subsection{The Biasing Experiment}
+
+- Shear suppression paradigm \\
+- Simulations not focusing on dynamical profile evolution yet \\
+
+\subsection{New Linear Instabilities}
+
+- KH \\
+- Rotational Interchange \\
+- \emph{Figure}: Isolation of KH and IC instabilities
+
+\subsection{Statistical Comparisons to Experiment}
+
+- \emph{Figure}: Unbiased, medium and high biases \\
+- Note the skewed pdfs due to the radial force and blob production \\
+
+\subsection{Energy Dynamics Results}
+
+- The new terms in the energy dynamics and their meaning \\
+- Instability drive comparisons \\
+- \emph{Figure}: Energy flow diagram \\
+- The coherent mode? \\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+
+
+\section{Appendix 1}
+
+- lapd-drift.cxx code
+
+\end{document}
