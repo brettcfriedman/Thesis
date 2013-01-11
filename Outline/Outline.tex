@@ -5,7 +5,7 @@
 
 \begin{document}
 
-{\bf \large Thesis Outline \\ \\}
+{\bf \large Thesis Outline: Numerical Studies of Turbulence in LAPD \\ \\}
 
 Author: Brett Friedman \\
 Updated: \today \\
@@ -75,25 +75,6 @@ Updated: \today \\
 - Make a comparison of the collision to mass to inductive effects on the adiabatic response (see B.D. Scott paper) \\
 - \emph{Figure}: Beta scans comparing ES vs EM growth rates \\
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{The BOUT++ Code}
-
-\subsection{The Object-Oriented Fluid Framework}
-
-- The original BOUT \\
-- The advantage of BOUT++ \\
-- Parallel framework \\
-
-\subsection{Explicit Finite Differences}
-
-- The time solver options and the one I use \\
-- The spatial finite difference schemes \\
-
-\subsection{The Physics Inputs}
-
-- Put lapd-drift.cxx in an appendix \\
-- The grid file \\
-- The input file \\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{LAPD Simulation Details}
@@ -106,12 +87,7 @@ Updated: \today \\
 
 - Quasi-staggered method \\
 - Advection schemes and positivity \\
-
-\subsection{Artificial Diffusion and Grid Convergence}
-
-- Grid convergence paper \\
-- \emph{Figure}: U1 advection figures in the paper \\
-- \emph{Figure}: Arakawa advection figures in the paper \\
+- Artificial diffusion and grid convergence reference to appendix \\
 
 \subsection{Sources}
 
@@ -253,9 +229,34 @@ Updated: \today \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusion}
 
+- Future work \\
 
-\section{Appendix 1}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Appendix 1: The BOUT++ Code}
 
-- lapd-drift.cxx code
+\subsection{The Object-Oriented Fluid Framework}
+
+- The original BOUT \\
+- The advantage of BOUT++ \\
+- Parallel framework \\
+
+\subsection{Explicit Finite Differences}
+
+- The time solver options and the one I use \\
+- The spatial finite difference schemes \\
+
+\subsection{The Physics Inputs}
+
+- Explanation of the grid file \\
+- lapd-drift.cxx \\
+- The input file \\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Appendix 2: Grid Convergence}
+
+- Grid convergence paper \\
+- \emph{Figure}: U1 advection figures in the paper \\
+- \emph{Figure}: Arakawa advection figures in the paper \\
+
 
 \end{document}
