@@ -1,5 +1,79 @@
 \chapter{Linear Instabilities}
+\label{c_lin_inst}
 
 \section{Drift Waves}
+\label{s_drift_waves}
 
 \section{Conducting Wall Mode}
+\label{s_cwm}
+
+In this section, we consider the linear instability caused by a plasma bounded by two conducting walls on the boundaries where the magnetic field lines terminate (the axial boundaries).
+The instability is dependent upon Bohm sheath boundary conditions described in the following subsection. A point to note is that these boundary conditions are not necessarily the correct ones
+for LAPD. In tokamaks, the scrape-off-layer (SOL) can be characterized by a number of different regimes such as the sheath-limited, conduction-limited, 
+or detached divertor regimes~\cite{stangeby2000}. The primary factor that controls which regime the SOL is in is the dimensionless collisionality $\nu^* \sim L/\lambda$ where $L$ is the
+SOL length and $\lambda$ is the electron or ion collision length. For LAPD, $\nu^* \sim 100$, which would put it in the detached regime. 
+The Bohm sheath boundary condition is derived for low collisionality (the sheath-limited regime), so LAPD probably
+does not contain such a boundary condition. Yet, it is still academically instructive to apply such a boundary condition to LAPD because it creates a new linear instability, which
+can be used to test the robustness of LAPD's nonlinear instability.
+
+\subsection{The Bohm Sheath Boundary Condition}
+\label{ss_bohm_sheath}
+
+It is known that to good approximation, a plasma bounded by a wall can be divided into two regions: the main plasma and the Debye sheath~\cite{stangeby2000}. 
+The Debye sheath is a small region adjacent to the wall, generally several Debye lengths long. It has a net positive charge ($n_i > n_e$) 
+that shields the negative charge on the wall and serves
+to deflect some of the electrons that flow into the sheath. The sheath does not completely shield the negative wall, however, and a small electric field penetrates into
+the main plasma (the ambipolar field), which mostly serves to accelerate the cold ions toward the wall, and slightly retard the electrons before entering the sheath.
+In the main plasma, the quasineutrality relation holds ($n_i = n_e$). 
+
+The well-known Bohm criterion along with other considerations restricts the ions to move into the sheath entrance at the sound speed $c_s = \sqrt{T_e/m_i}$. 
+We consider here the case where there is no external biasing; in other words, the end plates are electrically isolated and floating.
+The wall can be set to an arbitrary potential, say $\phi_w = 0$, while the potential at the sheath entrance is then the positive 
+floating potential $\phi_{sf}$. This potential difference across the sheath reflects slow electrons that enter the sheath.
+The electrons approximately maintain a cutoff Maxwellian velocity distrubution throughout the sheath, and at the wall, 
+their velocity is retarded by a Boltzmann factor due to the floating potential. 
+In total, the current to the wall is~\cite{berk1993}
+
+\beq
+\label{sheath_current}
+J_\parallel = e n \left [ c_s - \frac{(T_e/m_e)^{1/2}}{2 \sqrt{\pi}} exp^{(- \frac{ e \phi_{sf}}{T_e})} \right ].
+\eeq
+
+Note that this is not only the current to the wall, but also the current going into the sheath edge, as long as current isn't escaping radially and there isn't an ionization source
+within the sheath.
+Furthermore, since the wall is electrically isolated, the equilibrium current at the wall vanishes.
+This sets the value for the floating potential to be $\phi_{sf} = \Lambda T_e / e$ with $\Lambda = ln(\frac{1}{2 \sqrt{\pi}} \sqrt{\frac{m_i}{m_e}})$.
+Note that $T_e$ is a function of radius, necessitating that $\phi_{sf}$ is also a function of radius. Thus, a radial equilibrium temperature gradient produces a radial
+equilibrium electric field. It is noted that $J_\parallel$ need not vanish on every field line since the end plates are conducting and charges can move around on the plate, 
+however, the vanishing equilibrium current is generally a fair approximation~\cite{berk1993}.
+
+On the other hand, the fluctuating component of the current is allowed to vary between field lines.
+The first order fluctuating component is obtained by linearizing Eq.~\ref{sheath_current}, giving the result:
+
+\beq
+\label{lin_sheath_current}
+\tilde{J}_\parallel = e N_0 c_{s0} \left [ \frac{e \tilde{\phi}}{T_{e0}} - \Lambda \frac{\tilde{T_e}}{T_{e0}} \right ].
+\eeq
+
+This expression for the current sets the fluctuating axial boundary condition of the plasma and is often called the Bohm Sheath boundary condition. This current condition holds both at
+the wall and at the sheath entrance. So rather than taking the simulation
+domain all the way to the wall, simulations often end at the sheath entrance and employ this analytically derived boundary condition to the boundaries of the main plasma. 
+Then one doesn't have to worry about the small spatial scales and the non-quasineutrality of the sheath.
+The corresponding boundary conditions for the other fluid variables such as the density and temperature have recently been derived by Loizu et al.~\cite{loizu2012}.
+
+The conducting wall mode instability in the case considered here is purely an electron temperature gradient instability, although other types of gradients can cause it~\cite{berk1993}.
+Electron temperature fluctuations are advected by electrostatic potential fluctuations and feed off the equilibrium electron temperature gradient as in the case of the thermal drift waves.
+However, in contrast to the thermal drift waves, the coupling between the temperature and potential fluctuations comes through the sheath boundary condition rather than through the adiabatic
+response.
+
+\subsection{Bohm Sheath Boundary Implementation}
+\label{ss_sheath_implementation}
+
+% Recall from Sec.~\cite{ss_bohm_sheath} that the floating potential is an equilibrium potential that is proportional to $T_e$ and has the same radial dependence. The equilibrium potential could also have an axial dependence, which would constitute the ambipolar electric field. There is more to the picture when biasing is introduced. We don't really use this boundary condition consistently, meaning that we use the experimental potential and temperature profiles along with this boundary condition, which implicitly sets a relation between the temperature and potential. 
+
+% Eq.~\ref{lin_sheath_current} is for the total fluctuating current, but we have neglected $v_{\parallel,i}$ in our equations. This is inconsistent. It's only possible to use this correctly with $v_{\parallel,i}$ fluctuations or to take out the ion contribution to the current. The density boundary also requires $v_{\parallel,i}$.
+
+
+% All of these inconsistencies are not crucially important. The important thing is that the equations produce a linear instability that is different from the drift wave instability. The real LAPD system has boundary conditions that are different anyhow, so this is just an example.
+
+\cite{xu1993}
