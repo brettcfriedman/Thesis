@@ -130,7 +130,7 @@ The next equation,
 
 \beq
 \label{maxwell}
-\grad(\grad \cdot {\bf A}) - \grad^2 {\bf A} = \mu_0 {\bf j}
+\grad \times {\bf B} = \grad(\grad \cdot {\bf A}) - \grad^2 {\bf A} = \mu_0 {\bf j}
 \eeq
 
 is used to relate the vector potential to the current, where the displacement current is neglected as is generally done in plasmas. The Poisson equation is not that useful for the main part
@@ -242,22 +242,54 @@ present in Eq.~\ref{mom_eqn}. Taking the parallel projection of Eq.~\ref{maxwell
 \grad_\perp^2 A_\para = - \mu_0 j_\para = \mu_0 n e \vpe.
 \eeq
 
-So $A_\para \sim \mu_0 n e L_\perp^2 \vpe$, where $\grad_\perp^2 \sim L_\perp^2$. Then, Eq.~\ref{mom_eqn} can be approximately rewritten as,
+So $A_\para \sim \mu_0 n e L_\perp^2 \vpe$, where $\grad_\perp^2 \sim 1/L_\perp^2$. Then, Eq.~\ref{mom_eqn} can be approximately rewritten as,
 
 \beq
 \label{mom_eqn_Apar}
-n m_e \diff{\vpe}{t} \sim \gradpar (n T_e) + e n \gradpar \phi + \mu_0 e^2 n^2 L_\perp^2 \pdiff{\vpe}{t} - 0.71 n \gradpar T_e - 0.51 m_e n \nu_e \vpe.
+n m_e \diff{\vpe}{t} \sim - T_e \gradpar n + e n \gradpar \phi + \mu_0 e^2 n^2 L_\perp^2 \pdiff{\vpe}{t} - 1.71 n \gradpar T_e - 0.51 m_e n \nu_e \vpe.
 \eeq
 
 The electromagnetic induction term, ($EM = e n \pdiff{A_\para}{t}$) is now written in terms of $\vpe$ as $EM = \mu_0 e^2 n^2 L_\perp^2 \pdiff{\vpe}{t}$. 
 It can therefore be directly compared to the other terms proportional to $\vpe$ to test for its importance. 
 The other terms are the inertial term, $M = n m_e \diff{\vpe}{t}$ and the resistive term, $R = 0.51 m_e n \nu_e \vpe$. A common way to compare these terms is to approximate the time
 derivative as the ion cyclotron frequency $\pdiff{}{t} \sim \omega_{ci}$ and the perpendicular length scale as the ion sound gyroradius $L_\perp \sim \rho_s$, where $\rho_s = c_s/\omega_{ci}$.
-Then the ratio of the three terms is: $M:EM:R = \fmei:\beta:\frac{\nue}{\omega_{ce}}$. It can be seen from Table~\ref{parameter_table} that in LAPD, this ratio is 
-$1:3.6:2.9$. Thus, all three terms are of the same order with the electromagnetic term slightly larger than the other two. It seems then quite unjustified to use an electrostatic
+Then the ratio of the three terms (obtained by dividing each term by $e B n \vpe$) is: 
+
+\beq
+\label{adiabatic_ratio}
+M:EM:R = \fmei:\beta:\frac{0.51 \nue}{\omega_{ce}}. 
+\eeq
+
+It can be seen from Table~\ref{parameter_table} that in LAPD, this ratio is 
+$1:3.6:1.5$. Thus, all three terms are of the same order with the electromagnetic term slightly larger than the other two. It seems then quite unjustified to use an electrostatic
 approximation. 
 
 However, estimating $\pdiff{}{t} \sim \omega_{ci}$ isn't necessarily a good estimate. The equation set describes drift waves and so a more proper estimate might be
-$\pdiff{}{t} \sim \omega_{*}$. Under this approximations, the ratio is $1:3.6:140$, meaning that the resistive term dominates the other two. Moreover, one could also argue with
-approximating the perpendicular gradient operator with the sound gyroradius. This is probably too small, in which case the electromagnetic inductive has been underestimated. While
-the inertial term is certainly unimportant, the inductive term might be. The best way to determine this is by direct numerical calculation.
+$\pdiff{}{t} \sim \omega_{*}$. Under this approximations, the ratio is $1:3.6:70$, meaning that the resistive term is more than an order of magnitude larger than the other two; however, the 
+approximation $\pdiff{}{t} \sim \omega_{*}$ is still rough and numerical value of $\omega_{*}$ in Table~\ref{parameter_table} is somewhat of a rough itself. 
+Moreover, one could also argue with the approximation of the perpendicular length scale as the sound gyroradius. 
+This is probably too small, in which case the electromagnetic inductance has been underestimated. While it's clear that
+the inertial term is probably unimportant, the inductive term could be important. Without a clear separation between the resistive and inductive terms, the best way to determine the validity of
+the electrostatic approximation is by direct numerical calculation of the turbulence with and without the electromagnetic contribution. 
+
+Therefore, we simulated an electrostatic and electromagnetic version of LAPD turbulence. The details of the electrostatic code are described in Chapter~\ref{c_lapd_sim} and in Appendix~\ref{app_bout}.
+The only difference between the simulations is the electromagnetic term $e n \pdiff{A_\para}{t}$ in the parallel electron momentum equation (Eq.~\ref{mom_eqn}) and the inclusion of the Maxwell equation
+(Eq.~\ref{maxwell}) for the electromagnetic simulation. Now, turbulence is best characterized and compared in a statistical and often spectral manner. 
+More details of turbulence characterization and comparison will be discussed later, but for now, we make a few statistical comparisons between the electrostatic and electromagnetic simulation results.
+Figure~\ref{es_vs_em_stats} shows the results of the two simulations -- namely, a comparison of the frequency spectra, the probability distribution function (pdf), and the rms level of the density
+fluctuations. Clearly, the fluctuations are statistically very similar. The electromagnetic affects don't change the qualitative or quantitative nature of the flucations significantly. So it does
+in fact seem that an electrostatic approximation is justified.
+
+\begin{figure}[!htbp]
+\includegraphics[]{es_vs_em_stats}
+\hfil
+\caption{Electrostatic vs. electromagnetic statistical turbulent comparison.}
+\label{es_vs_em_stats}
+\end{figure}
+
+Now, one might point out that since an electromagnetic simulation is possible, why not just abandon the electrostatic simulations and do everything electromagnetically? 
+Well, there is no great answer to this, but one justification is that electromagnetic
+simulations take a bit longer than electrostatic ones due to the extra relation in Eq.~\ref{maxwell} that is used to solve for $A_\para$, which requires an inversion of the Laplacian that
+takes extra computation. Another reason is that it makes the energy dynamics analysis in Chapter~\ref{c_en_formalism} a bit more complicated. Both of these factors are mitigated, 
+however, if the inertial term $n m_e \diff{\vpe}{t}$ is dropped. Nevertheless, at the beginning of this work, we strived to find the simplest possible model to describe the turbulence in LAPD,
+and we determined that the electrostatic approximation was acceptable. So for the remainder of this work, we will use the electrostatic approximation.
