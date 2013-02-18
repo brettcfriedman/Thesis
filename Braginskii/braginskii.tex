@@ -32,7 +32,7 @@ Table~\ref{parameter_table}, which displays typical LAPD operating parameters, s
 mean free path can be written simply for the direction parallel to the magnetic field as $\lambda_{ei} \sim \lambda_{ee} \ll L_\para$. 
 For LAPD, $\lambda_{ei} / L_\para \sim 0.01$. For the direction perpendicular
 to the magnetic field, the same kind of relation $\lambda_{mfp} \ll L_\perp$ must also hold. However, due to the cyclotron motion of particles around the magnetic field, $\lambda_{mfp}$ is really
-the larmor radius, unless the collisional mean free path is less than the larmor radius. For electrons, $\rho_e \ll \lambda_{ei}$ and $\rho_e/L_\perp \sim 10^{-4}$ where $L_\perp \sim 0.1 m$. 
+the larmor radius, unless the collisional mean free path is less than the larmor radius. For electrons, $\rho_e \ll \lambda_{ei}$ and $\rho_e/L_\perp \sim 10^{-4}$ where $L_\perp \sim 0.1$ m. 
 For the ions, the ion cyclotron frequency is close to the ion collision frequency, meaning that either the ion larmor radius or the ion mean free path may be used. 
 Using the larmor radius, $\rho_i/L_\perp \sim 0.01$. Therefore, the collisionality is high enough and the machine dimensions are large enough so that the Braginskii fluid model should be
 applicable to LAPD.
@@ -60,16 +60,17 @@ $\Pi_{j \alpha \beta}$ is the stress tensor, which involves the products of visc
 The viscosity coefficients are some of the several terms that are called transport coefficients. The transport coefficients are calculated by the Braginskii procedure in terms of $n$, ${\bf v}$,
 and $T$.
 ${\bf R}_j$, which involves several other transport coefficients, is the rate of collional momentum transfer.
-Note that ${\bf R}_i = - {\bf R}_e$ since collisions don't change the total plasma momentum. The momentum transfer from ions to electrons is given by
+The momentum transfer from ions to electrons is given by
 
 \beq
 \label{R_e}
 {\bf R}_e = - m_e n_e \nu_e (0.51 u_{\para e} + {\bf u}_{\perp e}) - 0.71 n_e \gradpar T_e - \frac{3}{2} \frac{n_e \nu_e}{\omega_{ce}} {\bf b \times} \grad T_e
 \eeq
 
-where ${\bf u} = {\bf v}_e - {\bf v}_i$ and $\nu_e$ is the electron collision frequency. ${\bf R}_e$ includes both the friction force and the thermal force, which, like the friction
-force, is due to electron-ion collisions, but originates from the temperature dependence of the collisionality. ${\bf R}_i$ is actually more than just the opposite of ${\bf R}_e$ because
-of the affect of collisions with neutrals, which is only important for the ions~\cite{Popovich2010a}. So
+where ${\bf u} = {\bf v}_e - {\bf v}_i$ and $\nu_e$ is the electron collision frequency with ions. ${\bf R}_e$ includes both the friction force and the thermal force, which, like the friction
+force, is due to electron-ion collisions, but originates from the temperature dependence of the collisionality. The thermal force terms are those proportional to the gradients of temperature.
+${\bf R}_i = -{\bf R}_e$ in a fully ionized plasma with one ion species. However, LAPD has a significant neutral density.
+Collisions with neutrals are much more important for the ions~\cite{Popovich2010a}. So
 
 \beq
 \label{R_i}
@@ -126,6 +127,7 @@ This is done with the inclusion of Maxwell's equations. Two of those equations a
 {\bf B} = \nabla \times {\bf A}.
 \eeqar
 
+The vector potential ${\bf A}$ is strictly a fluctuating quantity, meaning it is not used to describe the guide field ${\bf B}_0$.
 The next equation,
 
 \beq
@@ -146,41 +148,44 @@ perpendicular current is primarily carried by the ions, which have larger Larmor
 \eeq
 
 The perpendicular ion component of this equation is derived from Eq.~\ref{brag_mom} for the ions. Neglecting terms that have finite ion temperature (pressure and stress tensor), and solving
-for the ion velocity in the Lorentz force term, the perpendicular ion velocity has two terms~\cite{Popovich2010a,simakov2003}:
+for the ion velocity in the Lorentz force term, the perpendicular ion velocity has three terms~\cite{Popovich2010a,simakov2003}:
 
 \beq
 \label{perp_ion_vel}
-{\bf v}_{\perp i} = {\bf v}_{p i} + {\bf v}_{\nu i}
+{\bf v}_{\perp i} = {\bf v}_{E} + {\bf v}_{p i} + {\bf v}_{\nu i}
 \eeq
 
-where the the polarization velocity is ${\bf v}_{p i} = 1/\omega_{c i} {\bf b} \times (\partial_t + {\bf v}_i \cdot \grad) {\bf v}_i$ and the Pedersen velocity is 
-${\bf v}_{\nu i} = \nu_{in}/\omega_{c i} {\bf b} \times {\bf v}_i$. All other terms have equal and opposite current contributions from the electron current. So,
+where the ${\bf E \times B}$ velocity is ${\bf v}_E = {\bf E} \times {\bf B}/B^2 = - \grad_\perp \phi \times {\bf B}/B^2$,
+the polarization velocity is ${\bf v}_{p i} = (1/\omega_{c i}) {\bf b} \times (\partial_t + {\bf v}_i \cdot \grad) {\bf v}_i$, and the Pedersen velocity is 
+${\bf v}_{\nu i} = (\nu_{in}/\omega_{c i}) {\bf b} \times {\bf v}_i$. The charge conservation equation then takes the form:
 
 \beq
 \label{simp_charge_cons1}
-\nabla_\para (n \vpe) = 1/\omega_{c i} \nabla_\perp \cdot \left[ n {\bf b} \times (\partial_t + {\bf v}_i \cdot \grad + \nu_{in}) {\bf v}_i  \right].
+\nabla_\para (n \vpe) = \frac{1}{\omega_{c i}} \nabla_\perp \cdot \left[ n {\bf b} \times (\partial_t + {\bf v}_i \cdot \grad + \nu_{in}) {\bf v}_i  \right].
 \eeq
 
-We now employ the approximation that $\grad \cdot (n {\bf v}_i \sim {\bf v}_E \cdot \grad n$ where ${\bf v}_E = {\bf E} \times {\bf B}/B^2 = - \grad_\perp \phi \times {\bf B}/B^2$. Then,
+Note that the ${\bf E \times B}$ velocity doesn't contribute to the current due to the electrons producing an equal and opposite ${\bf E \times B}$ current.
+We now employ the approximation ${\bf v}_i \sim {\bf v}_E$ to Eq.~\ref{simp_charge_cons1}. This approximation wasn't appropriate
+of course for Eq.~\ref{perp_ion_vel} due to the fact that ${\bf v}_E$ doesn't contribute to the current, but it is appropriate here. Then,
 
 \beqar
 \label{simp_charge_cons2}
-\nabla_\para (n \vpe) = 1/\omega_{ci} \nabla_\perp \cdot \left[ n {\bf b} \times (\partial_t + {\bf v}_E \cdot \grad + \nu_{in}) {\bf v}_E  \right] \\ \nonumber
-\nabla_\para (n \vpe) = - \frac{m_i}{B^2} \nabla_\perp \cdot \left[ \times (\partial_t + {\bf v}_E \cdot \grad + \nu_{in}) \grad_\perp \phi  \right].
+\nabla_\para (n \vpe) = \frac{1}{\omega_{ci}} \nabla_\perp \cdot \left[ n {\bf b} \times (\partial_t + {\bf v}_E \cdot \grad + \nu_{in}) {\bf v}_E  \right] \rightarrow \\ \nonumber
+\nabla_\para (n \vpe) = - \frac{m_i}{e B^2} \nabla_\perp \cdot \left[ n {\bf b} \times (\partial_t + {\bf v}_E \cdot \grad + \nu_{in}) \grad_\perp \phi  \right].
 \eeqar
 
 Next, defining the vorticity as $\varpi \equiv \gradperp \cdot (n \gradperp \phi)$, the vorticity equation reads,
 
 \beq
 \label{vort_eqn1}
-\pdiff{\varpi}{t} = - {\bf v}_E \cdot \gradperp \varpi - \gradperp {\bf v}_E : \gradperp (n \gradperp \phi) - \frac{B^2}{m_i} \grad_\para (n \vpe) - \nu_{in} \varpi.
+\pdiff{\varpi}{t} = - {\bf v}_E \cdot \gradperp \varpi - \gradperp {\bf v}_E : \gradperp (n \gradperp \phi) - \frac{e B^2}{m_i} \grad_\para (n \vpe) - \nu_{in} \varpi.
 \eeq
 
 Finally, the term with the tensor product can be rewritten in a different form~\cite{Popovich2010a}:
 
 \beq
 \label{vort_eqn2}
-\pdiff{\varpi}{t} = - {\bf v}_E \cdot \gradperp \varpi + \frac{1}{2} ({\bf b} \times \gradperp n) \cdot \gradperp {\bf v}_E^2   - \frac{B^2}{m_i} \grad_\para (n \vpe) - \nu_{in} \varpi.
+\pdiff{\varpi}{t} = - {\bf v}_E \cdot \gradperp \varpi + \frac{1}{2} ({\bf b} \times \gradperp n) \cdot \gradperp {\bf v}_E^2   - \frac{e B^2}{m_i} \grad_\para (n \vpe) - \nu_{in} \varpi.
 \eeq
 
 
@@ -198,16 +203,17 @@ continuity equation, then,
 \pdiff{n}{t} = - \grad \cdot (n {\bf v}_e).
 \eeq
 
-Now, ${\bf v}_e = {\bf v}_{\perp e} + \vpe$, where ${\bf v}_{\perp e} = {\bf v}_{E} + {\bf v}_{d e} + {\bf v}_{p e}$, the terms being the ${\bf E \times B}$ velocity, the diamagnetic velocity,
-and the polarization velocity. To a good approximation, $\grad \cdot (n {\bf v}_{\perp e}) = {\bf v}_{E} \cdot \grad n$~\cite{Popovich2010a,simakov2003}. So, the continuity equation reads
+Now, ${\bf v}_e = {\bf v}_{\perp e} + \vpe$, where ${\bf v}_{\perp e} = {\bf v}_{E} + {\bf v}_{d e} + {\bf v}_{p e}$, with the diamagnetic velocity 
+${\bf v}_{d e} = - \frac{{\bf b} \times \grad p_e}{e n_e B}$, which wasn't included for the ions in Eq.~\ref{perp_ion_vel} due to the neglect of ion pressure. 
+To a good approximation, $\grad \cdot (n {\bf v}_{\perp e}) = {\bf v}_{E} \cdot \grad n$~\cite{Popovich2010a,simakov2003}. So, the continuity equation reads
 
 \beq
 \label{cont_eqn}
 \pdiff{n}{t} = - {\bf v}_{E} \cdot \grad n - \gradpar (n \vpe).
 \eeq
 
-Next, the momentum equations~\ref{brag_mom}, of which there are six (three for electron velocity components and three for ion velocity components) are reduced to two here. The first is the
-vorticity equation~\ref{vort_eqn2}, in which we used the perpendicular momentum equations to derive it. The second is the equation for the parallel electron momentum. We neglect the parallel
+Next, the momentum equations (Eq.~\ref{brag_mom}), of which there are six (three for electron velocity components and three for ion velocity components) are reduced to two here. The first is the
+vorticity equation (Eq.~\ref{vort_eqn2}), in which we used the perpendicular momentum equations to derive it. The second is the equation for the parallel electron momentum. We neglect the parallel
 ion momentum equation since $\vpe \gg v_{\para i}$ for LAPD. The electron parallel momentum equation is then
 
 \beq
@@ -215,23 +221,26 @@ ion momentum equation since $\vpe \gg v_{\para i}$ for LAPD. The electron parall
 n m_e \pdiff{\vpe}{t} = - n m_e {\bf v}_E \cdot \grad \vpe - \gradpar p_e - e n E_\para - 0.71 n \gradpar T_e - 0.51 m_e n \nu_e \vpe,
 \eeq
 
-where the viscous terms have been neglected. The conservation of energy equations~\ref{brag_ener} are left. Since the ion temperature in LAPD is very low ($T_i \leq 1$ eV), the ion energy
+where the viscous terms have been neglected. The conservation of energy equations (Eq.~\ref{brag_ener}) are left. Since the ion temperature in LAPD is very low ($T_i \leq 1$ eV), the ion energy
 equation is neglected. The electron energy equation is~\cite{simakov2003}
 
-\beq
+\beqar
 \label{elec_ener}
-\frac{3}{2} n \pdiff{T_e}{t} = - \frac{3}{2} n {\bf v}_E\cdot \grad T_e - p_e \gradpar \vpe + 0.71 T_e \grad \cdot (n \vpe) + \gradpar (\kappa_{\para e} \gradpar T_e) + 0.51 m_e n \nue \vpe^2 - 3 \frac{m_e}{m_i} n \nue T_e,
-\eeq
+\frac{3}{2} n \pdiff{T_e}{t} = - \frac{3}{2} n {\bf v}_E\cdot \grad T_e - p_e \gradpar \vpe \\ \nonumber
++ 0.71 T_e \grad \cdot (n \vpe) + \gradpar (\kappa_{\para e} \gradpar T_e) + 0.51 m_e n \nue \vpe^2 - 3 \frac{m_e}{m_i} n \nue T_e,
+\eeqar
 
 where $\kappa_{\para e} = 3.16 \frac{n T_e}{m_e \nue}$.
 
 \subsection{The Electrostatic Justification}
 \label{ss_es_justification}
 
-Plasma currents create magnetic fields, which add to the background magnetic field created by machine coils in laboratory devices. Often times, analytic and numerical calculations
+Plasma currents create magnetic fields in plasmas. Often times, analytic and numerical calculations
 of plasma waves and turbulence neglect the time dependent magnetic field perturbations, focusing only on the electrostatic contribution to the waves, turbulence, and transport.
-In the reduced fluid equations of the previous subsection, the magnetic perturbation enters in only one important location: the electric field term of Eq.~\ref{mom_eqn}. It enters
-because $E_\para = -\grad \phi - \pdiff{A_\para}{t}$, where $A_\para$ is the parallel component of the vector potential. In the electrostatic limit, $A_\para \rightarrow 0$. We take
+In the reduced fluid equations of the previous subsection, the magnetic perturbation enters in two important ways. First, it enters the electric field term of Eq.~\ref{mom_eqn}
+because $E_\para = -\gradpar \phi - \pdiff{A_\para}{t}$, where $A_\para$ is the parallel component of the vector potential. Second, it affects the parallel gradient operator, 
+$\gradpar = {\bf b} \cdot \grad$ where ${\bf b}$ is in the direction of the total magnetic field~\cite{simakov2003}.
+In the electrostatic limit, $A_\para \rightarrow 0$, so $E_\para = -\gradpar \phi$ and $\gradpar = {\bf b}_0 \cdot \grad$. We take
 this limit in the remaining chapters, but there is the question of how justified we are to do so. 
 
 As a first step in answering this question, examine Eq.~\ref{mom_eqn}. The four independent variables, $n, \phi, \vpe$, and $T_e$, which each have their own evolution equation, are all
@@ -264,32 +273,48 @@ It can be seen from Table~\ref{parameter_table} that in LAPD, this ratio is
 $1:3.6:1.5$. Thus, all three terms are of the same order with the electromagnetic term slightly larger than the other two. It seems then quite unjustified to use an electrostatic
 approximation. 
 
-However, estimating $\pdiff{}{t} \sim \omega_{ci}$ isn't necessarily a good estimate. The equation set describes drift waves and so a more proper estimate might be
+However, estimating $\pdiff{}{t} \sim \omega_{ci}$ isn't necessarily accurate. The equation set describes drift waves and so a more proper estimate might be
 $\pdiff{}{t} \sim \omega_{*}$. Under this approximations, the ratio is $1:3.6:70$, meaning that the resistive term is more than an order of magnitude larger than the other two; however, the 
-approximation $\pdiff{}{t} \sim \omega_{*}$ is still rough and numerical value of $\omega_{*}$ in Table~\ref{parameter_table} is somewhat of a rough itself. 
+approximation $\pdiff{}{t} \sim \omega_{*}$ is still rough and the numerical value of $\omega_{*}$ in Table~\ref{parameter_table} is somewhat of a rough itself. 
 Moreover, one could also argue with the approximation of the perpendicular length scale as the sound gyroradius. 
 This is probably too small, in which case the electromagnetic inductance has been underestimated. While it's clear that
-the inertial term is probably unimportant, the inductive term could be important. Without a clear separation between the resistive and inductive terms, the best way to determine the validity of
-the electrostatic approximation is by direct numerical calculation of the turbulence with and without the electromagnetic contribution. 
+the inertial term is probably unimportant, the inductive term could be important. 
 
-Therefore, we simulated an electrostatic and electromagnetic version of LAPD turbulence. The details of the electrostatic code are described in Chapter~\ref{c_lapd_sim} and in Appendix~\ref{app_bout}.
-The only difference between the simulations is the electromagnetic term $e n \pdiff{A_\para}{t}$ in the parallel electron momentum equation (Eq.~\ref{mom_eqn}) and the inclusion of the Maxwell equation
-(Eq.~\ref{maxwell}) for the electromagnetic simulation. Now, turbulence is best characterized and compared in a statistical and often spectral manner. 
+Similarly, the contribution of $\tilde{{\bf b}} \sim A_\para$ in $\gradpar$ can be approximated in a similar manner with similar inconclusive results. 
+Without a clear separation between the resistive and inductive terms, the best way to determine the validity of
+the electrostatic approximation is by direct numerical calculation of the turbulence with and without the electromagnetic contributions. 
+Therefore, we simulated an electrostatic and two electromagnetic versions of LAPD turbulence. 
+The details of the electrostatic code are described in Chapter~\ref{c_lapd_sim} and in Appendix~\ref{app_bout}.
+
+The only difference between the electrostatic and the first electromagnetic simulation is the exclusion/inclusion of the electromagnetic term $e n \pdiff{A_\para}{t}$ 
+in the parallel electron momentum equation (Eq.~\ref{mom_eqn}). Of course the Maxwell equation
+(Eq.~\ref{maxwell}) must also be included for the electromagnetic simulation. The second electromagnetic simulation includes not only this term
+ but also the $A_\para$ contribution to $\gradpar$ in the parallel electron momentum equation.
+
+Now, turbulence is best characterized and compared in a statistical and often spectral manner. 
 More details of turbulence characterization and comparison will be discussed later, but for now, we make a few statistical comparisons between the electrostatic and electromagnetic simulation results.
-Figure~\ref{es_vs_em_stats} shows the results of the two simulations -- namely, a comparison of the frequency spectra, the probability distribution function (pdf), and the rms level of the density
-fluctuations. Clearly, the fluctuations are statistically very similar. The electromagnetic affects don't change the qualitative or quantitative nature of the flucations significantly. So it does
-in fact seem that an electrostatic approximation is justified.
+Figure~\ref{es_vs_em_stats} shows the results of the three simulations as well as the experiment
+ -- namely, a comparison of the frequency spectra, the probability distribution function (pdf), and the rms level of the density fluctuations. 
+Clearly, the fluctuations are statistically similar in all cases and none of the simulations are inconsistent with the experiment. 
+However, the electromagnetic effects are noticable, and as we include more electromagnetic contributions in the simulations, the turbulent statistics more closely resemble those of the experiment.
+We make no quantitative comparison here, but rely only on a visual examination in making this conclusion.
 
 \begin{figure}[!htbp]
 \includegraphics[]{es_vs_em_stats}
 \hfil
-\caption{Electrostatic vs. electromagnetic statistical turbulent comparison.}
+\caption{Statistical turbulent comparisons. The ``Full Electromagnetic'' curves are from the simulation including the $A_\para$ contribution to $\gradpar$, while the ``Electromagnetic'' curves
+just include the $A_\para$ contribution to $E_\para$.}
 \label{es_vs_em_stats}
 \end{figure}
 
-Now, one might point out that since an electromagnetic simulation is possible, why not just abandon the electrostatic simulations and do everything electromagnetically? 
-Well, there is no great answer to this, but one justification is that electromagnetic
-simulations take a bit longer than electrostatic ones due to the extra relation in Eq.~\ref{maxwell} that is used to solve for $A_\para$, which requires an inversion of the Laplacian that
-takes extra computation. Another reason is that it makes the energy dynamics analysis in Chapter~\ref{c_en_formalism} a bit more complicated. Both of these factors are mitigated, 
+Now, as mentioned above, we do not include any electromagnetic contributions in the simulations used in the following chapters. 
+It seems rather unjustified to do so since we are clearly able to run electromagnetic simulations and they seem to reproduce experimental turbulence with slightly better accuracy 
+than the electrostatic ones.
+One justification for our abandonment of electromagnetic simulations, however, is that electromagnetic simulations take a bit longer than electrostatic ones due to the extra relation in Eq.~\ref{maxwell} 
+that is used to solve for $A_\para$, which requires an inversion of the Laplacian. This takes extra computation. 
+Another justification is that the electromagnetic equations make the energy dynamics analysis in Chapter~\ref{c_en_formalism} a bit more complicated. Both of these factors are mitigated, 
 however, if the inertial term $n m_e \diff{\vpe}{t}$ is dropped. Nevertheless, at the beginning of this work, we strived to find the simplest possible model to describe the turbulence in LAPD,
-and we determined that the electrostatic approximation was acceptable. So for the remainder of this work, we will use the electrostatic approximation.
+and we determined that the electrostatic approximation was acceptable. At that time, we didn't have the results of Fig.~\ref{es_vs_em_stats}. If we had the time, we would redo all of the simulations
+and analysis to include electromagnetic contributions, but drop the inertial term in Eq.~\ref{mom_eqn}. This is a clear route to take for future work. 
+Nevertheless, we are confident that electromagnetics would not change any of our conclusions in this work.
+So for the remainder of this work, we will present theoretical calculations, simulation results, and conclusions using the electrostatic approximation.
