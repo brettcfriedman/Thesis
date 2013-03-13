@@ -204,8 +204,9 @@ continuity equation, then,
 \eeq
 
 Now, ${\bf v}_e = {\bf v}_{\perp e} + \vpe$, where ${\bf v}_{\perp e} = {\bf v}_{E} + {\bf v}_{d e} + {\bf v}_{p e}$, with the diamagnetic velocity 
-${\bf v}_{d e} = - \frac{{\bf b} \times \grad p_e}{e n_e B}$, which wasn't included for the ions in Eq.~\ref{perp_ion_vel} due to the neglect of ion pressure. 
-To a good approximation, $\grad \cdot (n {\bf v}_{\perp e}) = {\bf v}_{E} \cdot \grad n$~\cite{Popovich2010a,simakov2003}. So, the continuity equation reads
+${\bf v}_{d e} = \frac{{\bf b} \times \grad p_e}{e n_e B}$, which wasn't included for the ions in Eq.~\ref{perp_ion_vel} due to the neglect of ion pressure. 
+To a good approximation, the electron polarization velocity is smaller than the ${\bf E \times B}$ velocity, so that
+$\grad \cdot (n {\bf v}_{\perp e}) = {\bf v}_{E} \cdot \grad n$~\cite{Popovich2010a,simakov2003}. So, the continuity equation reads
 
 \beq
 \label{cont_eqn}
@@ -295,6 +296,8 @@ Now, turbulence is best characterized and compared in a statistical and often sp
 More details of turbulence characterization and comparison will be discussed later, but for now, we make a few statistical comparisons between the electrostatic and electromagnetic simulation results.
 Figure~\ref{es_vs_em_stats} shows the results of the three simulations as well as the experiment
  -- namely, a comparison of the frequency spectra, the probability distribution function (pdf), and the rms level of the density fluctuations. 
+The ``Full Electromagnetic'' curves are from the simulation including the $A_\para$ contribution to $\gradpar$, while the ``Electromagnetic'' curves
+just include the $A_\para$ contribution to $E_\para$. 
 Clearly, the fluctuations are statistically similar in all cases and none of the simulations are inconsistent with the experiment. 
 However, the electromagnetic effects are noticable, and as we include more electromagnetic contributions in the simulations, the turbulent statistics more closely resemble those of the experiment.
 We make no quantitative comparison here, but rely only on a visual examination in making this conclusion.
@@ -302,8 +305,7 @@ We make no quantitative comparison here, but rely only on a visual examination i
 \begin{figure}[!htbp]
 \includegraphics[]{es_vs_em_stats}
 \hfil
-\caption{Statistical turbulent comparisons. The ``Full Electromagnetic'' curves are from the simulation including the $A_\para$ contribution to $\gradpar$, while the ``Electromagnetic'' curves
-just include the $A_\para$ contribution to $E_\para$.}
+\caption{Electromagnetic statistics comparison}
 \label{es_vs_em_stats}
 \end{figure}
 

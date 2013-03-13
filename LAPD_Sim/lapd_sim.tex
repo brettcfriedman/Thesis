@@ -1,20 +1,284 @@
 \chapter{LAPD Simulation Details}
 \label{c_lapd_sim}
 
+In this chapter, we state and explain the equations, boundary conditions, parameters, and profiles that we use in the LAPD simulations. 
+There are two main classes of simulations: those with a mean radial electric field and those without. The simulations
+with the mean radial electric field will be explored in Chapter~\ref{c_mean_flow}. So this chapter deals with the simulations with no mean radial electric field. There are only four different
+simulations that are used until Chapter~\ref{c_mean_flow}, and they differ in only one way: their axial boundary conditions, which are explained in Sec.~\ref{s_bcs}.
+
+We solve the equations using the BOUT++ code~\cite{dudson2009}. The code is displayed in Appendix~\ref{app_bout}, and specific numerical routines and other details are described there as well.
+
 \section{The Equations}
 \label{s_equations}
 
-\section{Finite Difference Schemes}
-\label{s_fds}
+We use the Braginskii equations as shown in Chapter~\ref{c_braginskii} to model LAPD turbulence. We separate all variables into time-independent equilibrium parts and time-dependent
+fluctuating parts.  We do this in order to input experimental time-independent profiles. The alternative would be to solve the full equations with no equilibrium/fluctuation separation
+and no experimental profile input. The difficulty in this alternative technique is the need to specify sources, sinks, and boundary conditions, which can be difficult to measure or estimate.
+This alternative method has been untertaken by Rogers and Ricci~\cite{rogers2010}. Our approach is easier, and since the time-independent profiles are so important in driving the turbulence,
+we feel that inputing the experimentally measured profiles can help us produce physically realistic turbulence.
 
-\section{Sources}
-\label{s_sources}
+Now due to our equilibrium/fluctuation separation technique, we can linearize the equations, keeping only one nonlinearity in each equation: the
+advective nonlinearity. While this isn't necessary, it does simplify the energy dynamics as formulated in Chapter~\ref{c_en_formalism}. The justification is practical rather than mathematical,
+and the partially linearized equations produce fluctuations that are quite statistically similar to experimental fluctuations, which is shown in Chapter~\ref{c_lapd_turb}, so we feel justified
+in doing this.
+
+In the equations below, we normalize all quantities to give dimensionless variables. All times are normalized to the inverse ion cyclotron frequency $\omega_{ci} = \frac{e B}{m_i}$, 
+velocities are normalized to the ion sound speed $c_s = \sqrt{\frac{T_e}{m_i}}$, lengths are normalized to the sound gyro-radius $\rho_s = c_s/\omega_{ci}$, potentials to $T_e/e$,
+densities to the density at the radial cylindrical axis, and temperatures to the temperature at the cylindrical axis. 
+Quantities such as $c_s$ that are typically functions of radius due to the radial dependence of
+the electron temperature, are taken to be constant in these normalization, where we use the values at the radial axis. The equations below don't reflect this, but the transport coefficients
+in the actual code do. So, the LAPD simulation equations are as follows:
+
+\beqar
+\label{ni_eq}
+\pdt N = - {\mathbf v_E} \cdot \grad N_0 - N_0 \gradpar \vpe + \mu_N \gradperp^2 N + S_N + \{\phi,N\}, \\
+\label{ve_eq}
+\pdt \vpe = - \fmie \frac{T_{e0}}{N_0} \gradpar N - 1.71 \fmie \gradpar T_e  + \fmie \gradpar \phi - \nue \vpe + \{\phi,\vpe \}, \\
+\label{rho_eq}
+\pdt \varpi = - N_0 \gradpar \vpe  - \nuin \varpi + \mu_\phi \gradperp^2 \varpi + \{\phi,\varpi \}, \\
+\label{te_eq}
+\pdt T_e = - {\mathbf v_E} \cdot \grad T_{e0} - 1.71 \frac{2}{3} T_{e0} \gradpar \vpe + \frac{2}{3 N_0} \kpe \gradpar^2 T_e  \nonumber \\
+- \frac{2 m_e}{m_i} \nue T_e  + \mu_T \gradperp^2 T_e +  S_T + \{\phi,T_e\}.
+\eeqar
+
+Note that the advective nonlinearities in each equation are written with Poisson brackets. Additionally, the only equilibrium profiles are $N_0$ and $T_{e0}$, which are only functions of radius.
+$\phi_0 = v_{\parallel e 0} = 0$ in these equations. The linearized vorticity is $\varpi = \gradperp \cdot (N_0 \gradperp \phi)$. $N, \vpe, \phi,$ and $T_e$ are fluctuating first-order quantities.
+
+These equations have a few additional terms not included in the equations of Chapter~\ref{c_braginskii}. First, we have included density and temperature sources $S_N$ and $S_T$. We have left out
+a momentum source as well as the contribution of the density source to changes of the momentum and temperature. Second, we have included diffusive ($\mu_N \gradperp^2 N$ and $\mu_T \gradperp^2 T_e$) 
+and viscous ($\mu_\phi \gradperp^2 \varpi$) terms in Eqs.~\ref{ni_eq}, ~\ref{te_eq}, and~\ref{rho_eq} respectively.
+
+\subsection{Sources}
+\label{ss_sources}
+
+The density source is actually a source/sink. It models both the ionization of neutral atoms as well as the recombination of ions and electrons. The sink action in LAPD
+is dominated by parallel (along ${\bf B}$) losses to materials at the machine ends because the magnetic field prevents rapid radial loss. 
+It's also possible that a layer of neutral atoms near the end of
+the machine opposite the cathode cools the plasma enough so that recombination can be strong in this layer. The sink action occurs at all radii with finite plasma density, which constitutes regions
+both inside and outside of the cathode radius due to radial ion transport. If the sink action is primarily at the end plates, the sink can be calculated by $2 n_{se} c_s/L_{\para}$, where
+$n_{se}$ is the density at the sheath edge in front of the end plate, $c_s$ is the sound speed at the sheath edge, and the factor of 2 accounts for the two plates. $n_{se}$ and $c_s$ are functions
+of radius such that the sink is strongest at the radial axis and decreases at larger radii. Calculation of the sink term requires knowledge of the density and temperature at the end of the machine,
+which is generally not measured experimentally.
+
+The ionization source occurs primarily inside of the cathode radius. The source term is calculated with $n_e n_n <\sigma v>_{iz}$, where $n_n$ is the neutral Helium density and $<\sigma v>_{iz}$
+is the ionization rate of Helium and is a strong function of temperature. The strong temperature dependence is the reason why ionization occurs only within the cathode radius.
+Ionization rates are readily available~\cite{stangeby2000}, but the neutral density is not, making the source difficult to calculate. However, it is clear that if one were to sum up
+the source and sink and integrate axially, the region inside of the cathode radius must be a net source, while the region outside of it must be a net sink.
+
+Now when we simulate the turbulence in LAPD without the source terms, turbulence drives radial transport such that the total flux-surface-averaged density gradient relaxes over time as seen
+in Fig.~\ref{source} a) until the radial transport ceases. It's interesting that $\left< N_t \right>_{fs} = \left< N_0 + N \right>_{fs}$ doesn't become totally flat, but maintains a gradient. 
+This is probably a result
+of the partial linearization of the equations, especially the diffusion term $\mu_N \gradperp^2 N$, and possibly boundary conditions. Nevertheless, the strong relaxation is not physical due
+to the presence of the physical source/sink mechanism. (Note that the equilibrium density profile $N_0$ used in the simulation to make Fig.~\ref{source} a)
+is not the same $N_0$ shown in Fig.~\ref{equilibrium_profiles} because this one has a steeper gradient and the relaxation effect is more pronounced for this one.)
+
+\begin{figure}[!htbp]
+\includegraphics[]{source}
+\hfil
+\caption{a) Profile relaxation without the source. b) Evolved density source}
+\label{source}
+\end{figure}
+
+
+Rather than developing a first principle's source, we use ad hoc controlling sources. We estimate that $\left< N_t \right>_{fs}$ remains constant over time, and model the source using the integral
+portion of a PID controller. This means that we write an equation for the source:
+
+\beq
+\label{Sn_eq}
+\pdt{S_n} = - \left< N \right>_{fs}.
+\eeq
+
+Changing this around,
+
+\beq
+\label{Sn_eq2}
+S_n(t) = - \int_0^t \left< N(\tau) \right>_{fs} d\tau.
+\eeq
+
+A typical time-averaged density source is shown in Fig.~\ref{source} b).
+The upshot of using such a source is that $\left< N_t(t) \right>_{fs} \simeq N_0$. 
+We use the same method for the temperature source. The temperature source ultimately comes from the hot electrons that are boiled off of
+the cathode, which transfer their energy to the plasma through ionizing collisions. This heat transfer is mostly to the electrons of the plasma. The temperature sink is caused by collisions
+with ions and neutrals which line radiate and with various processes when the plasma recombines on the walls.
+
+We emphasize that the sources are not first principle sources. They are constructed based on the simulated radial transport. The alternative first principle's approach was used by Rogers and Ricci
+for LAPD~\cite{rogers2010}. They use a stationary top-hat-like ionization source that models the physical density-producing process in LAPD. 
+Furthermore, they do not separate equilibrium from fluctuations or input equilibrium profiles. Their source feeds the density, which then transports itself until it comes to a quasi-equilibrium state
+(a sink is also present). This method solves for the full plasma state with very little experimental input. 
+They input the sources and derive the plasma state. We, on the other hand, input part of the plasma
+state and derive the sources. As stated before, our method has the advantage of using experimentally measured profiles. 
+This experimental input allows us to more easily simulate turbulence that resembles that
+in the experiment, and therefore make conclusions on the fluctuation properties. We cannot, however, claim a first principle's approach and gain the knowledge that comes from that.
+
+\subsection{Artificial Diffusion and Viscosity}
+\label{ss_art_diff}
+
+Artificial diffusion or hyperdiffusion terms are ubiquitous in fluid simulations. They are generally intended to prevent high frequency or high wavenumber ringing caused by numerical advection
+schemes at steep interfaces. They can, however, cause unphysical smoothing in systems that are non-diffusive and non-viscous or cause over-smoothing if applied haphazardly. Some numerical
+advection schemes contain their own diffusion, called numerical diffusion. Other non-advective finite difference schemes also contain numerical diffusion or dispersion.
+
+We use artificial diffusion and viscosity for several reasons. The first is to prevent artificial high-wavenumber oscillations due to the Arakawa advection scheme that we use~\cite{arakawa1966}.
+Second, it smooths out the solutions, preventing the total density and temperature from becoming negative at any point in space, which is obviously unphysical. Third, we can use it
+to prevent the need to go to very fine grid spacing at which physical diffusion and viscosity are important. Finally, we can use it to help saturate the turbulence at levels consistent with experiment.
+These reasons are all somewhat related, and more discussion is left to Appendix~\ref{app_grid_convergence}.
+
+Diffusion and viscosity are real effects that are present in the non-reduced Braginskii equations. In Chapter~\ref{c_braginskii}, we made the approximation that 
+$\grad \cdot (n {\bf v}_{\perp e}) = {\bf v}_{E} \cdot \grad n$, which neglected the polarization velocity part of ${\bf v}_{\perp e}$. Now the full polarization velocity (from crossing Eq.~\ref{brag_mom}
+with ${\bf b}$ and neglecting the stress tensor) is
+
+\beq
+\label{e_pol_v}
+{\bf v}_{p e} = (1/\omega_{ce}) \left[  \diff{({\bf b \times v}_{\perp e})}{t} + \nue {\bf b \times v}_{\perp e} - \nue {\bf b \times v}_{\perp i} - \frac{3}{2} \frac{\nue}{m_e \omega_{ce}} \gradperp T_e  \right].
+\eeq
+
+The part of this that causes collisional diffusive terms is $ (\nue/\omega_{ce}) {\bf b \times v}_{\perp e}$. Now this contains ${\bf v}_{\perp e}$ itself, which must be approximated as 
+${\bf v}_{\perp e} = {\bf v}_{E} + {\bf v}_{d e}$ to allow for closure. Only the diamagnetic drift part will be important for the collisional diffusion, so the part of the polarization velocity that we
+focus on is $(\nue/\omega_{ce}) {\bf b \times v}_{d e}$. Recall that we want to use this in the continuity equation, so we are interested in the term 
+$\grad \cdot (n_e v_e) \rightarrow \grad \cdot \left( n_e (\nue/\omega_{ce}) {\bf b \times v}_{d e} \right) = - \grad \cdot \frac{\nue m_e}{e^2 B^2} \gradperp p_e$. Now defining 
+$D = \frac{\nue m_e T_e}{e^2 B^2}$, we have $\grad \cdot (n_e v_e) = - \grad \cdot (D \gradperp n) +$ lots of other terms. $D$ is the classical diffusion coefficient, which is about $0.01 {\rm m^2/s}$
+for LAPD parameters. Assuming $D$ is a constant, this terms is $D \gradperp^2 N$, which has the same form of the artificial diffusion term that we've added to Eq.~\ref{ni_eq}. Of course, we have
+neglected many terms of the same order as this term in Eq.~\ref{ni_eq}, but this shows that such a classical diffusion term is present in the Braginskii equations.
+
+A similar treatment can be used for the energy conservation equation (Eq.~\ref{brag_ener}), using the same procedure as for the continuity equation but with the $p_e \grad \cdot {\bf v}_e$ term in
+Eq.~\ref{brag_ener}. The result is $p_e \grad \cdot {\bf v}_e = D n_e \gradperp^2 T_e +$ lots of other terms. This has the same form as the temperature diffusion term in Eq.~\ref{te_eq}.
+
+The viscosity in the vorticity equation comes from the ion stress tensor $\Pi_{i \alpha \beta}$ that we neglected when deriving the vorticity equation because we neglected everything with finite
+ion temperature. If this was included, a vorticity diffusion term (aka a viscosity) would have been included in the vorticity equation as it is in other equation sets like the well-known
+Hasagawa-Wakatani equations~\cite{hasegawa1983}. The Braginskii viscosity coefficient is $\eta_0^1 = \frac{3 n T_i}{10 \omega_{ci}^2 \tau_i}$, which is about $2 \times 10^{-8} { \rm kg/m s}$ for LAPD. 
+Since LAPD's ions are not necessarily magnetized due to the fact that $\omega_{ci} \tau_i \sim 1$, the unmagnetized ion viscosity is $\eta_1^i = 0.96 n T_i \tau_i$ which is about
+$4 \times 10^{-7} {\rm kg/m s}$.
+
+For the artificial diffusion and viscosity coefficients in Eqs.~\ref{ni_eq}-\ref{te_eq}, we use a single value of $1.25 \times 10^{-3}$ in our normalized units, 
+which is $0.075 {\rm m^2/s}$ in real units.
+We find that this value produces turbulent fluctuation levels consistent with experimental levels. 
+We use this as a free parameter in this sense. This value is much larger than the real classical diffusion $D$,
+but is smaller than $\frac{\eta_1^i}{n m_i} = 1 {\rm m^2/s}$. 
+Nevertheless, we neglected a number of terms in Eqs.~\ref{ni_eq}-\ref{te_eq} such that there isn't justification to use the real diffusion and 
+viscosity in these equations. Artificial diffusion and viscosity terms, however, serve a numerical purpose.
+
 
 \section{Boundary Conditions}
 \label{s_bcs}
 
+Boundary conditions are often difficult to determine in plasma devices. While the properties of the boundaries are usually known, the way that the plasma interacts with them can be complex.
+Plasma boundary physics is one of the main elements of present day fusion research~\cite{stangeby2000}. Often times there is uncertainty in the equations that need to be used in simulations,
+and once the equations are found, they can be difficult to implement in codes.
+
+The boundary conditions in LAPD are difficult to determine. LAPD contains at one end, a hot emitting cathode behind a biased annode. In front of the annode are biasable azimuthal limiters
+with radius about equal to the cathode radius, though the limiter radius may be changed. The far end contains a floating mesh plate. The cylinder is conducting and has a radius about 20 cm larger
+than the cathode radius.
+
+\subsection{Simple Boundaries}
+\label{ss_s_bc}
+
+In all simulations, we use an annulus rather than a cylinder. Although the inner radius of the annulus may be arbitrarily small, we take the inner radius to be 12 cm. We take the outer radius
+to be 39 cm. This is generally the radial extent of our experimental probe measurements. Furthermore, the plasma fluctuations are nearly zero (in absolute amplitude) outside of this annular
+region, which is seen in Fig.~\ref{es_vs_em_stats} c). Therefore, we set the radial boundaries on all of the fluctuating variables ($N, \phi, \vpe, {\rm and } T_e$) to zero. It would be nice
+in the future to take data spanning at least a few more cm and extend the simulation domain accordingly. But for now, the results use such an annular domain.
+
+As for the axial boundaries, we use four different boundary conditions: periodic, zero-value, zero-derivative, and Bohm sheath. The only non-trivial one, Bohm sheath, is derived and described in
+the following subsection. The others are all trivial to implement and provide a test of the importance of the axial boundary conditions on the solution to the nonlinear equations.
+
+\subsection{Bohm Sheath Boundaries}
+\label{ss_bs_bc}
+
+Bohm sheath boundary conditions are applicable when a plasma terminates at a conducting plate. We note that this is not necessarily the case in LAPD. 
+The cathode/annode system is obviously much different from a simple floating or biased conducting plate. Furthermore, the mesh wall at the far end is not a solid wall.
+Moreover, it's not clear if the plasma is even attached to the far end mesh wall or if it becomes detached in the neutrals in front of it, where the plasma cools and recombines
+before interacting with the wall. In any case, it is still instructive to apply such an idealized boundary condition to LAPD because it is somewhat more realistic
+than the simpler boundary conditions, and it creates a new linear instability (see Sec.~\ref{s_cwm}), which can be used to test the robustness of LAPD's nonlinear instability.
+Therefore, we proceed with the derivation of the Bohm sheath boundary conditions.
+
+Now, it is known that to good approximation, a plasma bounded by a wall can be divided into two regions: the main plasma and the Debye sheath~\cite{stangeby2000}. 
+The Debye sheath is a small region adjacent to the wall, generally several Debye lengths long. It has a net positive charge ($n_i > n_e$) 
+that shields the negative charge on the wall and serves
+to deflect some of the electrons that flow into the sheath. The sheath does not completely shield the negative wall, however, and a small electric field penetrates into
+the main plasma (the ambipolar field), which mostly serves to accelerate the cold ions toward the wall, and slightly retard the electrons before entering the sheath.
+In the main plasma, the quasineutrality relation holds ($n_i = n_e$). 
+
+The well-known Bohm criterion along with other considerations restricts the ions to move into the sheath entrance at the sound speed $c_s = \sqrt{T_e/m_i}$. 
+We consider here the case where there is no external biasing; in other words, the end plates are electrically isolated and floating.
+The wall can be set to an arbitrary potential, say $\phi_w = 0$, while the potential at the sheath entrance is then the positive 
+floating potential $\phi_{sf}$. This potential difference across the sheath reflects slow electrons that enter the sheath.
+The electrons approximately maintain a cutoff Maxwellian velocity distrubution throughout the sheath, and at the wall, 
+their velocity is retarded by a Boltzmann factor due to the floating potential. 
+In total, the current to the wall is~\cite{berk1991,berk1993,xu1993}
+
+\beq
+\label{sheath_current}
+J_\parallel = \pm e n \left [ c_s - \frac{(T_e/m_e)^{1/2}}{2 \sqrt{\pi}} exp^{(- \frac{ e \phi_{sf}}{T_e})} \right ],
+\eeq
+
+where the $\pm$ indicates that the plasma flux goes into the wall, which is in different directions for the different end plates.
+Note that there is a factor of $\sqrt{2}$ discrepancy between different reports on the expression used for the thermal velocity, which should have only a minor consequence.
+Now, this is not only the current to the wall, but also the current going into the sheath edge, since the sheath is too small for there to be appreciable radial current loss or an ionization source
+within the sheath. All values, in fact, are taken to be those at the sheath edge.
+Furthermore, since the wall is electrically isolated, the equilibrium current at the wall vanishes.
+This sets the value for the floating potential to be $\phi_{sf} = \Lambda T_e / e$ with $\Lambda = {\rm ln} \left(\frac{1}{2 \sqrt{\pi}} \sqrt{\frac{m_i}{m_e}} \right)$.
+Note that $T_e$ is a function of radius, necessitating that $\phi_{sf}$ is also a function of radius. Thus, a radial temperature gradient produces a radial
+electric field. It is noted that $J_\parallel$ need not vanish on every field line since the end plates are conducting and charges can move around on the plate, 
+however, the vanishing equilibrium current is generally a fair approximation~\cite{berk1993}.
+
+On the other hand, the fluctuating component of the current is allowed to vary between field lines.
+The first order fluctuating component is obtained by linearizing Eq.~\ref{sheath_current}, giving the result:
+
+\beq
+\label{lin_sheath_current}
+\tilde{J}_\parallel = \pm e N_0 c_{s0} \left [ \frac{e \tilde{\phi}}{T_{e0}} - \Lambda \frac{\tilde{T_e}}{T_{e0}} \right ].
+\eeq
+
+This expression for the current sets the fluctuating axial boundary condition of the plasma and is often called the Bohm Sheath boundary condition. This current condition holds both at
+the wall and at the sheath entrance. So rather than taking the simulation
+domain all the way to the wall, simulations often end at the sheath entrance and employ this analytically derived boundary condition to the boundaries of the main plasma. 
+Then one doesn't have to worry about the small spatial scales and the non-quasineutrality of the sheath.
+The corresponding boundary conditions for the other fluid variables such as the density and temperature have recently been derived by Loizu et al.~\cite{loizu2012}. However, we
+simply take them to have zero-gradient as most others have done, although this isn't wholly inconsistent with Loizu's calculations.
+
+Now while one may set the parallel current (or equivalently $\vpe$) at the axial boundaries to the quantity on the right hand side of Eq.~\ref{lin_sheath_current}, we don't do that.
+We use Ohm's Law ($- \gradpar \phi = \eta_\para J_\para$) to set the boundary condition for the gradient of $\phi$. We do this for practical reasons in the coding. Therefore, the
+boundary condition used in the code is (in our normalized units):
+
+\beq
+\label{sheath_bc}
+\gradpar \phi = \pm \frac{\nue m_e}{m_i} \left(\phi - \Lambda T_e  \right).
+\eeq
+
+
+
 \section{Profiles and Parameters}
 \label{s_profs_params}
+
+\begin{figure}[!htbp]
+\includegraphics[]{equilibrium_profiles}
+\hfil
+\caption{The normalized radial equilibrium density and electron temperature profiles used in the simulations. The density is normalized to $2.86 \times 10^{18} {\rm m^{-3}}$, while the temperature
+is normalized to $6 {\rm eV}$.}
+\label{equilibrium_profiles}
+\end{figure}
+
+
+As explained above, we take all equilibrium profiles and parameters from experimental measurements. 
+All simulations before Chapter~\ref{c_mean_flow} use profiles and parameters from one particular experiment.
+This experiment used limiter biasing to essentially null out the mean radial electric field~\cite{schaffner2012}. We used this experiment so that we could neglect the mean potential profile
+in the equations (as is done in Eqs.~\ref{ni_eq}-\ref{te_eq}), which simplifies our analysis. The profiles that we use are shown in Fig.~\ref{equilibrium_profiles}, and the parameters
+are shown in Table~\ref{parameter_table}. The density profile is
+a polynomial fit to the experimental equilibrium density profile. The temperature profile is a tanh function that somewhat resembles typical LAPD temperature profiles. At the time of the first
+simulations, we didn't have reliable temperature profile measurements, so I was forced to estimate what the profile might look like. We note that the real temperature profile has a steeper
+gradient than the one we use. And again, we use $\phi_0 = 0$, which is a good approximation for the experimental nulled out potential profile.
+
+The profiles that we use have no azimuthal or axial variation because we don't have the corresponding experimental measurements. So we assume that the equilibrium profiles are only functions
+of radius. It's likely, however, that there is some axial variation in the profiles and parameters. In LAPD, $\nu^* \equiv L_\para/\lambda_{ei} \sim 100$, generally indicating that a
+parallel temperature gradient can exist depending on the locations of the sources and sinks~\cite{stangeby2000}. 
+Furthermore, if the Bohm sheath boundary condition is correct, the equilibrium potential must have a parallel gradient in order
+to accelerate the ions up to the sound speed at the sheath entrance. This ambipolar parallel electric field should exist between the location of the sheath entrance and an ion collision length
+into the main plasma. The parallel electric field generated by the condition of Eq.~\ref{sheath_bc} is just the perturbed field that responds to electron temperature perturbations. It doesn't
+constitute the equilibrium electric field. 
+
+Moreover, one may notice that the Bohm sheath condition implies that a radial equilibrium electron temperature profile implies a corresponding equilibrium potential profile, since 
+$\phi_{sf} = \Lambda T_e / e$. Experimentally, this is not the case, meaning that the real LAPD boundary conditions are more complicated than simple floating conducting plates. So we don't
+model them completely correctly with sheath conditions, and we leave it to future work to develop better boundary models.
+
+
 
 \begin{table}
 \label{parameter_table}
@@ -23,8 +287,8 @@
 \hline \hline
 Species & $^4$He \\
 $Z$ & $1$ \\
-$n$ & $2.5 \times 10^{18}$ m$^{-3}$ \\
-$T_e$ & $5$ eV \\
+$n$ & $2.86 \times 10^{18}$ m$^{-3}$ \\
+$T_e$ & $6$ eV \\
 $T_i$ & $\lesssim 1$ eV \\
 $B_0$ & $0.1$ T \\
 $L_\para$ & $17$ m \\
@@ -44,11 +308,11 @@ ln$\Lambda$ & $11$ \\
 $\nue$ & $7.2 \times 10^6$ Hz \\
 $\lambda_{ei}$ & $0.13$ m \\
 $\nu_i$ & $\sim 10^6$ Hz \\
-$\nu_{in}$ & $1.2 \times 10^3$ Hz \\
+$\nu_{in}$ & $3 \times 10^3$ Hz \\
 $\kappa_\para^e$ & $9.8 \times 10^{23}$ eV/m$^2$ s \\
 $\eta_0^i$ & $\sim 10^{12}$ eV s/m$^3$ \\
 $\omega_{*}$ & $\sim 5 \times 10^4$ rad/s \\
 \hline \hline
 \end{tabular}
-\caption{Typical LAPD parameters}
+\caption{LAPD parameters used in the simulations along with some derived parameters}
 \end{table}
