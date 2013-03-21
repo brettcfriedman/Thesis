@@ -86,10 +86,11 @@ The energy balance equation is
 
 where the term involving the stress tensor describes viscous heating. The electron heat flux (with more transport coefficients) is
 
-\beq
+\beqar
 \label{elec_heat_flux}
-q_e = n_e T_e \left( 0.71 u_\para + \frac{3 \nue}{2 \omega_{c e}} {\bf b \times u} \right) + \frac{n_e T_e}{m_e \nue} \left( -3.16 \gradpar T_e - \frac{4.66 \nue^2}{\omega_{c e}^2} \gradperp T_e - \frac{5 \nue}{2 \omega_{c e}} {\bf b \times} \grad T_e \right)
-\eeq
+q_e = n_e T_e \left( 0.71 u_\para + \frac{3 \nue}{2 \omega_{c e}} {\bf b \times u} \right) \nonumber \\
++ \frac{n_e T_e}{m_e \nue} \left( -3.16 \gradpar T_e - \frac{4.66 \nue^2}{\omega_{c e}^2} \gradperp T_e - \frac{5 \nue}{2 \omega_{c e}} {\bf b \times} \grad T_e \right)
+\eeqar
 
 where the first part of this expression constitutes convection, while the second part is conduction. The ion heat flux is
 
@@ -227,8 +228,8 @@ equation is neglected. The electron energy equation is~\cite{simakov2003}
 
 \beqar
 \label{elec_ener}
-\frac{3}{2} n \pdiff{T_e}{t} = - \frac{3}{2} n {\bf v}_E\cdot \grad T_e - p_e \gradpar \vpe \\ \nonumber
-+ 0.71 T_e \grad \cdot (n \vpe) + \gradpar (\kappa_{\para e} \gradpar T_e) + 0.51 m_e n \nue \vpe^2 - 3 \frac{m_e}{m_i} n \nue T_e,
+\frac{3}{2} n \pdiff{T_e}{t} = - \frac{3}{2} n {\bf v}_E\cdot \grad T_e - p_e \gradpar \vpe + 0.71 T_e \grad \cdot (n \vpe) \\ \nonumber
++ \gradpar (\kappa_{\para e} \gradpar T_e) + 0.51 m_e n \nue \vpe^2 - 3 \frac{m_e}{m_i} n \nue T_e,
 \eeqar
 
 where $\kappa_{\para e} = 3.16 \frac{n T_e}{m_e \nue}$.
@@ -302,9 +303,9 @@ Clearly, the fluctuations are statistically similar in all cases and none of the
 However, the electromagnetic effects are noticable, and as we include more electromagnetic contributions in the simulations, the turbulent statistics more closely resemble those of the experiment.
 We make no quantitative comparison here, but rely only on a visual examination in making this conclusion.
 
-\begin{figure}[!htbp]
+\begin{figure}[ht!]
 \includegraphics[]{es_vs_em_stats}
-\hfil
+\centering
 \caption{Electromagnetic statistics comparison}
 \label{es_vs_em_stats}
 \end{figure}
