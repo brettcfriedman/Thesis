@@ -1,34 +1,34 @@
 \chapter{LAPD Simulation Details}
 \label{c_lapd_sim}
 
-In this chapter, we state and explain the equations, boundary conditions, parameters, and profiles that we use in the LAPD simulations. 
+In this chapter, I state and explain the equations, boundary conditions, parameters, and profiles that I use in the LAPD simulations. 
 There are two main classes of simulations: those with a mean radial electric field and those without. The simulations
 with the mean radial electric field will be explored in Chapter~\ref{c_mean_flow}. This chapter and all those up to Chapter~\ref{c_mean_flow} deal
 with the simulations with no mean radial electric field. There are only four different
 simulations that are used until Chapter~\ref{c_mean_flow}, and they differ in only one way: their axial boundary conditions, which are explained in Sec.~\ref{s_bcs}.
 
-We solve the equations using the BOUT++ code~\cite{dudson2009}. The code is discussed and partially displayed in Appendix~\ref{app_bout}, 
+I solve the equations using the BOUT++ code~\cite{dudson2009}. The code is discussed and partially displayed in Appendix~\ref{app_bout}, 
 and specific numerical routines and other details are described there as well.
 
 \section{The Equations}
 \label{s_equations}
 
-We use the Braginskii equations as shown in Chapter~\ref{c_braginskii} to model LAPD turbulence. We separate all variables into time-independent equilibrium parts and time-dependent
-fluctuating parts.  We do this in order to input experimental time-independent profiles. The alternative would be to solve the full equations with no equilibrium/fluctuation separation
+I use the Braginskii equations as shown in Chapter~\ref{c_braginskii} to model LAPD turbulence. I separate all variables into time-independent equilibrium parts and time-dependent
+fluctuating parts.  I do this in order to input experimental time-independent profiles. The alternative would be to solve the full equations with no equilibrium/fluctuation separation
 and no experimental profile input. The difficulty in this alternative technique is the need to specify sources, sinks, and boundary conditions, which can be difficult to measure or estimate.
 This alternative method has been untertaken by Rogers and Ricci~\cite{rogers2010}. Our approach is easier, and since the time-independent profiles are so important in driving the turbulence,
-we feel that inputing the experimentally measured profiles can help us produce physically realistic turbulence.
+I feel that inputing the experimentally measured profiles can help produce physically realistic turbulence.
 
-Now due to our equilibrium/fluctuation separation technique, we can linearize the equations, keeping only one nonlinearity in each equation: the
+Now due to the equilibrium/fluctuation separation technique, I can linearize the equations, keeping only one nonlinearity in each equation: the
 advective nonlinearity. While this isn't necessary, it does simplify the energy dynamics as formulated in Chapter~\ref{c_en_formalism}. The justification is practical rather than mathematical,
-and the partially linearized equations produce fluctuations that are quite statistically similar to experimental fluctuations, which is shown in Chapter~\ref{c_lapd_turb}, so we feel justified
+and the partially linearized equations produce fluctuations that are quite statistically similar to experimental fluctuations, which is shown in Chapter~\ref{c_lapd_turb}, so I feel justified
 in doing this.
 
-In the equations below, we normalize all quantities to give dimensionless variables. All times are normalized to the inverse ion cyclotron frequency $\omega_{ci} = \frac{e B}{m_i}$, 
+In the equations below, I normalize all quantities to give dimensionless variables. All times are normalized to the inverse ion cyclotron frequency $\omega_{ci} = \frac{e B}{m_i}$, 
 velocities are normalized to the ion sound speed $c_s = \sqrt{\frac{T_e}{m_i}}$, lengths are normalized to the sound gyro-radius $\rho_s = c_s/\omega_{ci}$, potentials to $T_e/e$,
 densities to the density at the radial cylindrical axis, and temperatures to the temperature at the cylindrical axis. 
 Quantities such as $c_s$ that are typically functions of radius due to the radial dependence of
-the electron temperature are taken to be constant in these normalizations, where we use the values at the radial axis. The equations below don't reflect this, but the transport coefficients
+the electron temperature are taken to be constant in these normalizations, where I use the values at the radial axis. The equations below don't reflect this, but the transport coefficients
 in the actual code do. So, the LAPD simulation equations are as follows:
 
 \beqar
@@ -46,8 +46,8 @@ in the actual code do. So, the LAPD simulation equations are as follows:
 Note that the advective nonlinearities in each equation are written with Poisson brackets. Additionally, the only equilibrium profiles are $N_0$ and $T_{e0}$, which are only functions of radius.
 $\phi_0 = v_{\parallel e 0} = 0$ in these equations. The linearized vorticity is $\varpi = \gradperp \cdot (N_0 \gradperp \phi)$. $N, \vpe, \phi,$ and $T_e$ are fluctuating first-order quantities.
 
-These equations have a few additional terms not included in the equations of Chapter~\ref{c_braginskii}. First, we have included density and temperature sources $S_N$ and $S_T$. We have left out
-a momentum source as well as the contribution of the density source to changes of the momentum and temperature. Second, we have included diffusive ($\mu_N \gradperp^2 N$ and $\mu_T \gradperp^2 T_e$) 
+These equations have a few additional terms not included in the equations of Chapter~\ref{c_braginskii}. First, I have included density and temperature sources $S_N$ and $S_T$. I have left out
+a momentum source as well as the contribution of the density source to changes of the momentum and temperature. Second, I have included diffusive ($\mu_N \gradperp^2 N$ and $\mu_T \gradperp^2 T_e$) 
 and viscous ($\mu_\phi \gradperp^2 \varpi$) terms in Eqs.~\ref{ni_eq}, ~\ref{te_eq}, and~\ref{rho_eq} respectively.
 
 \subsection{Sources}
@@ -68,12 +68,12 @@ is the ionization rate of Helium and is a strong function of temperature. The st
 Ionization rates are readily available~\cite{stangeby2000}, but the neutral density is not, making the source difficult to calculate. However, it is clear that if one were to sum up
 the source and sink and integrate axially, the region inside of the cathode radius must be a net source, while the region outside of it must be a net sink.
 
-Now when we simulate the turbulence in LAPD without the source terms, turbulence drives radial transport such that the total flux-surface-averaged density gradient relaxes over time as seen
+Now when I simulate the turbulence in LAPD without the source terms, turbulence drives radial transport such that the total flux-surface-averaged density gradient relaxes over time as seen
 in Fig.~\ref{source} a) until the radial transport ceases. It's interesting that $\left< N_t \right>_{fs} = \left< N_0 + N \right>_{fs}$ doesn't become totally flat, but maintains a gradient. 
 This is probably a result
 of the partial linearization of the equations, especially the diffusion term $\mu_N \gradperp^2 N$, and possibly boundary conditions. Nevertheless, the strong relaxation is not physical due
 to the presence of the physical source/sink mechanism. (Note that the equilibrium density profile $N_0$ used in the simulation to make Fig.~\ref{source} a)
-is not the same $N_0$ shown in Fig.~\ref{equilibrium_profiles}. We show the relaxation of the profile in Fig.~\ref{source} a) because it has a very steep gradient, which makes
+is not the same $N_0$ shown in Fig.~\ref{equilibrium_profiles}. I show the relaxation of the profile in Fig.~\ref{source} a) because it has a very steep gradient, which makes
 the relaxation effect more pronounced and easier to see.)
 
 \begin{figure}[!ht]
@@ -83,9 +83,9 @@ the relaxation effect more pronounced and easier to see.)
 \end{figure}
 
 
-Now, rather than developing a first principle's source based on the theoretical source/sink expressions, we use ad hoc controlling sources. 
-We estimate that $\left< N_t \right>_{fs}$ remains constant over time, and model the source using the integral
-portion of a PID controller. This means that we write an equation for the source:
+Now, rather than developing a first principle's source based on the theoretical source/sink expressions, I use ad hoc controlling sources. 
+I estimate that $\left< N_t \right>_{fs}$ remains constant over time, and model the source using the integral
+portion of a PID controller. This means that I write an equation for the source:
 
 \beq
 \label{Sn_eq}
@@ -102,18 +102,18 @@ S_n(t) = - \int_0^t \left< N(\tau) \right>_{fs} d\tau.
 A typical time-averaged density source is shown in Fig.~\ref{source} b).
 The upshot of using such a source is that $\left< N_t(t) \right>_{fs} \simeq N_0$. Notice that the source in Fig.~\ref{source} b) is net positive inside of the cathode radius and negative
 outside of it, just as one would expect.
-We use the same method for the temperature source. The temperature source ultimately comes from the hot electrons that are boiled off of
+I use the same method for the temperature source. The temperature source ultimately comes from the hot electrons that are boiled off of
 the cathode, which transfer their energy to the plasma through ionizing collisions. This heat transfer is mostly to the electrons of the plasma. The temperature sink is caused by collisions
 with ions and neutrals which line radiate and by heat loss to the sheath and end walls.
 
-We emphasize that the sources are not first principle sources. They are constructed based on the simulated radial transport. The alternative first principle's approach was used by Rogers and Ricci
+I emphasize that the sources are not first principle sources. They are constructed based on the simulated radial transport. The alternative first principle's approach was used by Rogers and Ricci
 for LAPD~\cite{rogers2010}. They use a stationary top-hat-like ionization source that models the physical density-producing process in LAPD. 
 Furthermore, they do not separate equilibrium from fluctuations or input equilibrium profiles. Their source feeds the density, which then transports itself until it comes to a quasi-equilibrium state
 (a sink is also present). This method solves for the full plasma state with very little experimental input. 
-They input the sources and derive the plasma state. We, on the other hand, input part of the plasma
+They input the sources and derive the plasma state. On the other hand, I input part of the plasma
 state and derive the sources. As stated before, our method has the advantage of using experimentally measured profiles. 
 This experimental input allows us to more easily simulate turbulence that resembles that
-in the experiment, and therefore make conclusions on the fluctuation properties. We do not, however, evolve the equilibrium and gain the knowledge that comes from that.
+in the experiment, and therefore make conclusions on the fluctuation properties. I do not, however, evolve the equilibrium and gain the knowledge that comes from that.
 
 \subsection{Artificial Diffusion and Viscosity}
 \label{ss_art_diff}
@@ -122,12 +122,12 @@ Artificial diffusion or hyperdiffusion terms are ubiquitous in fluid simulations
 schemes at steep interfaces. They can, however, cause unphysical smoothing in systems that are non-diffusive and non-viscous or cause over-smoothing if applied haphazardly. Some numerical
 advection schemes contain their own diffusion, called numerical diffusion. Other non-advective finite difference schemes also contain numerical diffusion or dispersion.
 
-We use artificial diffusion and viscosity for several reasons. The first is to prevent artificial high-wavenumber oscillations due to the Arakawa advection scheme that we use~\cite{arakawa1966}.
-Second, it smooths out the solutions, preventing the total density and temperature from becoming negative at any point in space, which is obviously unphysical. Third, we can use it
-to prevent the need to go to very fine grid spacing at which physical diffusion and viscosity are important. Finally, we can use it to help saturate the turbulence at levels consistent with experiment.
+I use artificial diffusion and viscosity for several reasons. The first is to prevent artificial high-wavenumber oscillations due to the Arakawa advection scheme that I use~\cite{arakawa1966}.
+Second, it smooths out the solutions, preventing the total density and temperature from becoming negative at any point in space, which is obviously unphysical. Third, I can use it
+to prevent the need to go to very fine grid spacing at which physical diffusion and viscosity are important. Finally, I can use it to help saturate the turbulence at levels consistent with experiment.
 These reasons are all somewhat related, and more discussion is left to Appendix~\ref{app_grid_convergence}.
 
-Diffusion and viscosity are real effects that are present in the non-reduced Braginskii equations. In Chapter~\ref{c_braginskii}, we made the approximation that 
+Diffusion and viscosity are real effects that are present in the non-reduced Braginskii equations. In Chapter~\ref{c_braginskii}, I made the approximation that 
 $\grad \cdot (n {\bf v}_{\perp e}) = {\bf v}_{E} \cdot \grad n$, which neglected the polarization velocity part of ${\bf v}_{\perp e}$. Now the ``full polarization velocity''~\cite{simakov2003}
 (from crossing Eq.~\ref{brag_mom} with ${\bf b}$ and neglecting the stress tensor) is
 
@@ -137,30 +137,30 @@ $\grad \cdot (n {\bf v}_{\perp e}) = {\bf v}_{E} \cdot \grad n$, which neglected
 \eeq
 
 The part of this that causes collisional diffusive terms is $ (\nue/\omega_{ce}) {\bf b \times v}_{\perp e}$. Now this contains ${\bf v}_{\perp e}$ itself, which must be approximated as 
-${\bf v}_{\perp e} = {\bf v}_{E} + {\bf v}_{d e}$ to allow for closure. Only the diamagnetic drift part will be important for the collisional diffusion, so the part of the polarization velocity that we
-focus on is $(\nue/\omega_{ce}) {\bf b \times v}_{d e}$. Recall that we want to use this in the continuity equation, so we are interested in the term 
+${\bf v}_{\perp e} = {\bf v}_{E} + {\bf v}_{d e}$ to allow for closure. Only the diamagnetic drift part will be important for the collisional diffusion, so the part of the polarization velocity that I
+focus on is $(\nue/\omega_{ce}) {\bf b \times v}_{d e}$. Recall that I want to use this in the continuity equation, so I am interested in the term 
 $\grad \cdot (n_e v_e) \rightarrow \grad \cdot \left( n_e (\nue/\omega_{ce}) {\bf b \times v}_{d e} \right) = - \grad \cdot \frac{\nue m_e}{e^2 B^2} \gradperp p_e$. Now defining 
-$D = \frac{\nue m_e T_e}{e^2 B^2}$, we have $\grad \cdot (n_e v_e) = - \grad \cdot (D \gradperp n) +$ lots of other terms. $D$ is the classical diffusion coefficient, which is about $0.01 {\rm m^2/s}$
-for LAPD parameters. One of the terms in $\grad \cdot (D \gradperp n)$ is $D \gradperp^2 n$, which has the same form of the artificial diffusion term that we've added to Eq.~\ref{ni_eq}. 
-Of course, we have neglected many terms of the same order as this term in Eq.~\ref{ni_eq}, but this shows that such a classical diffusion term is present in the Braginskii equations.
+$D = \frac{\nue m_e T_e}{e^2 B^2}$, I have $\grad \cdot (n_e v_e) = - \grad \cdot (D \gradperp n) +$ lots of other terms. $D$ is the classical diffusion coefficient, which is about $0.01 {\rm m^2/s}$
+for LAPD parameters. One of the terms in $\grad \cdot (D \gradperp n)$ is $D \gradperp^2 n$, which has the same form of the artificial diffusion term that I've added to Eq.~\ref{ni_eq}. 
+Of course, I have neglected many terms of the same order as this term in Eq.~\ref{ni_eq}, but this shows that such a classical diffusion term is present in the Braginskii equations.
 
 A similar treatment can be used for the energy conservation equation (Eq.~\ref{brag_ener}), using the same procedure as for the continuity equation but with the $p_e \grad \cdot {\bf v}_e$ term in
 Eq.~\ref{brag_ener}. The result is $p_e \grad \cdot {\bf v}_e = D n_e \gradperp^2 T_e +$ lots of other terms. This has the same form as the temperature diffusion term in Eq.~\ref{te_eq}.
 
 The viscosity in the vorticity equation comes from the ion stress tensor term $\pdiff{\Pi_{i \alpha \beta}}{x_\beta}$ 
-that we neglected when deriving the vorticity equation because we neglected everything with finite
+that I neglected when deriving the vorticity equation because I neglected everything with finite
 ion temperature. If this was included, a vorticity diffusion term (aka a viscosity) would have been included in the vorticity equation~\cite{popovich2010b}
 as it is in other equation sets like the well-known Hasagawa-Wakatani equations~\cite{hasegawa1983}. 
 The magnetized Braginskii viscosity coefficient is $\eta_1^i = \frac{3 n T_i}{10 \omega_{ci}^2 \tau_i}$, which is about $2 \times 10^{-8} { \rm kg/m \cdot s}$ 
 for LAPD. Since LAPD's ions are not necessarily magnetized due to the fact that $\omega_{ci} \tau_i \sim 1$, the unmagnetized ion viscosity is $\eta_0^i = 0.96 n T_i \tau_i$~\cite{Braginskii1965}
 which is about $4 \times 10^{-7} {\rm kg/m \cdot s}$.
 
-For the artificial diffusion and viscosity coefficients in Eqs.~\ref{ni_eq}-\ref{te_eq}, we use a single value of $1.25 \times 10^{-3}$ in our normalized units, 
+For the artificial diffusion and viscosity coefficients in Eqs.~\ref{ni_eq}-\ref{te_eq}, I use a single value of $1.25 \times 10^{-3}$ in our normalized units, 
 which is $0.075 {\rm m^2/s}$ in real units.
-We find that this value produces turbulent fluctuation levels consistent with experimental levels. 
-We use this as a free parameter in this sense. This value is much larger than the real classical diffusion $D$,
+I find that this value produces turbulent fluctuation levels consistent with experimental levels. 
+I use this as a free parameter in this sense. This value is much larger than the real classical diffusion $D$,
 but is smaller than $\frac{\eta_1^i}{n m_i} = 1 {\rm m^2/s}$. 
-Nevertheless, we neglected a number of terms in Eqs.~\ref{ni_eq}-\ref{te_eq} such that there isn't justification to use the real diffusion and 
+Nevertheless, I neglected a number of terms in Eqs.~\ref{ni_eq}-\ref{te_eq} such that there isn't justification to use the real diffusion and 
 viscosity in these equations. Artificial diffusion and viscosity terms, however, serve a numerical purpose.
 
 
@@ -178,25 +178,25 @@ than the cathode radius.
 \subsection{Simple Boundaries}
 \label{ss_s_bc}
 
-In all simulations, we use an annulus rather than a cylinder. Although the inner radius of the annulus may be arbitrarily small, we take the inner radius to be 12 cm. We take the outer radius
+In all simulations, I use an annulus rather than a cylinder. Although the inner radius of the annulus may be arbitrarily small, I take the inner radius to be 12 cm. I take the outer radius
 to be 39 cm. This is generally the radial extent of our experimental probe measurements. Furthermore, the plasma fluctuations are nearly zero (when normalized to values at the cylindrical axis)
 outside of this annular
-region, which is seen in Fig.~\ref{es_vs_em_stats} c). Therefore, we set the radial boundaries on all of the fluctuating variables ($N, \phi, \vpe, {\rm and } T_e$) to zero. It would be nice
+region, which is seen in Fig.~\ref{es_vs_em_stats} c). Therefore, I set the radial boundaries on all of the fluctuating variables ($N, \phi, \vpe, {\rm and } T_e$) to zero. It would be nice
 in the future to take data spanning at least a few more cm and extend the simulation domain accordingly. But for now, the results use such an annular domain.
 
-As for the axial boundaries, we use four different boundary conditions: periodic, zero-value (Dirichlet), zero-derivative (Neumann), and Bohm sheath. 
+As for the axial boundaries, I use four different boundary conditions: periodic, zero-value (Dirichlet), zero-derivative (Neumann), and Bohm sheath. 
 The only non-trivial one, Bohm sheath, is derived and described in
 the following subsection. The others are all trivial to implement and provide a test of the importance of the axial boundary conditions on the nature of the turbulence.
 
 \subsection{Bohm Sheath Boundaries}
 \label{ss_bs_bc}
 
-Bohm sheath boundary conditions are applicable when a plasma terminates at a conducting plate. We note that this is not necessarily the case in LAPD. 
+Bohm sheath boundary conditions are applicable when a plasma terminates at a conducting plate. I note that this is not necessarily the case in LAPD. 
 The cathode/annode system is obviously much different from a simple floating or biased conducting plate. Furthermore, the mesh wall at the far end is not a solid wall.
 Moreover, it's not clear if the plasma is even attached to the far end mesh wall or if it becomes detached in the neutrals in front of it, where the plasma cools and recombines
 before interacting with the wall. In any case, it is still instructive to apply such an idealized boundary condition to LAPD because it is somewhat more realistic
 than the simpler boundary conditions, and it creates a new linear instability (see Sec.~\ref{ss_cwm}), which can be used to test the robustness of LAPD's nonlinear instability.
-Therefore, we proceed with the derivation of the Bohm sheath boundary conditions.
+Therefore, I proceed with the derivation of the Bohm sheath boundary conditions.
 
 Now, it is known that to good approximation, a plasma bounded by a wall can be divided into two regions: the main plasma and the Debye sheath~\cite{stangeby2000}. 
 The Debye sheath is a small region adjacent to the wall, generally several Debye lengths long. It has a net positive charge ($n_i > n_e$) 
@@ -205,7 +205,7 @@ the main plasma (the ambipolar field), which mostly serves to accelerate the col
 In the main plasma, the quasi-neutrality relation holds ($n_i = n_e$). 
 
 The well-known Bohm criterion along with other considerations restricts the ions to move into the sheath entrance at the sound speed $c_s = \sqrt{T_e/m_i}$. 
-We consider here the case where there is no external biasing; in other words, the end plates are electrically isolated and floating.
+I consider here the case where there is no external biasing; in other words, the end plates are electrically isolated and floating.
 The wall can be set to an arbitrary potential, say $\phi_w = 0$, while the potential at the sheath entrance is then the positive 
 floating potential $\phi_{sf}$. This potential difference across the sheath reflects slow electrons that enter the sheath.
 The electrons approximately maintain a cutoff Maxwellian velocity distrubution throughout the sheath, and at the wall, 
@@ -243,11 +243,11 @@ This expression for the current sets the fluctuating axial boundary condition of
 the wall and at the sheath entrance. So rather than taking the simulation
 domain all the way to the wall, simulations often end at the sheath entrance and employ this analytically derived boundary condition to the boundaries of the main plasma. 
 Then one doesn't have to worry about the small spatial scales and the non-quasineutrality of the sheath.
-The corresponding boundary conditions for the other fluid variables such as the density and temperature have recently been derived by Loizu et al.~\cite{loizu2012}. However, we
+The corresponding boundary conditions for the other fluid variables such as the density and temperature have recently been derived by Loizu et al.~\cite{loizu2012}. However, I
 simply take them to have zero-gradient as most others have done, although this isn't wholly inconsistent with Loizu's calculations.
 
-Now while one may set the parallel current (or equivalently $\vpe$) at the axial boundaries to the quantity on the right hand side of Eq.~\ref{lin_sheath_current}, we don't do that.
-We use Ohm's Law ($- \gradpar \phi = \eta_\para J_\para$) to set the boundary condition for the gradient of $\phi$. We do this for practical reasons in the coding. Therefore, the
+Now while one may set the parallel current (or equivalently $\vpe$) at the axial boundaries to the quantity on the right hand side of Eq.~\ref{lin_sheath_current}, I don't do that.
+I use Ohm's Law ($- \gradpar \phi = \eta_\para J_\para$) to set the boundary condition for the gradient of $\phi$. I do this for practical reasons in the coding. Therefore, the
 boundary condition used in the code is (in our normalized units):
 
 \beq
@@ -268,16 +268,16 @@ boundary condition used in the code is (in our normalized units):
 \end{figure}
 
 
-As explained above, we take all equilibrium profiles and parameters from experimental measurements. 
+As explained above, I take all equilibrium profiles and parameters from experimental measurements. 
 All simulations before Chapter~\ref{c_mean_flow} use profiles and parameters from one particular experiment.
-This experiment used limiter biasing to essentially null out the mean radial electric field~\cite{schaffner2012}. We used this experiment so that we could neglect the mean potential profile
-in the equations (as is done in Eqs.~\ref{ni_eq}-\ref{te_eq}), which simplifies our analysis. The normalized profiles that we use are shown in Fig.~\ref{equilibrium_profiles}, and the parameters
+This experiment used limiter biasing to essentially null out the mean radial electric field~\cite{schaffner2012}. I used this experiment so that I could neglect the mean potential profile
+in the equations (as is done in Eqs.~\ref{ni_eq}-\ref{te_eq}), which simplifies our analysis. The normalized profiles that I use are shown in Fig.~\ref{equilibrium_profiles}, and the parameters
 are shown in Table~\ref{parameter_table}. The density profile is
 a polynomial fit to the experimental equilibrium density profile. The temperature profile is a tanh function that somewhat resembles typical LAPD temperature profiles. At the time of the first
-simulations, we didn't have reliable temperature profile measurements, so I was forced to estimate what the profile might look like. We note that the real temperature profile has a steeper
-gradient than the one we use. And again, we use $\phi_0 = 0$, which is a good approximation for the experimental nulled out potential profile.
+simulations, I didn't have reliable temperature profile measurements, so I was forced to estimate what the profile might look like. I note that the real temperature profile has a steeper
+gradient than the one I use. And again, I use $\phi_0 = 0$, which is a good approximation for the experimental nulled out potential profile.
 
-The profiles that we use have no azimuthal or axial variation because we don't have the corresponding experimental measurements. So we assume that the equilibrium profiles are only functions
+The profiles that I use have no azimuthal or axial variation because I don't have the corresponding experimental measurements. So I assume that the equilibrium profiles are only functions
 of radius. It's likely, however, that there is some axial variation in the profiles and parameters. In LAPD, $\nu^* \equiv L_\para/\lambda_{ei} \sim 100$, generally indicating that a
 parallel temperature gradient can exist depending on the locations of the sources and sinks~\cite{stangeby2000}. 
 Furthermore, if the Bohm sheath boundary condition is correct, the equilibrium potential must have a parallel gradient in order
@@ -286,8 +286,8 @@ into the main plasma. The parallel electric field generated by the condition of 
 constitute the equilibrium electric field. 
 
 Moreover, recall that the Bohm sheath condition combined with a radial equilibrium electron temperature profile implies (at least near the sheath) a corresponding equilibrium potential profile, since 
-$\phi_{sf} = \Lambda T_{e0} / e$. Experimentally, this relation doesn't hold where we measure the plasma, meaning that either the ambipolar field doesn't penetrate far into the plasma or that
-the real LAPD boundary conditions are more complicated than simple floating conducting plates. So we don't use any equilibrium axial variation, leaving this to future work.
+$\phi_{sf} = \Lambda T_{e0} / e$. Experimentally, this relation doesn't hold where the plasma is measured, meaning that either the ambipolar field doesn't penetrate far into the plasma or that
+the real LAPD boundary conditions are more complicated than simple floating conducting plates. So I don't use any equilibrium axial variation, leaving this to future work.
 
 
 

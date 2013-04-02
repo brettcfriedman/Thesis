@@ -3,19 +3,19 @@
 
 Simulations can supplement experiment by providing detailed spatial data that is too difficult to obtain experimentally. This spatial data can be analyzed, revealing new properties
 of the experiment. In order for simulations to provide information, however, they must accurately represent the system which they model. Assessing the validity of simulations generally
-comes in two parts: verification and validation. Verification, the evidence that the code solves the equations correctly, will not be taken up here. We note, however, that we
+comes in two parts: verification and validation. Verification, the evidence that the code solves the equations correctly, will not be taken up here. I note, however, that my collaborators and I
 have done verification studies in the past, somewhat detailed in Popovich et al.~\cite{Popovich2010a}. We compared linear BOUT (the old version of BOUT++) and BOUT++ simulations
-to analytic solutions as well as to eigensystem solver solutions. On the other hand, we will focus parts of this chapter on our validation effort. Validation is the evidence that
+to analytic solutions as well as to eigensystem solver solutions. On the other hand, I will focus parts of this chapter on our validation effort. Validation is the evidence that
 the simulation model accurately reproduces features of the experiment. Generally, the more features of the experiment that the model reproduces, the more valid the model. While this chapter
 focuses on simple analyses to describe the nature of the simulated turbulence, it will also make comparisons, where possible, to experimental data in order to show that the model is
-relatively well validated. First, however, we analyze the linear instabilities in the LAPD simulations, and this affords no experimental comparison.
+relatively well validated. First, however, I analyze the linear instabilities in the LAPD simulations, and this affords no experimental comparison.
 
 \section{LAPD Linear Instabilities}
 \label{s_lin_inst}
 
 Linear instabilities are prevalent in plasma physics. They come from the linearization around an equilibrium of the plasma equations. Physically, if a plasma is in a time-independent
 steady state that is linearly unstable and a finite fluctuation of any size occurs, the fluctuation will grow exponentially. Linear instabilities often drive hydrodynamic and plasma
-turbulence. We therefore study the linear instabilities of the LAPD system before moving onto the turbulence because they can offer insight into the nature of the turbulence.
+turbulence. I therefore study the linear instabilities of the LAPD system before moving onto the turbulence because they can offer insight into the nature of the turbulence.
 The LAPD equations, parameters, and profiles described in Chapter~\ref{c_lapd_sim} give rise to a couple of linear instabilities. They are both drift wave type instabilities, but they 
 have different pressure/potential coupling mechanisms. One type couples through the adiabatic response, while the other couples through the sheath boundary response.
 
@@ -46,7 +46,7 @@ the fluctuation to propagates azimuthally as a wave at the drift speed $v_{De} =
 If there is a small phase difference between the pressure and the potential of the wave (the result of $R \ne 0$), the equilibrium pressure gradient will enhance the fluctuation, causing
 instability. Since $p_e = n_e T_e$, the pressure fluctuation may be due to either a density fluctuation, an electron temperature fluctuation, or both. The universal instability generally
 refers to the situation where an equilibrium density gradient drives a density fluctuating wave. But a temperature gradient driving a temperature fluctuation wave is also possible, and
-may be called a thermal drift wave~\cite{makwana2011}. It's not necessary, however, to separate them, and we will just refer to both of these as drift waves.
+may be called a thermal drift wave~\cite{makwana2011}. It's not necessary, however, to separate them, and I will just refer to both of these as drift waves.
 
 \begin{figure}[!ht]
 \centerline{\includegraphics[]{lin_dw_gamma}}
@@ -65,11 +65,11 @@ The solid curves in Fig.~\ref{lin_dw_gamma} are calculated from the simulation r
 growing linear eigenmode with azimuthal mode number $m$.
 The energy is defined in Chapter~\ref{c_en_formalism}. The details of obtaining $\gamma_m$ are explained in that chapter, but for now, it is sufficient to state that this procedure calculates
 $\gamma_m$ at a particular time using only the structures of the fluctuating quantities: $N, \phi, \vpe, {\rm and } T_e$. An alternative way to calculate $\gamma_m$ is to use BOUT++'s Fourier
-filtering capabilities and run many simulations where each one filters out a different azimuthal mode. Then, we take the log of the envelope of one or several of the fluctuating quantities
+filtering capabilities and run many simulations where each one filters out a different azimuthal mode. Then, I take the log of the envelope of one or several of the fluctuating quantities
 and calculate the slope of the line, which gives the growth rate for each particular simulation. This procedure uses the time signal of the fluctuations rather than their spatial structure to
 calculate the growth rate, thus providing a check on the first method. 
 The results using this alternative method for the periodic case are shown with the black diamonds in Fig.~\ref{lin_dw_gamma} a), which agree well with the curve calculated using the 
-alternative energetic structure-based calculation. We do this check with all of the simulations to ensure consistency. This second method is more time consuming, so we only sample a few values of $m$.
+alternative energetic structure-based calculation. I do this check with all of the simulations to ensure consistency. This second method is more time consuming, so I only sample a few values of $m$.
 Furthermore, it's difficult to get growth rates when $\gamma_m < 0$ using this second method.
 
 The difference in the growth rate curves with the different boundary conditions is due to the different $k_\para = \frac{2 \pi n}{L_\para}$ where $n$ is the axial mode number. The periodic simulation
@@ -88,7 +88,7 @@ random point in the $r-\theta$ plane and at one time point, and are normalized t
 \end{figure}
 
 
-We now consider the linear instability that can exist in a plasma bounded by two conducting walls on the boundaries where the magnetic field lines terminate
+I now consider the linear instability that can exist in a plasma bounded by two conducting walls on the boundaries where the magnetic field lines terminate
 (the axial boundaries)~\cite{berk1991,berk1993,xu1993}.
 The instability is actually of the drift wave variety, but unlike the drift waves discussed above, the pressure-potential coupling mechanism is through the sheath boundary response
 rather than through the adiabatic response. The Bohm sheath boundary conditions that were derived in Sec.~\ref{ss_bs_bc} can provide this coupling. 
@@ -136,8 +136,8 @@ the growth rate is maximum. At $m \geq 40$, the drift waves dominate.
 \end{figure}
 
 
-When we simulate the full LAPD equation set with the advective nonlinearities and source terms, we find that the simulation develops into a turbulent state. To start the simulation,
-we initialize each fluctuation quantity ($N, \phi, \vpe, {\rm and } \ T_e$) with a small random 3D spatial structure. The structure evolves and a coherent structure emerges (the fastest
+When I simulate the full LAPD equation set with the advective nonlinearities and source terms, I find that the simulation develops into a turbulent state. To start the simulation,
+I initialize each fluctuation quantity ($N, \phi, \vpe, {\rm and } \ T_e$) with a small random 3D spatial structure. The structure evolves and a coherent structure emerges (the fastest
 growing linear eigenvector), which grows exponentially in time. Once the normalized fluctuations reach values on the order of $0.01-0.1$, they saturate and appear to be turbulent.
 A 3D animation of the density fluctuation $N$ is shown in Fig.~\ref{3D_turb_anim}. The animation shows a $1/8$th wedge of the simulated annulus to make the axial extent of the annulus visible.
 The animation begins right before the fastest growing mode structure becomes dominant. The fastest growing mode dominates the structure for some time, where there is a clear coherent
@@ -145,17 +145,17 @@ wave structure that simply propagates in the electron diamagnetic drift directio
 Note that the axial structure in the linear stage has a finite wavelength about half of the length of the animation domain. The axial boundary conditions used here (Neumann) allow for
 such a structure.
 
-Soon, the coherent eigenmode structure, which has been growing in magnitude, saturates and transitions to a turbulent-looking state that we call the turbulent stage.
+Soon, the coherent eigenmode structure, which has been growing in magnitude, saturates and transitions to a turbulent-looking state that I call the turbulent stage.
 The evolution of the RMS fluctuation amplitude of the density and potential is shown in Fig.~\ref{rms_evolution} a). The potential is separated into a flux-surface-averaged component $\phi_{fs}$
 and the remainder $\phi-\phi_{fs}$. $\phi_{fs}$ quantifies the amplitude in the zonal flow, which appears in Fig.~\ref{rms_evolution} a) to possibly have some role in the initial saturation, but
 has a relatively small magnitude in the turbulent stage.
 For all the fluctuations, the exponential growth period during the linear stage is followed by saturation corresponding to the
 visual change from coherent to turbulent spatial structures in the animation. 
-Upon transition to the turbulent stage, we notice in the animation that there is also a qualitative change in the axial
-mode structure. The axial structures elongate, looking more flute-like than in the linear stage. We confirm this by taking the axial Fourier transform of the density fluctuations and plotting
+Upon transition to the turbulent stage, I notice in the animation that there is also a qualitative change in the axial
+mode structure. The axial structures elongate, looking more flute-like than in the linear stage. I confirm this by taking the axial Fourier transform of the density fluctuations and plotting
 the RMS values of the different axial mode numbers in Fig.~\ref{rms_evolution} b). The linear stage is dominated by the $n=1$ Fourier component, while the turbulent stage is dominated
-by the $n=0$ flute mode component. We found this to be an interesting and unexpected transition when we first identified it. There is not only the expected bifurcation from linear waves to turbulence,
-but also the unexpected bifurcation from linear drift wave structures to turblent flute-like structures. We will discuss why this is unexpected in the upcoming chapters, and we will show in detail
+by the $n=0$ flute mode component. I found this to be an interesting and unexpected transition when I first identified it. There is not only the expected bifurcation from linear waves to turbulence,
+but also the unexpected bifurcation from linear drift wave structures to turblent flute-like structures. I will discuss why this is unexpected in the upcoming chapters, and I will show in detail
 what causes it. But take note that this is a key finding. This $n=0$ dominance in the turbulent stage is the main subject of the remaining chapters.
 
 
@@ -166,19 +166,19 @@ what causes it. But take note that this is a key finding. This $n=0$ dominance i
 \end{figure}
 
 
-However, before we jump into the analysis of the $n=0$ mode dominance, we continue to look at simple and common turbulence analysis techniques to describe the nature of the turbulence
+However, before I jump into the analysis of the $n=0$ mode dominance, I continue to look at simple and common turbulence analysis techniques to describe the nature of the turbulence
 and to validate the simulations.
-Continuing on with the visual examination, we show one visual comparison between the simulation and experiment. For the experimental visual, we use a processed
+Continuing on with the visual examination, I show one visual comparison between the simulation and experiment. For the experimental visual, I use a processed
 fast camera movie. The camera records the light intensity given off by the plasma. The light is primarily due to line radiation of the helium atoms and ions. It should be some function
-of plasma density, neutral density, and plasma temperature. Noting that the comparison is certainly not exact, we show the experimental camera data next to corresponding simulation
+of plasma density, neutral density, and plasma temperature. Noting that the comparison is certainly not exact, I show the experimental camera data next to corresponding simulation
 data of the density $N$ signal during the turbulent stage. This is shown in Fig.~\ref{sim_v_exp_anim}. 
 The animations cover the same spatial domain and last for equal time intervals (about 2 ms). Both are simply fluctuation
 data with the time-independent background not included (subtracted out from the camera data). 
 
 Visual comparisons like this are certainly not quantitative, and at best this comparison
 reveals that both simulatin and experiment appear turbulent and contain similarly sized spatial structures and similar time scales. The camera data can be a valuable tool since it provides
-so much simultaneous spatial data -- something that is difficult to do with probes. Nevertheless, we do not proceed here with detailed statistical analysis of the camera data or any
-quantitative comparisons between the camera and simulation. This work is left for future studies. Rather, we now focus on statistical analysis of the simulation data, and compare it to
+so much simultaneous spatial data -- something that is difficult to do with probes. Nevertheless, I do not proceed here with detailed statistical analysis of the camera data or any
+quantitative comparisons between the camera and simulation. This work is left for future studies. Rather, I now focus on statistical analysis of the simulation data, and compare it to
 experimental Langmuir probe data when possible.
 
 
@@ -192,6 +192,97 @@ experimental Langmuir probe data when possible.
 \section{LAPD Turbulence: A Statistical Examination}
 \label{s_stat_exam}
 
+Turbulent or chaotic systems do not produce realistically predictable end states. It's therefore useful to look at time series and spatial states of such systems in a statistical way.
+Simulations and experiment can produce such data and be compared, which is the best way to validate simulations. Furthermore, turbulent plasma systems are often characterized by
+statistical properties such as shapes and magnitudes of spectra, pdfs, and spatial and temporal correlations.
+
+There are many different kinds of experimental measurements, but I focus here only on Langmuir probe measurements. The Langmuir probes in LAPD generally provide time series data although
+I do have some two-probe data that provides certain spatial information. Langmuir probes do not directly measure any of the independent state or flux variables of the simulation 
+($N, \phi, \vpe, T_e$), but these quantities can be derived from the measurements. The probes are biased to a known potential (with respect to a reference like the cathode potential),
+and the current they draw from the plasma is measured. As long as the probes are biased sufficiently below the plasma potential so as to repel most electrons, 
+they develop sheaths around them in the same way as the conducting plates considered in Sec.~\ref{ss_bs_bc}. The ion current to the probe is~\cite{hutchinson2002}
+
+\beq
+\label{probe_ion_current}
+I_i \sim \frac{1}{2} e A_s n c_s
+\eeq
+
+where $A_s$ is the sheath area, approximately equal to the probe area, and the factor of $\frac{1}{2} n$ is the reduction of density at the sheath edge compared to the main plasma.
+The probe may be biased negatively enough so that all electrons are repelled. The current collected is just that of Eq.~\ref{probe_ion_current}, called the ion saturation current.
+As the probe voltage is swept positively from this point, more electrons are collected. The total current to the probe then takes the form~\cite{hutchinson2002}
+
+\beq
+\label{probe_current}
+I = e A_s n c_s \left[\frac{1}{2} - \left(\frac{m_i}{2 \pi m_e} \right)^{1/2}  e^{e V_p/T_e} \right],
+\eeq
+
+where $V_p$ (which is negative) is the potential of the probe with respect to the plasma potential. When $I=0$, the probe potential is at the floating potential: 
+$\frac{e V_f}{T_e} = \frac{1}{2} {\rm ln} \left(\frac{\pi m_e}{2 m_i}\right)$. This relation isn't used to obtain the temperature because the plasma potential isn't known,
+meaning $V_f$ isn't either. The temperature, however, can be obtained by sweeping the probe potential to get $\pdiff{I}{V_p}$, which is an exponential function of $V_p$.
+So the ln of this function produces a straight line. Then, the temperature is:
+
+\beq
+\label{probe_temp}
+T_e = e (I - I_i)/\pdiff{I}{V_p}.
+\eeq
+
+Once the temperature is found, which gives the value for the sound speed, the ion saturation current can be used to obtain the density. Furthermore, knowledge of the temperature and
+the floating potential gives the plasma potential: $\phi  = V_f - \frac{T_e}{2 e} {\rm ln} \left(\frac{\pi m_e}{2 m_i}\right)$. 
+The plasma potential may alternatively be identified as the value of the potential on the probe at which the electron current saturates
+because no sheath develops when the probe potential equals the plasma potential. Thus, swept Langmuir probe data processed under these theoretical calculations can give values for
+$N, \phi$, and $T_e$ that can be compared to the corresponding simulation variables.
+
+\begin{figure}[!ht]
+\centerline{\includegraphics[]{n_statistics}}
+\caption{Density statistics}
+\label{n_statistics}
+\end{figure}
+
+
+A comparison of statistical properties of the experimental and simulation density fluctuations is shown in Fig.~\ref{n_statistics}. I show results from five different simulations
+that all use the full nonlinear LAPD equation set (Eqs.~\ref{ni_eq}-\ref{te_eq}) but differ in the axial boundary conditions as follows:
+1) Periodic -- uses periodic axial boundary conditions. 2) Sheath -- uses Bohm sheath boundary conditions in Eq.~\ref{sheath_bc}. 3) $n=0$ suppressed -- uses axial boundary conditions,
+however, the axial average ($k_\para$ or $n = 0$) density and temperature fluctuation components are artifically removed from the simulation. 4) Dirichlet -- uses zero-value axial
+boundary conditions. 5) Neumann -- uses zero-first-derivative axial boundary conditions. I will discuss the $n=0$ suppressed simulation more in Chapter~\ref{c_nlin_periodic}, but for
+now it is sufficient to say that this simulation does not contain the nonlinear instability and is thus a control case by which to compare the others. It still contains the same
+linear instabilities as the Periodic simulation, however.
+
+Fig.~\ref{n_statistics} a) shows the frequency power spectrum of the density fluctuations. I use a sliding Hamming window on the time series data and take the FFT, then take a volume
+average from 15 to 35 cm to get each simulation curve. I use the same technique for the experimental density fluctuation data, except I only have probe data at one location in the
+$\theta-z$ plane. The axial location is near the center of the machine. Fig.~\ref{n_statistics} b) shows the probability distribution function (PDF) of the density fluctuations,
+while Fig.~\ref{n_statistics} c) shows the RMS amplitude of the density fluctuations as a function of radius. Fig.~\ref{n_statistics} d) plots the radial $k_r$ power spectrum of the simulations.
+I don't have experimental radial spectra data, which requires multiple probes at different radii. Fig.~\ref{n_statistics} e) is the azimuthal $m_\theta$ power spectra. 
+Two probes separated azimuthally are used to obtain the experimental spectra. Finally Fig.~\ref{n_statistics} f) is the axial $k_\para$ spectra, and I don't have experimental axial spectra due
+to the difficulty of aligning two probes along a field line a significant distance from each other, which is required because of the long axial wavelengths of the modes.
+
+Fig.~\ref{n_statistics} contains a lot of information about the simulations and experiment. The first obvious result is that the $n=0$ suppressed simulation is statistically much different
+than all of the other simulations and the experiment. The density fluctuations of this simulation are a factor of 2-3 lower than that of the other simulations and the experiment.
+Furthermore, this simulation has peaks in the frequency, $m_\theta$, and $k_\para$ spectra that are unique and apparently inconsistent with the experiment. Its spatial spectra peak at
+$m_\theta \sim 30$ and $k_\para \rho_s \sim 0.002 \rightarrow n = 1$, which is somewhat consistent with the linear growth rate spectra of Fig.~\ref{lin_dw_gamma}, although the $m_\theta$
+peak location is somewhat less than the maximum linear growth rate value of $m_\theta$, which is around 60 when the axial boundaries are periodic. 
+This differs significantly from all of the other simulations which have peaks at $m_\theta \sim 10$ (if they peak at all)
+and $k_\para \rho_s = 0$. Again, as was clear from Fig.~\ref{rms_evolution} b), all of the other simulations are strongly dominated by $n=0$ axial mode numbers, which will be explained
+in the upcoming chapters as due to the nonlinear instability.
+
+Moreover, all of the simulations other than the $n=0$ suppressed one have qualitatively and semi-quantitatively similar statistical properties. I note that on a quantitative level,
+the Dirichlet and Neumann simulations have fluctuation levels about 1.5 times less than the Periodic and Sheath simulations. I don't fully understand the reason for this, but note
+that the axial wavenumber spectra in Fig.~\ref{n_statistics} f) are shallower for the Dirichlet and Neumann simulations. This certainly affects the energy injection and energy
+dissipation, as will be seen in the following chapters. Nevertheless, I don't claim that the Dirichlet and Neumann simulations are less consistent with the experiment than the
+Periodic and Sheath simulations because of the relatively inconsistent fluctuation amplitude of the former simulations. The reason is that I have a free parameter, namely the artificial
+diffusion coefficient, which affects the overall fluctuation level without significantly affecting the shapes of the spectra. I tuned this parameter to be 
+$1.25 \times 10^{-3}$ (see Chapter~\ref{c_lapd_sim})
+to match the fluctuation level of the Periodic simulation with experiment. Had I tuned this parameter with the Dirichlet or Neumann simulations in mind, it would seem that
+the Periodic and Sheath simulations had fluctuation levels too large. So, in fact, all four of these simulations are qualitatively consistent with the experiment, and they are also
+quantitatively consistent with the caveat that the quantitative match is caused by tuning a single free parameter. I don't provide any error analysis to quantify the agreement
+between simulation and experiment, but rather just use an eye test. The fact that several different statistical properties agree between simulation and experiment lends evidence
+to our claim that the simulation model is relatively well validated.
+
+\begin{figure}[!ht]
+\centerline{\includegraphics[]{phi_statistics}}
+\caption{Potential statistics}
+\label{phi_statistics}
+\end{figure}
+
 % Look at the spectra at different radial locations to determine if they're exponential
 
-% Look at k-spectra
+% Look at coherence plots

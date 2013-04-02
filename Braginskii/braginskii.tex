@@ -166,7 +166,7 @@ ${\bf v}_{\nu i} = (\nu_{in}/\omega_{c i}) {\bf b} \times {\bf v}_i$. The charge
 \eeq
 
 Note that the ${\bf E \times B}$ velocity doesn't contribute to the current due to the electrons producing an equal and opposite ${\bf E \times B}$ current.
-We now employ the approximation ${\bf v}_i \sim {\bf v}_E$ to Eq.~\ref{simp_charge_cons1}. This approximation wasn't appropriate
+I now employ the approximation ${\bf v}_i \sim {\bf v}_E$ to Eq.~\ref{simp_charge_cons1}. This approximation wasn't appropriate
 of course for Eq.~\ref{perp_ion_vel} due to the fact that ${\bf v}_E$ doesn't contribute to the current, but it is appropriate here. Then,
 
 \beqar
@@ -215,7 +215,7 @@ $\grad \cdot (n {\bf v}_{\perp e}) = {\bf v}_{E} \cdot \grad n$~\cite{Popovich20
 \eeq
 
 Next, the momentum equations (Eq.~\ref{brag_mom}), of which there are six (three for electron velocity components and three for ion velocity components) are reduced to two here. The first is the
-vorticity equation (Eq.~\ref{vort_eqn2}), in which we used the perpendicular momentum equations to derive it. The second is the equation for the parallel electron momentum. We neglect the parallel
+vorticity equation (Eq.~\ref{vort_eqn2}), in which I used the perpendicular momentum equations to derive it. The second is the equation for the parallel electron momentum. I neglect the parallel
 ion momentum equation since $\vpe \gg v_{\para i}$ for LAPD. The electron parallel momentum equation is then
 
 \beq
@@ -242,8 +242,8 @@ of plasma waves and turbulence neglect the time dependent magnetic field perturb
 In the reduced fluid equations of the previous subsection, the magnetic perturbation enters in two important ways. First, it enters the electric field term of Eq.~\ref{mom_eqn}
 because $E_\para = -\gradpar \phi - \pdiff{A_\para}{t}$, where $A_\para$ is the parallel component of the vector potential. Second, it affects the parallel gradient operator, 
 $\gradpar = {\bf b} \cdot \grad$ where ${\bf b}$ is in the direction of the total magnetic field~\cite{simakov2003}.
-In the electrostatic limit, $A_\para \rightarrow 0$, so $E_\para = -\gradpar \phi$ and $\gradpar = {\bf b}_0 \cdot \grad$. We take
-this limit in the remaining chapters, but there is the question of how justified we are to do so. 
+In the electrostatic limit, $A_\para \rightarrow 0$, so $E_\para = -\gradpar \phi$ and $\gradpar = {\bf b}_0 \cdot \grad$. I take
+this limit in the remaining chapters, but there is the question of how justified I am to do so. 
 
 As a first step in answering this question, examine Eq.~\ref{mom_eqn}. The four independent variables, $n, \phi, \vpe$, and $T_e$, which each have their own evolution equation, are all
 present in Eq.~\ref{mom_eqn}. Taking the parallel projection of Eq.~\ref{maxwell} gives
@@ -285,7 +285,7 @@ the inertial term is probably unimportant, the inductive term could be important
 Similarly, the contribution of $\tilde{{\bf b}} \sim A_\para$ in $\gradpar$ can be approximated in a similar manner with similar inconclusive results. 
 Without a clear separation between the resistive and inductive terms, the best way to determine the validity of
 the electrostatic approximation is by direct numerical calculation of the turbulence with and without the electromagnetic contributions. 
-Therefore, we simulated an electrostatic and two electromagnetic versions of LAPD turbulence. 
+Therefore, I simulated an electrostatic and two electromagnetic versions of LAPD turbulence. 
 The details of the electrostatic code are described in Chapter~\ref{c_lapd_sim} and in Appendix~\ref{app_bout}.
 
 The only difference between the electrostatic and the first electromagnetic simulation is the exclusion/inclusion of the electromagnetic term $e n \pdiff{A_\para}{t}$ 
@@ -294,14 +294,14 @@ in the parallel electron momentum equation (Eq.~\ref{mom_eqn}). Of course the Ma
  but also the $A_\para$ contribution to $\gradpar$ in the parallel electron momentum equation.
 
 Now, turbulence is best characterized and compared in a statistical and often spectral manner. 
-More details of turbulence characterization and comparison will be discussed later, but for now, we make a few statistical comparisons between the electrostatic and electromagnetic simulation results.
+More details of turbulence characterization and comparison will be discussed later, but for now, I make a few statistical comparisons between the electrostatic and electromagnetic simulation results.
 Figure~\ref{es_vs_em_stats} shows the results of the three simulations as well as the experiment
  -- namely, a comparison of the frequency spectra, the probability distribution function (pdf), and the rms level of the density fluctuations. 
 The ``Full Electromagnetic'' curves are from the simulation including the $A_\para$ contribution to $\gradpar$, while the ``Electromagnetic'' curves
 just include the $A_\para$ contribution to $E_\para$. 
 Clearly, the fluctuations are statistically similar in all cases and none of the simulations are inconsistent with the experiment. 
-However, the electromagnetic effects are noticable, and as we include more electromagnetic contributions in the simulations, the turbulent statistics more closely resemble those of the experiment.
-We make no quantitative comparison here, but rely only on a visual examination in making this conclusion.
+However, the electromagnetic effects are noticable, and as I include more electromagnetic contributions in the simulations, the turbulent statistics more closely resemble those of the experiment.
+I make no quantitative comparison here, but rely only on a visual examination in making this conclusion.
 
 \begin{figure}[ht!]
 \includegraphics[]{es_vs_em_stats}
@@ -310,14 +310,14 @@ We make no quantitative comparison here, but rely only on a visual examination i
 \label{es_vs_em_stats}
 \end{figure}
 
-Now, as mentioned above, we do not include any electromagnetic contributions in the simulations used in the following chapters. 
-It seems rather unjustified to do so since we are clearly able to run electromagnetic simulations and they seem to reproduce experimental turbulence with slightly better accuracy 
+Now, as mentioned above, I do not include any electromagnetic contributions in the simulations used in the following chapters. 
+It seems rather unjustified to do so since I am clearly able to run electromagnetic simulations and they seem to reproduce experimental turbulence with slightly better accuracy 
 than the electrostatic ones.
-One justification for our abandonment of electromagnetic simulations, however, is that electromagnetic simulations take a bit longer than electrostatic ones due to the extra relation in Eq.~\ref{maxwell} 
+One justification for my abandonment of electromagnetic simulations, however, is that electromagnetic simulations take a bit longer than electrostatic ones due to the extra relation in Eq.~\ref{maxwell} 
 that is used to solve for $A_\para$, which requires an inversion of the Laplacian. This takes extra computation. 
 Another justification is that the electromagnetic equations make the energy dynamics analysis in Chapter~\ref{c_en_formalism} a bit more complicated. Both of these factors are mitigated, 
-however, if the inertial term $n m_e \diff{\vpe}{t}$ is dropped. Nevertheless, at the beginning of this work, we strived to find the simplest possible model to describe the turbulence in LAPD,
-and we determined that the electrostatic approximation was acceptable. At that time, we didn't have the results of Fig.~\ref{es_vs_em_stats}. If we had the time, we would redo all of the simulations
+however, if the inertial term $n m_e \diff{\vpe}{t}$ is dropped. Nevertheless, at the beginning of this work, I strived to find the simplest possible model to describe the turbulence in LAPD,
+and I determined that the electrostatic approximation was acceptable. At that time, I didn't have the results of Fig.~\ref{es_vs_em_stats}. If I had the time, I would redo all of the simulations
 and analysis to include electromagnetic contributions, but drop the inertial term in Eq.~\ref{mom_eqn}. This is a clear route to take for future work. 
-Nevertheless, we are confident that electromagnetics would not change any of our conclusions in this work.
-So for the remainder of this work, we will present theoretical calculations, simulation results, and conclusions using the electrostatic approximation.
+Nevertheless, I am confident that electromagnetics would not change any of my conclusions in this work.
+So for the remainder of this work, I will present theoretical calculations, simulation results, and conclusions using the electrostatic approximation.
