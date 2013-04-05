@@ -1,8 +1,274 @@
 \chapter{Energy Dynamics Formalism}
 \label{c_en_formalism}
 
+In the last section of the previous chapter, I analyzed the experimental and simulated turbulence using simple and common statistical methods. Never did I assume any kind of model for the turbulence,
+nor did I take full advantage of the wealth of spatial information provided by the simulations. In the remaining chapters, I do use the simulated physics model along with the turbulent spatial
+structures to analyze the nature of the turbulence from an energy dynamics perspective. The energy dynamics provide direct information about energy injection into the turbulence from the equilibrium
+gradients, energy transfer among different fields and between different normal modes, and turbulent energy dissipation. This information allowed me to uncover the mysterious mechanism that
+drives the $n=0$ fluctuations so strongly in the simulations (see Figs.~\ref{n_statistics} f) and~\ref{phi_statistics} f)). The mechanism is a nonlinear instability. I will provide evidence
+for this in the next chapter, but in this chapter, I will derive the dynamical energy equations and explain what they mean.
+
 \section{Total Energy and Dynamics}
 \label{s_tot_en_dyn}
 
+First, I consider the total, volume-averaged energy and energy dynamics. The total volume-averaged energy of the fluctuations (in normalized units) is:
+
+\beq
+\label{tot_energy}
+E = \frac{1}{2} \int_V  \left[ P_0 \left((N/N_0)^2 + \frac{3}{2} (T_e/T_{e0})^2 \right) + N_0 \left( \frac{m_e}{m_i} \vpe^2 + (\gradperp \phi)^2 \right) \right] dV,
+\eeq
+where $P_0 = N_0 T_{e0}$ is the equilibrium pressure.
+The $\frac{1}{2} P_0 (N/N_0)^2$ term is the potential energy due to density fluctuations, $\frac{3}{4} P_0 (T_e/T_{e0})^2$ is the electron temperature fluctuation potential energy,
+$\frac{1}{2} N_0 \frac{m_e}{m_i} \vpe^2$ is the parallel electron kinetic energy, and $\frac{1}{2} N_0 (\gradperp \phi)^2$ is the ${\bf E \times B}$ perpendicular kinetic energy.
+The energy contained in the electric field is smaller than the perpendicular kinetic energy by a factor of $(v_A/c)^2$ and is therefore neglected.
+
+The dynamical energy evolution $\partial E/\partial t$ can be obtained using Eqs.~\ref{ni_eq}-~\ref{te_eq} in the following way. 
+First, take Eq.~\ref{ni_eq} and multiply both sides by $\frac{T_{e0}}{N_0} N$ and integrate over the volume.
+The result is:
+
+\beq
+\label{Nsq_en_ev}
+\pdiff{E_N}{t} = \left< - T_{e0} N {\mathbf v_E} \cdot \grad {\rm ln} N_0 - T_{e0} N \gradpar \vpe - \mu_N \frac{T_{e0}}{N_0} (\gradperp N)^2 + \frac{T_{e0}}{N_0} N S_N \right>,
+\eeq
+where $E_N = \frac{1}{2} \left< P_0 (N/N_0)^2 \right>$ with $\left< \right>$ shorthand for the volume integral $\int_V dV$. 
+Next, multiply Eq.~\ref{ve_eq} by $N_0 \frac{m_e}{m_i} \vpe$, Eq.~\ref{rho_eq} by $- \phi$, and Eq.~\ref{te_eq}
+by $\frac{3}{2} \frac{N_0}{T_{e0}} T_e$ and volume integrate, giving:
+
+\beqar
+\label{vesq_en_ev}
+\pdiff{E_v}{t} & = &  \left< - T_{e0} \vpe \gradpar N - 1.71 N_0 \vpe \gradpar T_e  + N_0 \vpe \gradpar \phi - \frac{m_e}{m_i} N_0 \nue \vpe^2 \right> , \\
+\label{gphisq_en_ev}
+\pdiff{E_\phi}{t} & = &  \left< N_0 \phi \gradpar \vpe  - \nuin N_0 (\gradperp \phi)^2 - \mu_\phi \phi \gradperp^2 \varpi \right>, \\
+\label{tesq_en_ev}
+\pdiff{E_T}{t} & = &  \left<- \frac{3}{2} N_0 T_e {\mathbf v_E} \cdot \grad {\rm ln} T_{e0} - 1.71 N_0 T_e \gradpar \vpe - \kpe/T_{e0} (\gradpar T_e)^2  \right> \nonumber \\
+& + & \left< - \frac{3 m_e}{m_i} \frac{N_0}{T_{e0}} \nue T_e^2  - \frac{3}{2} \mu_T \frac{N_0}{T_{e0}} (\gradperp T_e)^2 +  \frac{3}{2} \frac{N_0}{T_{e0}} T_e S_T  \right>,
+\eeqar
+where $E_v = \frac{1}{2} \left< N_0 \frac{m_e}{m_i} \vpe^2 \right>$, $E_\phi = \frac{1}{2} \left< N_0 (\gradperp \phi)^2 \right>$, and 
+$E_T = \frac{3}{4} \left< P_0 (T_e/T_{e0})^2 \right>$. 
+
+Note that there are a few simplifications made in these equations. One simplification is that the term
+$\left< \mu_N \frac{T_{e0}}{N_0} N \gradperp^2 N \right>$ is written approximately as $- \left< \mu_N \frac{T_{e0}}{N_0} (\gradperp N)^2 \right>$ in Eq.~\ref{Nsq_en_ev}. 
+The fact that $\frac{T_{e0}}{N_0} \approx 1$
+makes this approximation acceptable. In fact, I don't use this approximation when calculating such quantities from the simulations, but I write it here as it illuminates the fact that
+this energy term is negative. I use the same approximation with the $-\left< \frac{3}{2} \mu_T \frac{N_0}{T_{e0}} (\gradperp T)^2 \right>$ and $-\left< \kpe/T_{e0} (\gradpar T_e)^2 \right>$
+terms, although the latter contains the fraction $\kpe/T_{e0}$, which is not necessarily close to being constant.
+
+Moreover, notice that none of the advective nonlinear terms are present in these energy dynamics equations. 
+The reason is that $\left< f \{ g,f \} \right> = 0$, which holds as long as all of the boundaries are periodic, have $f=0$ boundaries, or have $\grad g \cdot d\vec{S} = 0$ boundaries.
+Now only Eq.~\ref{gphisq_en_ev} actually has this $\left< f \{ g,f \} \right> $ form for its nonlinearity
+because all of the other energy equations contain equilibrium profile quantities in the volume average (e.g. $\left< \frac{T_{e0}}{N_0} N \{ \phi,N \} \right>$ in Eq.~\ref{Nsq_en_ev}).
+Nevertheless, the equilibrium profile quantities come as $\frac{T_{e0}}{N_0} \approx 1$ for Eq.~\ref{Nsq_en_ev} and $\frac{N_0}{T_{e0}} \approx 1$ for Eq.~\ref{tesq_en_ev},
+while there is a factor of the electron to ion mass ratio multiplied by the nonlinearity in Eq.~\ref{vesq_en_ev}. This means that all of the nonlinearities approximately vanish
+in the energy equations. Furthermore, I have confirmed this by direct calculation of these terms. This is why I do not include the nonlinearities in Eqs.~\ref{Nsq_en_ev}-~\ref{tesq_en_ev}.
+
+I note that I could have used a different expression for the energy in order to absolutely conserve the nonlinearities. For instance, I could have set $E_N = \frac{1}{2} \left< N^2 \right>$,
+neglecting the factor $\frac{T_{e0}}{N_0}$. In fact, I did this in the Friedman et al. paper~\cite{friedman2012b}.
+However, this expression would not be the physical energy, although it would have the convenient property of conserving the nonlinearities. 
+Energy, after all, is a useful concept because it's a conserved quantity. Nevertheless, I have chosen to use the physical energy in this work as well as in another paper~\cite{friedman2013}
+because the physical energy conserves the adiabatic response. I will show this below. Furthermore, the physical energy very nearly conserves the nonlinearities, 
+so it's not a big problem to use the physical energy. The calculated error of neglecting the nonlinearities in the energy dynamics equations is only about $1 \%$.
+Now, one may wonder why the physical energy doesn't absolutely conserve the advective nonlinearities. The answer
+lies in the partial linearization of the simulation equations. The linearization neglects many nonlinear contributions that are needed for global energy conservation. Nevertheless, I find
+that the spectral energy dynamics analysis in Sec.~\ref{s_spec_en_dyn} is simpler when I neglect most of the nonlinearities.
+
+Now Eqs.~\ref{Nsq_en_ev}-~\ref{tesq_en_ev} are still not increadibly revealing because they contain nearly as many terms as the original simulated equations. However, I can break each
+of these equations down in the following way:
+
+\beq
+\label{en_breakdown}
+\pdiff{E_j}{t} = Q_j + C_j + D_j.
+\eeq
+
+The subscript $j$ represents the individual field: $(N, v, \phi, T)$. $Q_j$ represents energy injection from an equilibrium gradient. For example, $Q_N$ represents the energy injected
+into $E_N$ (the density fluctuation potential energy) taken from the free energy of the equilibrium density gradient ($\grad_r N_0$). These terms are:
+
+\beqar
+\label{Q_N}
+Q_N & = & \left< - T_{e0} N {\mathbf v_E} \cdot \grad {\rm ln} N_0 \right>, \\
+\label{Q_v}
+Q_v & = & 0, \\
+\label{Q_phi}
+Q_\phi & = & 0, \\
+\label{Q_T}
+Q_T & = & \left<- \frac{3}{2} N_0 T_e {\mathbf v_E} \cdot \grad {\rm ln} T_{e0} \right>.
+\eeqar
+
+Only the density and temperature fluctuations receive energy from the equilibrium density and temperature gradients, respectively. They do so by radial ${\bf E \times B}$ advection,
+moving fluid or heat across the gradient where it can enhance or diminish the density and temperature fluctuations. I call the $Q_j$ terms energy injection terms, but they can in fact
+dissipate fluctuation energy if the phase between the density (or temperature) and potential are stabilizing.
+
+Next, the $C_j$ terms represent transfer channels. They are:
+
+\beqar
+\label{C_N}
+C_N & = & \left< - T_{e0} N \gradpar \vpe \right>, \\
+\label{C_v}
+C_v & = & \left< - T_{e0} \vpe \gradpar N - 1.71 N_0 \vpe \gradpar T_e  + N_0 \vpe \gradpar \phi \right>, \\
+\label{C_phi}
+C_\phi & = & \left< N_0 \phi \gradpar \vpe  \right>, \\
+\label{C_T}
+C_T & = & \left< - 1.71 N_0 T_e \gradpar \vpe \right>.
+\eeqar
+
+Notice that $C_N + C_\phi + C_T = - C_v$ if the axial boundaries are periodic or zero value. 
+Alternatively, $\sum_j C_j = 0$. So no energy is gained or lost in total. Energy does, however, transfer between the different fields:
+$N, T_e, \phi \leftrightarrow \vpe$. All energy transfers through the parallel electron velocity. The density, temperature, and potential fluctuations all feed or draw energy from
+the parallel electron velocity. The equations allow no state variable energy transfer. For instance, the density and potential fluctuations cannot transfer energy between each other directly.
+Recall that this is the mechanism of the adiabatic response (see Sec.~\ref{s_lin_inst}). I commented on the conservation of energy of the adiabatic response above when discussing the use of 
+the physical energy, and this is what I meant. Note that the ``energy-like'' expression used in one of our papers~\cite{friedman2012b} that absolutely conserved the advective nonlinearities
+did not come close to conserving the adiabatic response energy. That's why in this work and in another paper~\cite{friedman2013}, I chose to use the physical energy.
+
+I inject two minor points concerning the boundary conditions. The first is that the Neumann and sheath simulations don't exactly conserve the adiabatic response because of non-vanishing
+contributions from the boundaries. Second, the sheath boundary conditions
+allow energy transfer between the temperature and potential fluctuations without the adiabatic response. 
+That transfer mechanism isn't represented in the $C_j$ expressions. I will calculate it in Chapter~\ref{c_nlin_nonper}.
+
+Finally, the $D_j$ terms represent dissipative energy loss from the fluctuations. They are:
+
+\beqar
+\label{D_N}
+D_N & = & \left< - \mu_N \frac{T_{e0}}{N_0} (\gradperp N)^2 + \frac{T_{e0}}{N_0} N S_N \right>, \\
+\label{D_v}
+D_v & = & \left<  - \frac{m_e}{m_i} N_0 \nue \vpe^2 \right>, \\
+\label{D_phi}
+D_\phi & = & \left<  - \nuin N_0 (\gradperp \phi)^2 - \mu_\phi \phi \gradperp^2 \varpi \right>, \\
+\label{D_T}
+D_T & = & \left<  - \kpe/T_{e0} (\gradpar T_e)^2 - \frac{3 m_e}{m_i} \frac{N_0}{T_{e0}} \nue T_e^2  \right> \nonumber \\
+& + & \left< - \frac{3}{2} \mu_T \frac{N_0}{T_{e0}} (\gradperp T_e)^2 +  \frac{3}{2} \frac{N_0}{T_{e0}} T_e S_T \right>.
+\eeqar
+
+Most of these terms are clearly negative. However, the source terms do not have a clear sign and the $\left< - \mu_\phi \phi \gradperp^2 \varpi \right>$ viscous term in Eq.~\ref{D_phi} doesn't
+have a clear sign either. Recall, though, that the sources essentially remove the flux-surface averaged component of the density and temperature fluctuations, indicating that they remove
+the energy associated with these fluctuation components. Taking $S_N \approx - \left< N \right>_{fs}$ from Eqs.~\ref{Sn_eq} and~\ref{Sn_eq2}, then the source contribution to $D_N$ is
+$- \left< \frac{T_{e0}}{N_0} \left< N \right>_{fs}^2 \right>$, which is negative. The viscous term in Eq.~\ref{D_phi} is less obviously negative, however, letting $\gradperp \rightarrow - k_\perp^2$
+makes the viscous term approximately $- \left< \mu_\phi N_0 k_\perp^4 \phi^2 \right>$. So it's reasonable to conclude that all contributions in the $D_j$ expressions are absolutely negative.
+My direct calculations have confirmed this.
+
 \section{Spectral Energy Dynamics}
 \label{s_spec_en_dyn}
+
+While the total energy dynamics can reveal some important information such as the amount of energy entering the density fluctuations vs. the temperature fluctuations, the direction of
+energy flow through the adiabatic response, and how much energy is dissipated by the various mechanisms, the total dynamics cannot show the mechanism of the nonlinear instability.
+In fact, the total energy dynamics are rather useless in revealing any nonlinear physics. Spectral or mode-decomposed energy dynamics, on the other hand, provide much more information
+regarding mode-specific processes like cascades and complex nonlinear processes.
+
+When deriving mode-decomposed energy dynamics, one first has to choose a set of basis functions. As long as the functions form an independent complete basis, they are acceptable.
+Fourier modes are a natural basis to use for any coordinate with periodic boundaries. Fourier modes are also orthogonal to one another, making them ideal. Linear eigenmodes provide
+another good choice for a basis; however, they can be non-orthogonal in some systems, making them somewhat unweildy. I began this study using a linear eigenmode decomposition,
+but I eventually gave up that path because the linear eigenmodes of this system are non-orthogonal. The results were complicated and didn't show anything more interesting than a simpler
+Fourier decomposition would show. Hatch et al. dealt with this non-orthogonality problem with two distinct methods~\cite{hatch2011}. The first was to use a Gram-Schmidt orthogonalization
+procedure starting with the most unstable linear eigenmode to make the modes orthogonal. The resulting modes other than the most unstable linear eigenmode, however, were no longer
+the linear eigenmodes. The second method was to use a proper orthogonal decomposition (POD, which is essentially a kind of singular value decomposition) to create orthogonal modes that best
+captured the dominant turbulent structures. Both of these methods are very interesting and quite useful for some systems, however, they are probably most useful for systems with
+strong linear instabilities where most of the energy of the turbulence is contained in the fastest growing linear eigenmode or a dominant POD mode. That is not the case for the LAPD turbulence.
+
+I found that the most useful basis to take is a partial Fourier basis. Namely, I simply use a Fourier decomposition in the azimuthal and axial directions.
+For example, I decompose the density in the following way:
+
+\beq
+\label{density_decomp}
+N(r,\theta,z,t) = \sum_{\vec{k}} n_{\vec{k}}(r,t) e^{i(m \theta + k_z z)}.
+\eeq
+
+Here, $k_z = \frac{2 \pi n}{L_\para \rho_s}$, where $n$ is the axial mode number and $m$ is the azimuthal mode number, and the $\vec{k}$ symbol is short for $(m,n)$.
+The sum over $\vec{k}$ is in fact a double sum over $m$ and $n$. Furthermore, positive and negative
+$m$ and $n$ are included in the sums to ensure reality of $N$ since $n_{-\vec{k}} = n_{\vec{k}}^*$.
+Similar decompositions are used for $\vpe, \phi,$ and $T_e$. Note that the radial part of the basis function $n_{\vec{k}}(r,t)$ is time-dependent and shouldn't really be called a basis
+function at all because of this. I cannot say anything about nonlinear processes involving different radial modes since I haven't decomposed the radial structures into a time-independent
+basis. Essentially, I have limited the amount of information I can gain from this decomposition. I have intentionally done this to focus on a few particular results, which would be
+more difficult to see if I used an additional radial decomposition.
+
+To derive the spectral energy equations, I first substitute the Fourier decompositions into Eqs.~\ref{ni_eq}-~\ref{te_eq}. Using the density evolution equation as an example, I get:
+
+\beqar
+\label{density_eq_fourier}
+& & \sum_{\vec{k}} \pdiff{n_{\vec{k}}}{t} e^{i(m \theta + k_z z)} = \nonumber \\
+& & \sum_{\vec{k}} \left[ -\frac{i m}{r} \pdr N_0 \phi_{\vec{k}} - i k_z N_0 v_{\vec{k}} + \mu_N(\pdrr n_{\vec{k}} + \frac{1}{r} \pdr n_{\vec{k}} - \frac{m^2}{r^2} n_{\vec{k}}) \right] e^{i(m \theta + k_z z)} \nonumber \\
+& & + \frac{1}{r} \sum_{\vec{k},\vec{k}'} (i m n_{\vec{k}} \pdr \phi_{\vec{k}'} - i m' \pdr n_{\vec{k}} \phi_{\vec{k}'}) e^{i (m + m') \theta + i (k_z + k'_z) z} + S_N.
+\eeqar
+
+Note the double sum for the nonlinearity. Continuing on with just the density equation for now, I proceed to get the energy equation by multiplying through by 
+$ \frac{T_{e0}}{N_0} n_{\vec{k}''}^* e^{- i m'' \theta - i k''_z z}$ and integrating over space. The result is (with primes permutted):
+
+\beqar
+\label{density_evolution}
+& &  \frac{1}{2} \left< \frac{T_{e0}}{N_0} \pdiff{|n_{\vec{k}}|^2}{t} \right> = \nonumber \\
+& & \left< -\frac{T_{e0}}{N_0} \frac{i m}{r} \pdr N_0 \phi_{\vec{k}} n_{\vec{k}}^* - i k_z T_{e0} v_{\vec{k}} n_{\vec{k}}^* + \frac{T_{e0}}{N_0} \mu_N( \pdrr n_{\vec{k}} + \frac{1}{r} \pdr n_{\vec{k}} - \frac{m^2}{r^2} n_{\vec{k}}) n_{\vec{k}}^*  \right> \nonumber \\
+& & + \left< \frac{T_{e0}}{r N_0} \sum_{\vec{k}'} \left( i m' n_{\vec{k}'} \pdr \phi_{\vec{k}-\vec{k}'} n_{\vec{k}}^*  - i (m - m') \pdr n_{\vec{k}'} \phi_{\vec{k}-\vec{k}'} n_{\vec{k}}^*  \right) \right> \nonumber \\
+& & + \left< \frac{T_{e0}}{N_0} S_N n_{\vec{k}=0}^* \right>,
+\eeqar
+where the brackets now represent the reality operator and the radial integral $Re \left\{ \int r dr \right\}$ because I have performed the azimuthal and axial integrations and taken
+the real part of the equation. Breaking this up into specific parts:
+
+\beq
+\label{Fourier_density_evolution}
+\pdiff{E_N(\vec{k})}{t}  =  Q_N(\vec{k}) + C_N(\vec{k}) + D_N(\vec{k}) + \sum_{\vec{k}'} T_N(\vec{k},\vec{k}')
+\eeq
+with
+
+\beqar
+\label{ENk}
+E_N(\vec{k}) & = & \frac{1}{2} \left< \frac{T_{e0}}{N_0} |n_{\vec{k}}|^2 \right> \\
+\label{QNk}
+Q_N(\vec{k}) & = & \left< -\frac{i m}{r} \frac{T_{e0}}{N_0} \pdr N_0 \phi_{\vec{k}} n_{\vec{k}}^* \right> \\
+\label{CNk}
+C_N(\vec{k}) & = & \left< - i k_z T_{e0} v_{\vec{k}} n_{\vec{k}}^* \right> \\
+\label{DNk}
+D_N(\vec{k}) & = & \left<  \frac{T_{e0}}{N_0} \mu_N( \pdrr n_{\vec{k}} + \frac{1}{r} \pdr n_{\vec{k}} - \frac{m^2}{r^2} n_{\vec{k}}) n_{\vec{k}}^*  + \frac{T_{e0}}{N_0} S_N n_{\vec{k}=0}^*  \right> \\
+\label{TNk}
+T_N(\vec{k},\vec{k}') & = & \left< \frac{T_{e0}}{r N_0} \left( i m' n_{\vec{k}'} \pdr \phi_{\vec{k}-\vec{k}'} n_{\vec{k}}^*  - i (m - m') \pdr n_{\vec{k}'} \phi_{\vec{k}-\vec{k}'} n_{\vec{k}}^* \right) \right>
+\eeqar
+
+The new piece not in the total energy dynamics in Sec.~\ref{s_tot_en_dyn}, $T_N(\vec{k},\vec{k}')$, comes from the advective nonlinearity. 
+It couples different Fourier modes, meaning that it transfers energy between different $\vec{k}$ waves.
+It is not conserved for individual $\vec{k}$ modes, but is conserved on the aggregate, meaning $\sum_{\vec{k}, \vec{k}'} T_N(\vec{k},\vec{k}') \simeq 0$.
+Notice also that $Q_N(\vec{k})$ can be finite for $n=0$, but $C_N(\vec{k})$ is zero for $n=0$. In other words, flute modes may take energy from the equilibrium density gradient,
+but they cannot access the adiabatic response. This precludes linear drift wave flute modes. But it does not preclude nonlinear drift wave flute modes because they can transfer their
+energy to non-flute structures in order to access the adiabatic response.
+
+For completeness, I write the rest of the spectral energy dynamics pieces here. The perpendicular kinetic energy dynamics pieces are:
+
+
+\beqar
+\label{Ephik}
+E_\phi(\vec{k}) & = & \frac{1}{2} \left<  N_0 \left| \pdiff{\phi_{\vec{k}}}{r} \right|^2 + N_0 \frac{m^2}{r^2} |\phi_{\vec{k}}|^2  \right>\\
+\label{Qphik}
+Q_\phi(\vec{k}) & = & 0 \\
+\label{Cphik}
+C_\phi(\vec{k}) & = &  \left< i k_z N_0 v_{\vec{k}} \phi_{\vec{k}}^* \right>  \\
+\label{Dphik}
+D_\phi(\vec{k}) & = &  \left<  - \mu_\phi( \pdrr \varpi_{\vec{k}} + \frac{1}{r} \pdr \varpi_{\vec{k}} - \frac{m^2}{r^2} \varpi_{\vec{k}}) \phi_{\vec{k}}^* -  \nuin E_\phi(\vec{k})\right> \\
+\label{Tphik}
+T_\phi(\vec{k},\vec{k}') & = &  \left< - \frac{1}{r} \left( i m' \varpi_{\vec{k}'} \pdr \phi_{\vec{k}-\vec{k}'} \phi_{\vec{k}}^*  - i (m - m') \pdr \varpi_{\vec{k}'} \phi_{\vec{k}-\vec{k}'} \phi_{\vec{k}}^*     \right) \right> 
+\eeqar
+and for the electron temperature potential energy:
+
+\beqar
+\label{ETk}
+E_T(\vec{k}) & = & \frac{3}{4} \left< \frac{N_0}{T_{e0}} |t_{\vec{k}}|^2  \right> \\
+\label{QTk}
+Q_T(\vec{k}) & = &  \left< - \frac{3}{2} \frac{N_0}{T_{e0}} \frac{i m}{r} \pdr T_{e0} \phi_{\vec{k}} t_{\vec{k}}^* \right>  \\
+\label{CTk}
+C_T(\vec{k}) & = &  \left<  - 1.71 i k_z N_0 v_{\vec{k}} t_{\vec{k}}^* \right>  \\
+\label{DTk}
+D_T(\vec{k}) & = &  \left< -\frac{\kpe}{T_{e0}} k_z^2 |t_{\vec{k}}|^2  - \frac{3 m_e}{m_i} \frac{N_0}{T_{e0}} \nue |t_{\vec{k}}|^2 \right> \nonumber \\
+& + & \left< \frac{3}{2} \frac{N_0}{T_{e0}} \mu_T( \pdrr t_{\vec{k}} + \frac{1}{r} \pdr t_{\vec{k}} - \frac{m^2}{r^2} t_{\vec{k}}) t_{\vec{k}}^*  + \frac{3}{2} \frac{N_0}{T_{e0}} S_T t_{\vec{k}=0}^*  \right>  \\
+\label{TTk}
+T_T(\vec{k},\vec{k}') & = &  \left< \frac{3}{2 r} \frac{N_0}{T_{e0}} \left( i m' t_{\vec{k}'} \pdr \phi_{\vec{k}-\vec{k}'} t_{\vec{k}}^*  - i (m - m') \pdr t_{\vec{k}'} \phi_{\vec{k}-\vec{k}'} t_{\vec{k}}^*   \right) \right>
+\eeqar
+and for the parallel kinetic energy:
+
+\beqar
+\label{Evk}
+E_v(\vec{k}) & = & \frac{1}{2} \fmei \left< N_0 |v_{\vec{k}}|^2 \right> \\
+\label{Qvk}
+Q_v(\vec{k}) & = & 0 \\
+\label{Cvk}
+C_v(\vec{k}) & = & \left< - i k_z N_0 n_{\vec{k}} v_{\vec{k}}^* + i k_z N_0 \phi_{\vec{k}} v_{\vec{k}}^* - 1.71 i k_z T_{e0} t_{\vec{k}} v_{\vec{k}}^*  \right> \\
+\label{Dvk}
+D_v(\vec{k}) & = & \left< - \nue \fmei N_0 |v_{\vec{k}}|^2   \right> \\
+\label{Tvk}
+T_v(\vec{k},\vec{k}') & = & \left< \fmei \frac{N_0}{r} \left( i m' v_{\vec{k}'} \pdr \phi_{\vec{k}-\vec{k}'} v_{\vec{k}}^*  - i (m - m') \pdr v_{\vec{k}'} \phi_{\vec{k}-\vec{k}'} v_{\vec{k}}^*   \right) \right>.
+\eeqar
+
+
