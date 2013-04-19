@@ -192,13 +192,18 @@ experimental Langmuir probe data when possible.
 \section{LAPD Turbulence: A Statistical Examination}
 \label{s_stat_exam}
 
-Turbulent or chaotic systems do not produce realistically predictable end states. It's therefore useful to look at time series and spatial states of such systems in a statistical way.
-Simulations and experiment can produce such data and be compared, which is the best way to validate simulations. Furthermore, turbulent plasma systems are often characterized by
-statistical properties such as shapes and magnitudes of spectra, pdfs, and spatial and temporal correlations.
+Stochastic turbulent systems or even chaotic systems with relatively few degrees of freedom that are subject to external fluctuations do not have predictable phase space states
+for long time periods. These systems do, however, have reproducible average properties.
+It's therefore useful to look at time series and spatial states of such systems in a statistical way. Turbulence in plasmas, in fact, is often characterized by statistical properties
+such as spectra, pdfs, and spatial and temporal correlations.
+Furthermore, statistical data can be extracted from both simulations and experiment in similar ways, which can then be used to validate simulations. 
+
+\subsection{Experimental Probe Data}
+\label{ss_probe_data}
 
 There are many different kinds of experimental measurements, but I focus here only on Langmuir probe measurements. The Langmuir probes in LAPD generally provide time series data although
 I do have some two-probe data that provides certain spatial information. Langmuir probes do not directly measure any of the independent state or flux variables of the simulation 
-($N, \phi, \vpe, T_e$), but these quantities can be derived from the measurements. The probes are biased to a known potential (with respect to a reference like the cathode potential),
+($N, \phi, \vpe, T_e$), but they can measure quantities that are functions of these variables. The probes are biased to a known potential (with respect to a reference like the cathode potential),
 and the current they draw from the plasma is measured. As long as the probes are biased sufficiently below the plasma potential so as to repel most electrons, 
 they develop sheaths around them in the same way as the conducting plates considered in Sec.~\ref{ss_bs_bc}. The ion current to the probe is~\cite{hutchinson2002}
 
@@ -217,8 +222,8 @@ I = e A_s n c_s \left[\frac{1}{2} - \left(\frac{m_i}{2 \pi m_e} \right)^{1/2}  e
 \eeq
 
 where $V_p$ (which is negative) is the potential of the probe with respect to the plasma potential. When $I=0$, the probe potential is at the floating potential: 
-$\frac{e V_f}{T_e} = \frac{1}{2} {\rm ln} \left(\frac{\pi m_e}{2 m_i}\right)$. This relation isn't used to obtain the temperature because the plasma potential isn't known,
-meaning $V_f$ isn't either. The temperature, however, can be obtained by sweeping the probe potential to get $\pdiff{I}{V_p}$, which is an exponential function of $V_p$.
+$\frac{e (V_f - \phi)}{T_e} = \frac{1}{2} {\rm ln} \left(\frac{\pi m_e}{2 m_i}\right)$. The temperature can be obtained by sweeping the probe potential to get $\pdiff{I}{V_p}$, 
+which is an exponential function of $V_p$.
 So the ln of this function produces a straight line. Then, the temperature is:
 
 \beq
@@ -226,11 +231,34 @@ So the ln of this function produces a straight line. Then, the temperature is:
 T_e = e (I - I_i)/\pdiff{I}{V_p}.
 \eeq
 
-Once the temperature is found, which gives the value for the sound speed, the ion saturation current can be used to obtain the density. Furthermore, knowledge of the temperature and
-the floating potential gives the plasma potential: $\phi  = V_f - \frac{T_e}{2 e} {\rm ln} \left(\frac{\pi m_e}{2 m_i}\right)$. 
-The plasma potential may alternatively be identified as the value of the potential on the probe at which the electron current saturates
-because no sheath develops when the probe potential equals the plasma potential. Thus, swept Langmuir probe data processed under these theoretical calculations can give values for
-$N, \phi$, and $T_e$ that can be compared to the corresponding simulation variables.
+Now the sweeping process is too slow to obtain temperature fluctuations. It's best used to obtain the equilibrium temperature profile. Since a single Langmuir probe doesn't give
+temperature fluctuations, it's impossible to find the exact density and potential fluctuations, $N$ and $\phi$. The probes only produce $I_{sat}$ and $V_f$ fluctuation data.
+Nevertheless, the simulations produce $N, \phi$, and $T_e$
+fluctuations, which I can use to calculate the $I_{sat}$ and $V_f$ simulation values using the relations: $I_{sat} = \frac{1}{2} e A_s n c_s$ and
+$V_f = \phi + \frac{T_e}{2 e} {\rm ln} \left(\frac{\pi m_e}{2 m_i}\right)$. So rather than manipulating probe data to find the experimental $N$ and $\phi$ fluctuations, I can
+use the simulation data to calculate experimentally-accessable quantities. The derived simulation quantities are called synthetic diagnostics. 
+Synthetic diagnostics are model-dependent and they bind together some of the fundamental
+underlying data. For instance, two measurements ($I_{sat}$ and $V_f$) comprise three fundamental state variables ($N, \phi,$ and $T_e$), so the synthetic diagnostics bind the temperature fluctuations
+to the density and potential fluctuations. Nevertheless, synthetic diagnostics provide a way to make
+apples-to-apples comparisons between simulation and experimental data, so they are useful.
+
+
+\begin{figure}[!ht]
+\centerline{\includegraphics[]{isat_vf_statistics}}
+\caption{$I_{sat}$ and $V_f$ statistical data}
+\label{isat_vf_statistics}
+\end{figure}
+
+I show in Fig.~\ref{isat_vf_statistics}, a statistical comparison between $I_{sat}$ and $V_f$ fluctuations from simulation and experiment. The simulation uses the full nonlinear equation
+set along with Bohm sheath axial boundary conditions. I also show simulation statistics for $N$ and $\phi$ fluctuations so that they may be compared to the simulation statistics of the synthetic
+$I_{sat}$ and $V_f$ respectively. Figs.~\ref{isat_vf_statistics} a) and b) compare the frequency spectra and radial RMS amplitudes of experimental and simulation $I_{sat}$ 
+fluctuations along with $N$ fluctuations from the simulation. Figs.~\ref{isat_vf_statistics} c) and d) compare the same statistical properties, but this time of $V_f$ 
+fluctuations along with $\phi$ fluctuations from the simulation. The $I_{sat}$ fluctuations from the simulation have nearly identical statistical properties as the $N$ fluctuations
+because $I_{sat}$ is proportional to density but only weakly dependent on temperature (square root dependence). $V_f$ fluctuations are also somewhat similar to $\phi$ fluctuations,
+but to a lesser degree due to the large dependence of $T_e$ on $V_f$. Furthermore, the simulation and experiment have very similar statistical properties, which I expand upon below.
+
+\subsection{Statistical Density Comparisons}
+\label{ss_stat_dens_comps}
 
 \begin{figure}[!ht]
 \centerline{\includegraphics[]{n_statistics}}
@@ -238,8 +266,9 @@ $N, \phi$, and $T_e$ that can be compared to the corresponding simulation variab
 \label{n_statistics}
 \end{figure}
 
-
-A comparison of statistical properties of the experimental and simulation density fluctuations is shown in Fig.~\ref{n_statistics}. I show results from five different simulations
+A comparison of statistical properties of the experimental and simulation density fluctuations is shown in Fig.~\ref{n_statistics}. I actually compare the $N$ fluctuations for the simulations
+to the $I_{sat}$ fluctuations of the experiment, but as seen in Fig.~\ref{isat_vf_statistics}, $I_{sat}$ and $N$ statistics are nearly identical.
+Now I show results from five different simulations
 that all use the full nonlinear LAPD equation set (Eqs.~\ref{ni_eq}-\ref{te_eq}) but differ in the axial boundary conditions as follows:
 1) Periodic -- uses periodic axial boundary conditions. 2) Sheath -- uses Bohm sheath boundary conditions in Eq.~\ref{sheath_bc}. 3) $n=0$ suppressed -- uses axial boundary conditions,
 however, the axial average ($k_\para$ or $n = 0$) density and temperature fluctuation components are artifically removed from the simulation. 4) Dirichlet -- uses zero-value axial
@@ -274,14 +303,8 @@ $1.25 \times 10^{-3}$ (see Chapter~\ref{c_lapd_sim})
 to match the fluctuation level of the Periodic simulation with experiment. Had I tuned this parameter with the Dirichlet or Neumann simulations in mind, it would seem that
 the Periodic and Sheath simulations had fluctuation levels too large. So, in fact, all four of these simulations are qualitatively consistent with the experiment, and they are also
 quantitatively consistent with the caveat that the quantitative match is caused by tuning a single free parameter. I don't provide any error analysis to quantify the agreement
-between simulation and experiment, but rather just use an eye test. The fact that several different statistical properties agree between simulation and experiment lends evidence
-to our claim that the simulation model is relatively well validated.
-
-\begin{figure}[!ht]
-\centerline{\includegraphics[]{phi_statistics}}
-\caption{Potential statistics}
-\label{phi_statistics}
-\end{figure}
+between simulation and experiment, but rather just use an eye test. The fact that several different statistical properties of several fields (see Fig.~\ref{isat_vf_statistics})
+agree between simulation and experiment lends evidence to our claim that the simulation model is relatively well validated.
 
 % Look at the spectra at different radial locations to determine if they're exponential
 
