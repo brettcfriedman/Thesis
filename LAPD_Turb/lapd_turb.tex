@@ -224,7 +224,7 @@ I = e A_s n c_s \left[\frac{1}{2} - \left(\frac{m_i}{2 \pi m_e} \right)^{1/2}  e
 where $V_p$ (which is negative) is the potential of the probe with respect to the plasma potential. When $I=0$, the probe potential is at the floating potential: 
 $\frac{e (V_f - \phi)}{T_e} = \frac{1}{2} {\rm ln} \left(\frac{\pi m_e}{2 m_i}\right)$. The temperature can be obtained by sweeping the probe potential to get $\pdiff{I}{V_p}$, 
 which is an exponential function of $V_p$.
-So the ln of this function produces a straight line. Then, the temperature is:
+So the logarithm of this function produces a straight line. Then, the temperature is:
 
 \beq
 \label{probe_temp}
@@ -240,7 +240,7 @@ use the simulation data to calculate experimentally-accessable quantities. The d
 Synthetic diagnostics are model-dependent and they bind together some of the fundamental
 underlying data. For instance, two measurements ($I_{sat}$ and $V_f$) comprise three fundamental state variables ($N, \phi,$ and $T_e$), so the synthetic diagnostics bind the temperature fluctuations
 to the density and potential fluctuations. Nevertheless, synthetic diagnostics provide a way to make
-apples-to-apples comparisons between simulation and experimental data, so they are useful.
+apples-to-apples comparisons between simulation and experimental data.
 
 
 \begin{figure}[!ht]
@@ -268,10 +268,10 @@ but to a lesser degree due to the large dependence of $T_e$ on $V_f$. Furthermor
 
 A comparison of statistical properties of the experimental and simulation density fluctuations is shown in Fig.~\ref{n_statistics}. I actually compare the $N$ fluctuations for the simulations
 to the $I_{sat}$ fluctuations of the experiment, but as seen in Fig.~\ref{isat_vf_statistics}, $I_{sat}$ and $N$ statistics are nearly identical.
-Now I show results from five different simulations
+Fig.~\ref{n_statistics} contains results from five different simulations
 that all use the full nonlinear LAPD equation set (Eqs.~\ref{ni_eq}-\ref{te_eq}) but differ in the axial boundary conditions as follows:
-1) Periodic -- uses periodic axial boundary conditions. 2) Sheath -- uses Bohm sheath boundary conditions in Eq.~\ref{sheath_bc}. 3) $n=0$ suppressed -- uses axial boundary conditions,
-however, the axial average ($k_\para$ or $n = 0$) density and temperature fluctuation components are artifically removed from the simulation. 4) Dirichlet -- uses zero-value axial
+1) Periodic -- uses periodic axial boundary conditions. 2) Sheath -- uses Bohm sheath boundary conditions (Eq.~\ref{sheath_bc}). 3) $n=0$ suppressed -- uses axial boundary conditions,
+however, the axial average ($k_\para$ or $n = 0$) density, temperature, and potential fluctuation components are artifically removed from the simulation. 4) Dirichlet -- uses zero-value axial
 boundary conditions. 5) Neumann -- uses zero-first-derivative axial boundary conditions. I will discuss the $n=0$ suppressed simulation more in Chapter~\ref{c_nlin_periodic}, but for
 now it is sufficient to say that this simulation does not contain the nonlinear instability and is thus a control case by which to compare the others. It still contains the same
 linear instabilities as the Periodic simulation, however.
@@ -286,26 +286,39 @@ to the difficulty of aligning two probes along a field line a significant distan
 
 Fig.~\ref{n_statistics} contains a lot of information about the simulations and experiment. The first obvious result is that the $n=0$ suppressed simulation is statistically much different
 than all of the other simulations and the experiment. The density fluctuations of this simulation are a factor of 2-3 lower than that of the other simulations and the experiment.
-Furthermore, this simulation has peaks in the frequency, $m_\theta$, and $k_\para$ spectra that are unique and apparently inconsistent with the experiment. Its spatial spectra peak at
+Furthermore, this simulation has peaks in the frequency, $m_\theta$, and $k_\para$ spectra that are unique. The frequency and $m_\theta$ peaks are inconsistent with the experiment. 
+Its spatial spectra peak at
 $m_\theta \sim 30$ and $k_\para \rho_s \sim 0.002 \rightarrow n = 1$, which is somewhat consistent with the linear growth rate spectra of Fig.~\ref{lin_dw_gamma}, although the $m_\theta$
 peak location is somewhat less than the maximum linear growth rate value of $m_\theta$, which is around 60 when the axial boundaries are periodic. 
-This differs significantly from all of the other simulations which have peaks at $m_\theta \sim 10$ (if they peak at all)
-and $k_\para \rho_s = 0$. Again, as was clear from Fig.~\ref{rms_evolution} b), all of the other simulations are strongly dominated by $n=0$ axial mode numbers, which will be explained
+This differs significantly from all of the other simulations and the experiment which have peaks at $m_\theta \sim 10$ (if they peak at all).
+And again, as was clear from Fig.~\ref{rms_evolution} b), all of the other simulations are strongly dominated by $n=0$ axial mode numbers, which will be explained
 in the upcoming chapters as due to the nonlinear instability.
 
-Moreover, all of the simulations other than the $n=0$ suppressed one have qualitatively and semi-quantitatively similar statistical properties. I note that on a quantitative level,
+Moreover, all of the simulations other than the $n=0$ suppressed simulation have qualitatively and semi-quantitatively similar statistical properties. I note that on a quantitative level,
 the Dirichlet and Neumann simulations have fluctuation levels about 1.5 times less than the Periodic and Sheath simulations. I don't fully understand the reason for this, but note
 that the axial wavenumber spectra in Fig.~\ref{n_statistics} f) are shallower for the Dirichlet and Neumann simulations. This certainly affects the energy injection and energy
-dissipation, as will be seen in the following chapters. Nevertheless, I don't claim that the Dirichlet and Neumann simulations are less consistent with the experiment than the
-Periodic and Sheath simulations because of the relatively inconsistent fluctuation amplitude of the former simulations. The reason is that I have a free parameter, namely the artificial
+dissipation, as will be seen in the following chapters. Nevertheless, even though their fluctuation levels are too low,
+I don't claim that the Dirichlet and Neumann simulations are less consistent with the experiment than the
+Periodic and Sheath simulations. The reason is that I have a free parameter, namely the artificial
 diffusion coefficient, which affects the overall fluctuation level without significantly affecting the shapes of the spectra. I tuned this parameter to be 
 $1.25 \times 10^{-3}$ (see Chapter~\ref{c_lapd_sim})
 to match the fluctuation level of the Periodic simulation with experiment. Had I tuned this parameter with the Dirichlet or Neumann simulations in mind, it would seem that
 the Periodic and Sheath simulations had fluctuation levels too large. So, in fact, all four of these simulations are qualitatively consistent with the experiment, and they are also
 quantitatively consistent with the caveat that the quantitative match is caused by tuning a single free parameter. I don't provide any error analysis to quantify the agreement
 between simulation and experiment, but rather just use an eye test. The fact that several different statistical properties of several fields (see Fig.~\ref{isat_vf_statistics})
-agree between simulation and experiment lends evidence to our claim that the simulation model is relatively well validated.
+agree between simulation and experiment lends evidence to my claim that the simulation model is relatively well validated.
 
-% Look at the spectra at different radial locations to determine if they're exponential
 
-% Look at coherence plots
+\begin{figure}[!ht]
+\centerline{\includegraphics[]{n_correlations}}
+\caption{Spatial density correlations}
+\label{n_correlation}
+\end{figure}
+
+One final statistical measurement that may be compared between simulation and experiment is the spatial correlation. Experimentally, this can be done by fixing one probe at a certain
+location and moving another probe around and measuring the correlation between the two $I_{sat}$ signals. The second probe can scan the $r-\theta$ plane at an axial location close
+to the first probe. The results of the simulated spatial correlation compared to the experimental correlation are shown in Fig.~\ref{n_correlation}. For the simulation, I show only
+the result from the Periodic simulation. The darkest red point, which
+has a correlation value of 1 marks the location of the stationary probe. The black line is the $1/e$ contour, where the distance from the stationary probe to this contour is
+the correlation length. The simulation correlation length of about 1 cm is about half of that of the experimental correlation length. Furthermore, neither have completely isotropic
+structure, and their slight divergences from isotropy are not that similar. However, there is no complex mode structure or long extended correlations in either one.

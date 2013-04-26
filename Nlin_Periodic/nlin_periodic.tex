@@ -58,23 +58,26 @@ Our assumption regarding the direction of energy transfer was wrong. The paradig
 
 The full energy dynamics analysis using the machinery of Chapter~\ref{c_en_formalism} removes any ambiguity regarding the locations and magnitudes of energy injection into the fluctuations
 and direction of energy transfer between different Fourier modes. In fact, the full dynamics contains so much information that it can be difficult to digest it all. I therefore try to
-focus on the most important parts, especially those that are crucial to the nonlinear instability. First, in Fig.~\ref{mn_dynamics} I show values for some of the $Q_j, C_j,$ and $D_j$
+focus on the most important parts, especially those that are crucial to the nonlinear instability. First, in Fig.~\ref{mn_dynamics}, I show values for some of the $Q_j, C_j,$ and $D_j$
 terms in the energy dynamics equations for $n=0, \pm 1$ and $0 \le m \le 100$,
-neglecting all dynamics with $|n| \ge 2$, which have relatively small values and are mostly insignificant. The label $n = \pm 1$ represents the addition of terms with $n=1$ and $n=-1$.
-Fig.~\ref{mn_dynamics} a) looks at the density potential energy injection ($Q_N$) and the adiabatic response transfer ($C_N$). I don't show the dissipation ($D_N$) in this figure, which
+neglecting all dynamics with $|n| \ge 2$, which have relatively small values and are mostly insignificant. The dynamics curves are all averaged over a time period during the
+turbulent stage of the simulation where the dynamics processes have all reached a quasi-steady state.
+The label $n = \pm 1$ represents the addition of terms with $n=1$ and $n=-1$.
+Fig.~\ref{mn_dynamics} a) reveals the density potential energy injection ($Q_N$) and the adiabatic response transfer ($C_N$). I don't show the dissipation ($D_N$) in this figure, which
 is why the curves don't seem to add up to zero as they would if all dynamics were shown.
 Nevertheless, this figure immediately reveals that the majority of the energy is injected
 straight into the $n=0$ fluctuations from the equilibrium density gradient rather than into the $n= \pm 1$ fluctuations! Looking at Eq.~\ref{QNk} again, and I reiterate, $Q_N(\vec{k})$ does not
 depend on $n$, so it is perfectly acceptable to inject energy straight into $n=0$ fluctuations. However, $C_N(\vec{k})$ is proportional to $n$ (Eq.~\ref{CNk}), so energy can only travel
 through the adiabatic response path in finite $n$ structures. This is why the unstable linear eigenmodes have finite $n$ because eigenmodes with $n=0$ cannot access the adiabatic response and thus
 have no field coupling. Likewise, Fig.~\ref{mn_dynamics} b) reveals the same kind of story for the temperature potential energy, although the magnitudes are quite low compared to the density ones,
-indicating that the temperature fluctuations are relatively insignificant.
+indicating that the temperature fluctuations are relatively insignificant as a player in the total energy dynamics.
 
 Fig.~\ref{mn_dynamics} c) shows the perpendicular kinetic energy dynamics. Recall $Q_\phi = 0$, so there is no direct energy injection; rather, energy enters $\phi$ fluctuations via the adiabatic
-response ($C_\phi$). Even though no energy enters $\phi$ at $n=0$, flute-like dissipation $D_\phi(n=0)$ is significant, forshadowing the need for three-wave energy transfer into $n=0$ electrostatic 
-potential fluctuations. Additionally, although I don't show $|n| \ge 2$ dynamics, they are somewhat important for $C_\phi$ and $D_\phi$, accounting for the obviously unbalanced dynamics in this figure.
+response ($C_\phi$). Even though no energy enters $\phi$ at $n=0$, flute-like dissipation $D_\phi(n=0)$ is significant, forshadowing the need for three-wave energy transfer into $n=0 \phi$ 
+fluctuations. Additionally, although I don't show $|n| \ge 2$ dynamics, they are somewhat important for $C_\phi$ and $D_\phi$, accounting for the obviously unbalanced dynamics in this figure.
 Lastly, Fig.~\ref{mn_dynamics} d) reveals the parallel kinetic energy dynamics, which simply includes the adiabatic transfer ($C_v$) and electron-ion frictional dissipation ($D_v$). Recall that
-$C_N + C_\phi + C_T = - C_v$ for each $\vec{k}$. In other words, energy is drawn from the density and potential fluctuations into the $\vpe$ fluctuations and then moves onto the electrostatic potential
+$C_N + C_\phi + C_T = - C_v$ for each $\vec{k}$. In other words, looking at the $C_j$ terms altogether,
+one can see that energy is drawn from the density and potential fluctuations into the $\vpe$ fluctuations and then moves onto the electrostatic potential
 fluctuations. That is only clear when looking at all of the $C_j$ taken together.
 
 \begin{figure}[!ht]
@@ -83,22 +86,24 @@ fluctuations. That is only clear when looking at all of the $C_j$ taken together
 \label{nl_dynamics}
 \end{figure}
 
-Fig.~\ref{mn_dynamics} only shows the dynamical pieces due to the linear terms of Eqs.~\ref{ni_eq}-~\ref{te_eq}, and they therefore don't correspond to any transfer between different $\vec{k}$.
-The advective nonlinearities provide this transfer (the $T_j(\vec{k},\vec{k'}$ terms), 
-and they are essentially conservative, meaning they provide no net injection or dissipation with respect to the fluctuations. Now the $T_j(\vec{k},\vec{k'}$ terms are each four dimensional,
+Fig.~\ref{mn_dynamics} only shows the dynamical pieces due to the linear terms of Eqs.~\ref{ni_eq}-~\ref{te_eq}, and they therefore don't show the nonlinear transfer between different $\vec{k}$.
+The advective nonlinearities provide this transfer (the $T_j(\vec{k},\vec{k'})$ terms), 
+and they are essentially conservative, meaning they provide no net injection or dissipation with respect to the fluctuations. Now the $T_j(\vec{k},\vec{k'})$ terms are each four dimensional,
 making them difficult to show. I choose to sum over some of the dimensions to show some of their aggregate properties. In Fig.~\ref{nl_dynamics} a) I sum over $\vec{k'}$ and $n$ leaving them
-as only functions of $m$. Also note that I have divided $T_N(\vec{k},\vec{k'}$ by $10$ and multiplied $T_v(\vec{k},\vec{k'}$ by $10$ so that all of the $T_j$ can be visible on one plot.
-Notice where $T_N$ and $T_T$ are positive and where they are negative. Negative values means that they are giving up energy at that $m$, while positive values means they are taking energy
-at that $m$. $T_N$ and $T_T$ transfer, on the aggregate, energy in the range $5 < m < 30$ to energy at all other values of $m$. This is not at all surprising because $Q_N$ and $Q_T$ are largest
+as only functions of $m$. Also note that I have divided $T_N(\vec{k},\vec{k'})$ by $10$ and multiplied $T_v(\vec{k},\vec{k'})$ by $10$ so that all of the $T_j$ can be visible on one plot.
+Notice where $T_N$ and $T_T$ are positive and where they are negative. Negative values at a particular $m$ indicate that the fluctuations with azimuthal wavenumber $m$ are giving up net energy, 
+while positive values correspond to fluctuations that are taking up net energy at that $m$. 
+$T_N$ and $T_T$ transfer, on the aggregate, energy in the range $5 < m < 30$ to energy at all other values of $m$. This is not at all surprising because $Q_N$ and $Q_T$ are largest
 for $5 < m < 30$. This means that energy is injected from the equilibrium gradients at $5 < m < 30$ and then three-wave transferred into other azimuthal wave numbers in both forward and inverse
 cascades (mostly forward). 
-Actually this aggregate figure says nothing about the locality of wavenumber transfer, so it's indeterminate whether the transfer process is by cascading or non-local transfer. But that
-is besides the point. On the other hand, $T_\phi$ and $T_v$ have the opposite character of $T_N$ and $T_T$, meaning that the transfer dynamics are the other way around. This is typical in 
+Actually the summation I use hides the information regarding the locality of wavenumber transfer, so it's indeterminate from this figure whether the transfer process is by cascading or non-local transfer.
+I defer this detail to future work. 
+On the other hand, $T_\phi$ and $T_v$ have the opposite character of $T_N$ and $T_T$, meaning that the transfer dynamics are the other way around. This is typical in 
 similar systems, such as Hasegawa-Wakatani systems~\cite{hasegawa1983,Camargo1995} in which the density potential energy exhibits a forward cascade, while the perpendicular kinetic energy
-exhibits an inverse cascade. It was also obvious that this had to happen given the azimuthal asymetry between $C_\phi$ and $D_\phi$ Fig.~\ref{mn_dynamics} c).
+exhibits an inverse cascade. It was also obvious that this had to happen given the azimuthal assymetry between $C_\phi$ and $D_\phi$ Fig.~\ref{mn_dynamics} c).
 
 More importantly, however, Fig.~\ref{nl_dynamics} b) shows the axial wavenumber transfers. Again $T_N$ and $T_T$ are similar. Both show energy transfer from $n=0$ to $n \ne 0$. This is truly important!
-This is the most compelling, most direct evidence for the nonlinear instability.
+It is the most direct evidence for the nonlinear instability.
 Our paradigmatic hypothesis in Ref.~\cite{Umansky2011} posited the opposite transfer direction. The most unstable linear eigenmodes have $n = \pm 1$ and all eigenmodes with $n=0$ are stable,
 yet Fig.~\ref{nl_dynamics} b) shows that the dominant energy transfer is from $n=0$ to $n \ne 0$, at least for $N$ and $T_e$. Again, $T_\phi$ and $T_v$ have the opposite character of $T_N$ and $T_T$,
 as really they must, since $\phi$ and $\vpe$ gain their energy through the adiabatic response.
@@ -109,31 +114,86 @@ as really they must, since $\phi$ and $\vpe$ gain their energy through the adiab
 \label{per_en_flow_diagram}
 \end{figure}
 
+It's still difficult to see the energy flow paths from Figs.~\ref{mn_dynamics} and~\ref{nl_dynamics} alone. So I have put the results in a flow diagram -- Fig.~\ref{per_en_flow_diagram}. In order to
+do this, I've summed all quantities over $m$ and $n$ (including $|n| \ge 2$), 
+except that I have left $n=0$ components out of the sums and shown them separately. For instance, $Q_N(0)$ represents the density fluctuation
+energy injection at $n=0$, while $Q_N(!0)$ represents the density fluctuation energy injection for all $n \ne 0$ summed together. Furthermore, the symbol $N(0)$ represents $E_N(n=0)$,
+$N(!0)$ represents $\sum_{m,n \ne 0} E_N(\vec{k})$, etc. And every term is summed over $m$.
+
+The diagram starts at the top with the equilibrium density
+and temperature profile gradients. They ultimately supply free energy for the fluctuations. Pointing out of them, the yellow $Q_j$'s extract that energy, channeling it
+to the density and potential fluctuations. The $Q_j$'s
+are normalized so that they sum to 100 so that each one represents a percentage of energy brought into the system. Clearly, the $n=0$ components dominate the energy injection from the equilibrium
+gradients, and the density injection is much stronger than the temperature injection. The blue $T_N$ and $T_T$ three-wave transfers both go in the direction of $n=0$ to $n \ne 0$. Dissipation occurs
+for every fluctuation component and takes all of the injected energy out of the system in this steady state stage. 
+Next, the red $C_N$ and $C_T$ transfer channels transfer energy from $N$ and $T_e$ to $\vpe$, only at $n \ne 0$, which is the start of the adiabatic response. Actually,
+$C_T = 0$ because the parallel heat conduction is such a large dissipative factor. Completing the adiabatic response, $C_\phi$ transfers energy from $\vpe$ to $\phi$ at $n \ne 0$. Finally,
+$T_\phi$ shows axial transfer into $n=0$ $\phi$ components.
+
 
 \subsection{Nonlinear Instability}
 \label{ss_nl_inst}
 
+Fig.~\ref{per_en_flow_diagram} provides a look at the way energy flows through the system. The nonlinear instability mechanism can be extracted from a subset of the steps in the flow diagram.
+I provide a reduced diagram in Fig.~\ref{reduced_nl_diagram} to isolate the essential interactions of the nonlinear instability mechanism. Notice that I focus only on the density fluctuation
+side (as opposed to the temperature fluctuation side) because it's clear from the numbers in Fig.~\ref{per_en_flow_diagram} that the density fluctuations are a much stronger drive for
+the system than the temperature fluctuations. Again, starting at the top, the $n=0$ potential fluctuations draw energy from the equilibrium density gradient by advection, depositing that
+energy into the $n=0$ density fluctuations. Then, those density fluctuations nonlinearly transfer energy into $n \ne 0$ density fluctuations. Next, the adiabatic response acts to transfer
+some of that energy into $n \ne 0$ potential fluctuations, which finally nonlinearly transfer energy into the $n=0$ potential fluctuations.
+
 \begin{figure}[!ht]
-\centerline{\includegraphics[width=0.7\textwidth]{reduced_nl_diagram}}
+\centerline{\includegraphics[]{reduced_nl_diagram}}
 \caption{Nonlinear instability diagram}
 \label{reduced_nl_diagram}
 \end{figure}
 
-
-The linear eigenmode paradigmatic picture is misleading in the case of this LAPD simulation. It seems counterintuitive that energy can be injected into the fluctuations at $n=0$, where only
+Shown in this way, it's clear that the process is self-sustaining. It's also the dominant process by which the fluctuations get their energy from the equilibrium gradients, which is clear
+from the fact that $Q_N(n=0)$ comprises $71 \%$ of all of the energy injection. Also, the net direction of $T_N$ (from $n=0$ to $n \ne 0$) and its large magnitude support this.
+ 
+To me at least~\cite{Umansky2011}, this came as a big surprise due to my understanding of the unstable linear eigenmode drive paradigm.
+Given this paradigm, it seems counterintuitive that energy can be injected into the fluctuations at $n=0$, where only
 stable linear eigenmodes reside. Furthermore, linear eigenmodes are multi-field objects which have definite phase and magnitude relationships between the different fields. When there are no
 nonlinearities, the entire eigenmode grows at one particular growth rate, so all of the fields must grow together. The energy dynamics analysis above seems to indicate that the fields
-don't all grow together and transfer their energy in the same way. The reason for this is that the linear eigenmodes are nonorthogonal and the nonlinearities can mix the nonorthogonal eigenmodes
-in complex ways. I don't show the mathematics here, but others have pointed this out and shown it before~\cite{camargo1998,kim2010}. The implication is that stable linear eigenmodes, 
-taken in concert with one another, can inject energy into a system and act differently on the different individual fields.
-For these reasons, I abandoned the linear eigenmode
-decomposition approach early on and chose the simpler decomposition detailed in Chapter~\ref{c_en_formalism}. Notice that my decomposition actually took each field separately. I did not attempt
+don't all grow together or transfer their energy in the same spectral direction.
+
+The reason why linearly stable locations in wavenumber space can actually produce a nonlinearity is that the 
+linear eigenmodes are nonorthogonal and the nonlinearities can mix the nonorthogonal eigenmodes in complex ways. 
+I don't show the mathematics here, but others have pointed this out and shown it before~\cite{camargo1998,kim2010}. The implication is that stable linear eigenmodes, 
+taken in concert with one another, can inject energy into a system and mix so that the different individual fields act in different ways.
+Nonorthogonal bases can produce results that are just too complicated to be of use.
+For these reasons, I abandoned the linear eigenmode decomposition approach early on and chose the simpler decomposition detailed in Chapter~\ref{c_en_formalism}. 
+Notice that my decomposition actually took each field separately. I did not attempt
 to create composit objects of different fields, like linear eigenvectors~\cite{baver2002,terry2002,terry2006a,terry2006b,gatto2006,terry2009,kim2010,makwana2011}. This choice reflects
 the fact that the different fields can act in different ways.
 
-After I found this curious nonlinear instability, I wondered if others had previously found this. After all, the equations and the geometry that I use are not new. In fact, a look at 
+Now, after I found this curious nonlinear instability, I wondered if others had previously found this. After all, the equations and the geometry that I use are not new. In fact, a look at 
 Fig.~\ref{reduced_nl_diagram} reveals that even simpler models like the 3D Hasegawa-Wakatani equations~\cite{hasegawa1983} contain the proper components to cause the nonlinear instability. And 
 cylindrical simulations of the Hasegawa-Wakatani equations are three decades old (though the original simulations were 2D).
+My search of the literature reveals that this nonlinear instability was, in fact, identified previously. In 1977-1998, Cheng et al.~\cite{cheng1977,cheng1978} performed 3D turbulence simulations
+that may have been driven by the nonlinear instability. 
+They identified a dominance of $k_\para=0$ ``convective cells [that] are non-linearly excited as a result of mode-coupling of the drift instabilities.'' It's unclear what equation set they used
+and what exactly they meant by this mode coupling, but their results seem similar to mine, and it's reasonable to believe that they at least identified the consequences of the nonlinear instability.
+
+In 1995, Biskamp and Zeiler simulated local cylindrical plasma fluid turbulence in the first published use of the 3D Hasegawa-Wakatani equations~\cite{biskamp1995}. 
+Using an energetics analysis, they in fact, correctly identified the nonlinear instability mechanism that drove the $k_\para=0$ structures in their simulations. So the nonlinear instability
+mechanism is not new. Others expanded on this work. Drake et al. showed that elimination of the linear instability by removing the $k_\para \ne 0$ components of the linear drive term
+had virtually no affect on the turbulence~\cite{drake1995}. Furthermore, they showed that adding magnetic shear, which also stabilized the linear drift waves, did not stop the turbulence
+from sustaining itself. Both of these showed that the nonlinear instability could act as a subcritical instability.
+Additionally, B.D. Scott and others have explore nonlinear drift wave turbulence in a number of different models with different physics effects such as magnetic shear and curvature
+and found that drift wave turbulence tends to sustain itself despite the presence or lack thereof of linear 
+instabilities~\cite{scott1990,scott1992,zeiler1996,zeiler1997,korsholm1999,scott2002,scott2003,scott2005}.
+
+Nevertheless, it still seems as though no one showed that nonlinear-instability driven drift wave turbulence was relevant to an experiment and not just a simulation artifact. I have attempted
+to do this here and in published papers~\cite{friedman2012b,friedman2013},
+showing that the simulations driven by the nonlinear instability are validated against experiment (see Sec.~\ref{s_stat_exam}). Also, I will show next that the nonlinear instability
+is crucial for the simulation to produce experimentally-consistent turbulence.
+
 
 \section{n=0 Suppression}
 \label{s_n0_supp}
+
+\begin{figure}[!ht]
+\centerline{\includegraphics[]{lin_per_non0_gamma}}
+\caption{Linear vs. nonlinear growth rates}
+\label{lin_per_non0_gamma}
+\end{figure}
