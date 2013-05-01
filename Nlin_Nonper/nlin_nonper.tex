@@ -24,7 +24,7 @@ at a lower level than the simulations driven by the nonlinear instability.
 
 Mixing length theory provides an estimate for the turbulence saturation level where only properties of the linear eigenmodes are known. This can be quite useful to find scaling relations, and allows
 prediction without direct numerical simulation. Therefore, I develop a corresponding estimate based on the drift wave turbulence driven by the nonlinear instability that I have described.
-Now, it is quite difficult to predict a saturation level based on a nonlinear mechanism when nonlinear simulation results are not available. However, as suggested in Ref.~\cite{cheng1978},
+Now, it is quite difficult to predict a saturation level based on a nonlinear mechanism when nonlinear simulation results are not available. However, as suggested in Ref.~\cite{cheng1979},
 and as seen in Fig.~\ref{rms_evolution} b), it appears that the turbulence begins to saturate when the amplitude of the $n=0$ field components becomes equal to the $n=1$ field components.
 At this point, the strongest nonlinear interaction term catches up to the linear terms, bringing about the onset of saturation. However, the nonlinear instability really doesn't become important
 up until this point, which is why saturation occurs only when values are a few times higher than this point. Therefore, this crossing point can only be seen as a rough approximation for the
@@ -63,7 +63,7 @@ evolves as:
 \eeq
 
 where $A_d$ represents the fastest growing $n=1, m \sim 60$ linear drift wave structure with time-dependent amplitude ($d$ is shorthand for the wavevector of this eigenmode). 
-Note that in the linear phase of the simulation, the linear term
+Note that I have made the assumption that in the linear phase of the simulation, the linear term
 dominates the nonlinear term, which is quadratic in two small quantities. The solution of this equation is:
 
 \beq
@@ -71,7 +71,7 @@ dominates the nonlinear term, which is quadratic in two small quantities. The so
 A_d(t) = A_d(0) e^{- i \omega_d t}.
 \eeq
 
-On the other hand, the $n=0$ mode has much smaller amplitude than the linear drift wave during the linear simulation phase, meaning that the nonlinear term can be comparable or larger than
+On the other hand, the $n=0$ mode has much smaller amplitude than the linear drift wave during the linear simulation phase, meaning that the nonlinear term can be comparable to or larger than
 the linear term. Specifically, the evolution equation for the $n=0$ ``convective cells'' is:
 
 \beq
@@ -79,27 +79,28 @@ the linear term. Specifically, the evolution equation for the $n=0$ ``convective
 \pdiff{A_c}{t} = - i \omega_c A_c + \sum_{\vec{k'}} (k_{rc} k'_\theta - k'_r k_{\theta c}) A_{\vec{k'}} \phi_{c - \vec{k'}}.
 \eeq
 
-Now, the convective cells that grow the fastest have $m \sim 0$. This is clear by noting that the largest term in the sum should have $\vec{k'} = d$ and $c \sim 0$. Noting that
-$k_{r d} \ll k_{\theta d}$ due to the eigenmode's high $m$, and $k_{r c} \gg k_{\theta c}$ due to the convective cell's low $m$, and also that $\phi_{-d} = \phi^*_d \sim A_d^*$,
+Now, the convective cells that grow the fastest have $m \sim 0$. This is clear by noting that the largest term in the sum should have $\vec{k'} = d$ and $c \sim 0$. 
+Using the symbol $M_{c d}$ for the wavevector difference $k_{r c} k_{\theta d} - k_{r d} k_{\theta c}$ and noting that $\phi_{-d} = \phi^*_d \sim A_d^*$,
 
 \beq
 \label{cc_evolution2}
-\pdiff{A_c}{t} \approx - i \omega_c A_c + k_{rc} k_{\theta d} |A_d|^2.
+\pdiff{A_c}{t} \approx - i \omega_c A_c + M_{c d} |A_d|^2.
 \eeq
 
 Plugging in Eq.~\ref{dw_evolution2} into the $A_d$ in this equation, and then solving this differential equation for $A_C(t)$ results in:
 
 \beq
 \label{cc_evolution3}
-A_c(t) = A_c(0) e^{- i \omega_c t} + \frac{k_{rc} k_{\theta d} |A_d(0)|^2}{2 \gamma_d + i \omega_c} \left( e^{2 \gamma_d t} - e^{- i \omega_c t}  \right).
+A_c(t) = A_c(0) e^{- i \omega_c t} + \frac{M_{c d} |A_d(0)|^2}{2 \gamma_d + i \omega_c} \left( e^{2 \gamma_d t} - e^{- i \omega_c t}  \right).
 \eeq
 
 Now a large simplifying approximation is that $\omega_c = 0$. I essentially take the linear eigensystem of these convective cells to have zero axial wavenumber, zero frequency and growth rate, 
-near-zero azimuthal wavenumber, and medium or large radial wavenumber. All of these seem reasonable. Then,
+near-zero azimuthal wavenumber, and radial wavenumber about twice that of the drift wave radial wavenumber. All of these assumptions are confirmed by the spectra of the convective cells and
+drift waves (not shown here). Also, these mean that $k_{r c} k_{\theta d} \gg k_{r d} k_{\theta c}$, so that $M_{c d} \approx k_{r c} k_{\theta d}$ Then,
 
 \beq
 \label{cc_evolution4}
-A_c(t) = A_c(0) + \frac{k_{rc} k_{\theta d} |A_d(0)|^2}{2 \gamma_d } \left( e^{2 \gamma_d t} - 1  \right).
+A_c(t) = A_c(0) + \frac{k_{r c} k_{\theta d} |A_d(0)|^2}{2 \gamma_d } \left( e^{2 \gamma_d t} - 1  \right).
 \eeq
 
 At the time ($t_f$), when the amplitudes of the drift waves and convective cells equal one another, the initial perturbation $A_c(0)$ is much smaller than the second term on the right hand side
@@ -113,6 +114,15 @@ $A_c(t_f)$ from Eq.~\ref{cc_evolution4} and performing some algebra, the result 
 
 The factor of two probably isn't significant given the approximations that went into this result, but the scalings of the drift wave growth rate, the drift wave azimuthal wavenumber,
 and the convective cell radial wavenumber are. The result is very similar to the mixing length result except that the wavenumbers of interest are from both the drift waves and the
-convective cells rather than from just the drift waves. Putting in LAPD values for this relation gives that the crossing level amplitude should be about $0.01-0.05$. This is consistent
+convective cells rather than from just the drift waves. Putting in LAPD values for this relation gives that the crossing level amplitude should be about $0.05$. This is consistent
 with the amplitude at which the simulations begin to saturate, as can be seen in Fig.~\ref{rms_evolution} a). Again, though, the ultimate saturation level is somewhat larger than this,
 and it's not clear if that ultimate saturation level can be completely predicted without direct numerical simulation.
+
+One last point I want to make involves the $n \ge 2$ curves in Fig.~\ref{rms_evolution} b). These curves all appear to grow at the same growth rate as the $n=1$ curve during the linear
+stage of the simulation. This may seem odd because the linear growth rates of the eigenmodes with these higher axial mode numbers are much less than the growth rate of the fastest
+$n=1$ eigenmode. Furthermore, if these modes were to be pumped nonlinearly (parametrically), one might expect them to grow with twice the growth rate of the $n=1$ curve just like the
+$n=0$ curve does. In fact, the $n \ge 2$ curves are pumped nonlinearly. A look at the spectra (not shown) reveals that all of the $n \ge 2$ modes have $k_r-k_\theta$ spectra
+just like that of the $n=1$ mode. So this means that the nonlinear interaction that drives the $n \ge 2$ modes involves the fastest growing $n=1$ linear eigenmode beating against an eigenmode
+that has $k_r \sim k_\theta \sim 0$. This second eigenmode has close to zero growth rate, meaning that the $n \ge 2$ modes will only grow at the same rate as the fastest growing
+$n=1$ linear eigenmode and not at twice its growth rate. It's difficult to guess this \emph{a priori} due to the complexity of the nonlinear transfer term, so it seems that simulation
+results have to provide the evidence for this.
