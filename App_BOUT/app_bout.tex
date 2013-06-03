@@ -1,11 +1,150 @@
 \chapter{The BOUT++ Code}
 \label{app_bout}
 
+I use the BOUT++~\cite{dudson2009} code to solve the model equations of Chapter~\ref{c_lapd_sim}. This is a free open-access code available at https://github.com/bendudson/BOUT.
+In this appendix, I briefly describe this code and my specific implementation of the model equations.
+I cannot simply paste the entire code here and explain it line for line because the code is on the order of $10^6$ lines and quite complicated. Rather, I provide an overview of the BOUT++ framework
+and focus on describing and discussing details that are specific to my code implementation so that readers should be able to understand how to reproduce the simulations that I describe in this
+dissertation.
+
 \section{The Object-Oriented Fluid Framework}
 \label{s_obj_oriented}
 
-\section{Explicit Finite Differences}
-\label{s_finite_diffs}
+BOUT++ was built as an object-oriented C++ extension of BOUT. BOUT, short for Boundary Turbulence, was written by X. Q. Xu and M .V. Umansky~\cite{xu1998,umansky2009}. BOUT, written in C, evolves
+a set of drift-reduced Braginskii fluid equations in 3D tokamak geometry. P. Popovich and Umansky also made modifications to solve the equations in cylindrical geometry for simulation of
+LAPD turbulence~\cite{popovich2010b}. BOUT++ is much more, however, than a C++ version of BOUT.
 
-\section{The Physics Inputs}
-\label{s_phys_input}
+BOUT++ is a C++ framework for writing single or multi-species fluid simulations with an arbitrary number of equations in 3D curvlinear coordinates. The framework allows input of a grid file,
+which contains information regarding the magnetic field geometry, the metric tensor, and axisymmetric equilibrium profiles and parameters if desired. Users may simulate fluids and plasmas
+in slabs, sheared slabs, cylinders, or tokamaks. The input equilibria have only one restriction in that they must be two-dimensional, having one axisymmetric coordinate.
+
+The inner workings of the code take care of many of the difficult coding and numerical issues associated with writing
+fluid simulations. For example, users may run parallelized simulations that are spread onto multiple processors simply by specifying a number in an input file. Furthermore, one can specify the use
+of different implicit or explicit numerical schemes to solve the equations along with specific finite difference schemes to approximate spatial derivatives in the equations. 
+None of the numerical schemes need be written by the user, although the framework also provides relatively simple ways that the user can implement his own finite difference schemes. 
+Derivatives in the axisymmetric coordinate may be solved spectrally, but BOUT++ is not a spectral code in general.
+
+Moreover, the user specifies the equation set to be solved in a ``physics module.'' The equation set can be 
+the Braginskii equations, MHD equations, Navier-Stokes equations, gyro-fluid equations, etc.
+Finally, BOUT++ evolves variables from initial conditions with boundary conditions applied at every time step. It cannot solve the eigensystem of a linear equation set.
+Overall, BOUT++ is easily adaptable to solving many different hydrodynamic and plasma physics models. More information can be obtained in the various reference manuals included in the downloaded
+working tree. 
+
+I have implemented a specific LAPD turbulence model in the BOUT++ framework using the equations,
+sources, profiles, and parameters outlined in Chapter~\ref{c_lapd_sim}. In the next section, I explain the specific choices of numerical schemes that I use for the time evolution and the spatial
+differential operators.
+
+\section{Numerical Schemes}
+\label{s_numerical_schemes}
+
+\subsection{Spatial Finite Differences}
+\label{ss_sp_finite_dffs}
+
+In my BOUT++ LAPD turbulence implementation, the code uses the current state of the fields ($N, T_e, \phi, \vpe$), equilibrium profiles, and transport coefficients to calculate the right hand side (RHS)
+of Eqs.~\ref{ni_eq}-~\ref{te_eq}. Then the code explicitly time evolves the fields ($N, T_e, \varpi, \vpe$). The code does this at each spatial location.
+So the first step is the calculation of the RHS of the equations, all of which involve a number of differential operators.
+
+For the linear advection terms such as ${\bf v_E} \cdot \grad N_0$, I write this out explicitly into an azimuthal derivative of $\phi$ times a radial derivative of $N_0$ and
+use simple first-derivative central 4$^{th}$ order finite difference schemes for each of these. For the perpendicular Laplacian operators, I use
+Fourier transforms, which is the standard BOUT++ scheme for this. For the parallel Laplacian operator, I use a second-derivative central 4$^{th}$ order finite difference scheme.
+
+For the parallel gradient operators, I use a quasi-staggered method to prevent grid-sized oscillations on top of the solution that are called grid modes. 
+For the explanation of why non-staggered numerical schemes can cause unphysical grid modes, see Appendix C in Popovich et al.~\cite{popovich2010b}.
+In the quasi-staggered method, I use a first derivative first or third order one-sided finite difference scheme for the parallel gradients. I use a right-sided scheme for the derivatives when
+they are applied to the flux variables ($\vpe$ and $j_\para$) and a left-sided scheme when applied to the state variables ($N, T_e,$ and $\phi$). BOUT++ now has the capability to use real
+staggered grids in which the flux and state variables exist on different grids that are shifted by half a grid-spacing from one another, but this capability wasn't present when I started
+the work, so I had to use the quasi-staggered method of using different one-sided derivatives for the flux and state variables. I implemented the third-order schemes myself in the physics module,
+which I have pasted below, so the one-sided third order schemes are not part of the standard BOUT++ internal code. I generally use the third order schemes, but I sometimes use the first order
+schemes, and the statistical solution doesn't significantly vary between the two different schemes.
+
+Finally, for the nonlinear advection terms in the Poisson brackets, I generally use an Arakawa advection scheme that I have written into the physics module, which is not part of the BOUT++ internal
+code. The Arakawa advection scheme~\cite{arakawa1966} is useful for my purposes because it exactly conserves fluctuation energies of the type I have written in Chapter~\ref{c_en_formalism}.
+I have used this advection scheme for all of the zero equilibrium flow simulations of Chapters~\ref{c_nlin_periodic} and ~\ref{c_nlin_nonper}. The Arakawa advection scheme can cause overshoots
+or spurious fluctuations at steep gradients, which is one of the reasons why I used artificial diffusion and viscosity in the equations. Another problem with the Arakawa advection scheme
+is that it is not a positivity-preserving scheme. The advection equation:
+
+\beq
+\label{advec_eqn}
+\pdiff{A}{t} + {\bf v} \cdot \grad A = 0,
+\eeq
+for any normal flow field ${\bf v}$ preserves the positivity of the variable $A$ if it starts out positive everywhere. This is easy to see because anytime $A$ becomes very small at a certain
+location not on the boundary, it becomes a local minimum there and its gradient goes to zero. This prevents $A$ from decreasing any further. When dealing with finite differences, however,
+the gradient of $A$ at a local minimum may be different from zero due to finite grid spacing effects. This can cause $A$ to become negative at that point on a subsequent time step. Some finite
+difference advection schemes take this into account and do not allow $A$ to become negative. Arakawa schemes do not. This can be a problem because the total density and electron temperature
+($N_t$ and $T_{et}$ respectively) are physically positive quantities in my model. They should not be allowed to become negative at any time or spatial location. Otherwise, the results
+become unphysical, invalidating the simulation. As long as the fluctuations are not too large, the total density and temperature remain positive when I use Arakawa advection. But I found
+that in the finite mean flow simulations, the fluctuations can become large enough that the total density and/or temperature become negative when I use the Arakawa scheme.
+In those cases, I use a first-order upwind (U1) advection scheme. In this scheme, the component $\left( v_x \pdiff{A}{x} \right)_{U1}$ is approximated as:
+
+\beqar
+\label{upwind_def}
+v_{x,i} \frac{A_i - A_{i-1}}{\Delta x} \quad {\rm for} \quad v_{x,i} > 0, \nonumber \\
+v_{x,i} \frac{A_{i+1} - A_i}{\Delta x} \quad {\rm for} \quad v_{x,i} < 0.
+\eeqar
+
+It is easily confirmed that any local minimum must grow in amplitude from this formula ($A$ is advected into the local minimum). Also note that a local maximum must shrink. Because of these
+properties, solutions tend to numerically smooth out, indicative of diffusive action. To show this explicitly, Eq.~\ref{upwind_def} can be rewritten in an interesting way:
+
+\beq
+\label{u1_exp}
+\left( v_x \pdiff{A}{x} \right)_{U1} = v_{x,i} \frac{A_{i+1} - A_{i-1}}{2 \Delta x} - \frac{\Delta x}{2} |v_{x,i}| \frac{A_{i+1} - 2 A_i + A_{i-1}}{(\Delta x)^2}.
+\eeq
+The first term on the RHS is simply the expression for central second order advection, while the second term on the RHS is $\frac{\Delta x}{2} |v_{x,i}|$ times the expression for the central
+second order second derivative. So,
+
+\beq
+\label{u1_symb}
+\left( v_x \pdiff{A}{x} \right)_{U1} = \left( v_x \pdiff{A}{x} \right)_{C2} - \frac{\Delta x}{2} |v_{x,i}| \left( \pdiffs{A}{x} \right)_{C2},
+\eeq
+meaning that the one dimensional advection equation with a first order upwind advection scheme is equivalent to the advection-diffusion equation with a second order central advection scheme 
+and a diffusion coefficient of $\frac{\Delta x}{2} |v_{x,i}|$. This generalizes to the 3D advection equation as well. The diffusion is numerical diffusion, and when I use U1 advection, I make
+sure to add this numerical diffusion to the artificial diffusion in my energy analyses to correctly obtain the energy dissipation.
+
+Now, using a U1 advection scheme helps maintain positivity of the total density and temperature, but Eqs.~\ref{ni_eq} and~\ref{te_eq} are not simple advection equations or even advection-diffusion
+equations. The density equation is close to an advection-diffusion equation, but since I partially linearize it, it doesn't preserve the concept of evolving the total density. And more
+importantly, the source term makes it a different equation altogether. Physically, the source is an ionization source and a recombination sink at the end plates, but in the model, it is much
+simpler. It's simply a term that corrects the equilibrium by essentially removing the flux-surface averaged density fluctuation component (Eq.~\ref{Sn_eq}). 
+Such a source is clearly not positivity-preserving since it averages over an entire flux surface and has not knowledge of local total density. When positivity preservation becomes an issue
+in the simulations, I multiply the source terms in Eqs.~\ref{ni_eq} and~\ref{te_eq} by $N_{t}$ and $T_{et}$ respectively whenever the sources are negative. Thus, when $N_{t}$ or $T_{et}$
+becomes small, if the sources are negative, they become weaker so that they can't drive $N_{t}$ and $T_{et}$ negative. Physical sources must have this property, so it's not unreasonable
+to do this with the model sources.
+
+\subsection{Time Integration Technique}
+\label{ss_time_int}
+
+Perhaps the real power of BOUT++ lies in its time integration procedures. While a few simple explicit methods such as Euler and Runge-Kutta 4$^{th}$ order methods come with the BOUT++ code, some
+much more sophisticated solver packages can be compiled with the code and used given simple user option choices. These packages generally work as a black box for the user, who only has to make a few
+choices regarding error tolerances and problem stiffness. The code that I use is the CVODE package that comes in the Sundials suite of codes. CVODE is a parallel solver that
+can solve stiff or nonstiff ODE initial value problems of the form~\cite{cvode}:
+
+\beq
+\label{ode_system}
+\diff{u}{t} = f(t,u).
+\eeq
+
+Plasma simulations tend to be stiff due to the large range of time scales involved. Simple explicit schemes are generally too inefficient or too inacurate to use,
+and only some implicit schemes work with stiff systems. For stiff problems, CVODE uses the Backward Differentiation Formula (BDF). This formula approximates $u$ at time $n$ as
+
+\beq
+\label{bdf}
+u_n = \sum_{i = 1}^q \alpha_{n-i} u_{n-i} + h_n \beta_0 f_n,
+\eeq
+where $f_n \equiv f(u_n,t_n)$, $h_n$ is the timestep at time $n$, $q$ is the order of the BDF method, 
+and $\alpha{n-i}$ and $\beta_0$ are coefficients determined by the order of the BDF method. Since, $f_n$ is unknown,
+CVODE uses a Newton formula to approximate it as
+
+\beq
+\label{newton_it}
+f_n \approx f_{n-1} + \pdiff{f}{u} (u_n - u_{n-1}).
+\eeq
+$\pdiff{f}{u} \equiv J$ is the Jacobian. This allows Eq.~\ref{bdf} to be written as
+
+\beq
+\label{un_eqn}
+(1 - h_n \beta_0 J) u_n = \sum_{i = 1}^q \alpha_{n-i} u_{n-i} + h_n \beta_0 f_{n-1} - h_n \beta_0 J u_{n-1}.
+\eeq
+
+The process is actually more complicated as the Eq.~\ref{newton_it} approximation actually uses a Newton iteration\cite{cvode}, so that the solution can be computed more accurately.
+The user supplies error tolerances and CVODE iterates the solution until the tolerance is met. If the tolerance is not met after a certain number of iterations,
+CVODE changes the order of the implicit method. If this doesn't produce a tolerable error, CVODE reduces the time step and starts
+the procedure again. These tolerance steps are not necessarily all done in this order. Again, CVODE is an efficient, yet complicated code.

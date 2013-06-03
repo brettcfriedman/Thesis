@@ -110,21 +110,21 @@ energy should be contained in this eigenmode. Therefore, a reasonable gauge of w
 that is contained in the fastest growing linear eigenmode. This may be calculated by projecting the fastest growing eigenmode onto the turbulent state.
 
 Formally, in my model, I fully describe the turbulent state by four independent fields, which I can appended into a single vector of the spatio-temporal field functions: 
-$f_{turb}(\vec{r},t) = \{N(\vec{r},t),T_e(\vec{r},t),\gradperp \phi(\vec{r},t), \vpe(\vec{r},t)\}$. This vector may be decomposed in a complete basis:
+$\bm{f}_{turb}(\vec{r},t) = \{N(\vec{r},t),T_e(\vec{r},t),\gradperp \phi(\vec{r},t), \vpe(\vec{r},t)\}$. This vector may be decomposed in a complete basis:
 
 \beq
 \label{basis_decomp}
-f_{turb}(\vec{r},t) = \sum_{i,m} c_{i,m}(t) \psi_{i,m}(r,z) e^{i m \theta},
+\bm{f}_{turb}(\vec{r},t) = \sum_{i,m} c_{i,m}(t) \bm{\psi}_{i,m}(r,z) e^{i m \theta},
 \eeq
 
-where $\psi_{i,m}(r,z)$ are time-independent spatial complex basis functions of the form $\psi_{i,m}(r,z) = \left\{ n_{i,m}(r,z),t_{i,m}(r,z),\gradperp \phi_{i,m}(r,z), v_{i,m}(r,z) \right\}$,
+where $\bm{\psi}_{i,m}(r,z)$ are time-independent spatial complex basis functions of the form $\bm{\psi}_{i,m}(r,z) = \left\{ n_{i,m}(r,z),t_{i,m}(r,z),\gradperp \phi_{i,m}(r,z), v_{i,m}(r,z) \right\}$,
 and $c_{i,m}(t)$ are the complex time-dependent amplitudes. I have explicitly imposed a Fourier bases for the $\theta$ dependence of the basis functions. The total number of
 linearly independent basis functions is the number of total grid points used in the simulation times the number of independent fields, which is four in this case.
-Now, $\psi_{i,m}(r,z)$ can be any linearly independent set of functions and need not be the linear eigenfunctions
+Now, $\bm{\psi}_{i,m}(r,z)$ can be any linearly independent set of functions and need not be the linear eigenfunctions
 of the system. In fact, I want to use orthogonal basis functions, ruling out the linear eigenfunctions.
-However, it is quite useful to set $\psi_{0,m}(r,z)$ to the fastest
+However, it is quite useful to set $\bm{\psi}_{0,m}(r,z)$ to the fastest
 growing linear eigenmode because this is the structure of interest that is to be projected onto the turbulence. 
-The other $\psi_{i \ne 0,m}(r,z)$ comprise the remainder of the orthonormal basis, and they must be different from
+The other $\bm{\psi}_{i \ne 0,m}(r,z)$ comprise the remainder of the orthonormal basis, and they must be different from
 the remaining linear eigenfunctions in order to complete the orthogonal basis. It isn't necessary for the purpose of this study to actually compute these other basis functions, but if I were to compute
 them, I would probably start with all of the linear eigenmodes
 and perform a Gram-Schmidt orthogonalization procedure, making sure to start with the fastest growing eigenmode in order to preserve it. Using this procedure, Hatch et al.~\cite{hatch2011}
@@ -136,14 +136,14 @@ I first define an inner product that is energetically meaningful and that sets t
 
 \beq
 \label{basis_orthonormality}
-\left< \psi_{i,m},\psi_{j,m} \right> = \int w \psi_{i,m}^* \cdot \psi_{j,m} dV = \delta_{i,j}.
+\left< \bm{\psi}_{i,m},\bm{\psi}_{j,m} \right> = \int w \bm{\psi}_{i,m}^* \cdot \bm{\psi}_{j,m} dV = \delta_{i,j}.
 \eeq
 
-The weighting $w$ is such that $\left< f_{turb}, f_{turb} \right> = E_{turb}$.
-Now from Eqs.~\ref{basis_decomp} and~\ref{basis_orthonormality}, $\left< f_{turb}, f_{turb} \right> = E_{turb} = \sum_{i,m} |c_{i,m}|^2$ and 
+The weighting $w$ is such that $\left< \bm{f}_{turb}, \bm{f}_{turb} \right> = E_{turb}$.
+Now from Eqs.~\ref{basis_decomp} and~\ref{basis_orthonormality}, $\left< \bm{f}_{turb}, \bm{f}_{turb} \right> = E_{turb} = \sum_{i,m} |c_{i,m}|^2$ and 
 $\left< f_{turb,m}, f_{turb,m} \right> = E_{turb,m} = \sum_i |c_{i,m}|^2$.
 Then, the amount of energy contained in the fastest growing mode (for each $m$) is given by the square of the projection
-of the mode onto the turbulence: $E_{0,m} = \left| \left< \psi_{0,m}, f_{turb,m} \right> \right|^2 = |c_{0,m}|^2$. The ratio 
+of the mode onto the turbulence: $E_{0,m} = \left| \left< \bm{\psi}_{0,m}, f_{turb,m} \right> \right|^2 = |c_{0,m}|^2$. The ratio 
 $R_m = E_{0,m}/E_{turb,m}$ is a measure of the fraction of turbulent energy contained in the fastest growing linear eigenmode. 
 
 Of course, $E_{turb,m}$ is easily calculated from the turbulent state, but $E_{0,m}$ in the 
@@ -204,33 +204,92 @@ saturation level, and more work will be needed to improve upon this calculation.
 Now in order to find the crossing point amplitude, notice from Fig.~\ref{rms_evolution} b), that before the components become equal, in the linear phase of the simulation,
 the $n=0$ components seem to have twice the growth rate of the $n=1$ components. This indicates that the
 $n=0$ components are driven nonlinearly (parametrically). Furthermore, both are exponentially growing in the linear phase. It is possible then to use only linear eigenmode knowledge
-to compute the level at which the $n=0$ and $n=1$ components become equal as long as both start at small amplitudes and experience a few e-foldings before saturating. I now derive
-an approximate scaling relation for the crossing point.
+to compute the level at which the $n=0$ and $n=1$ components become equal as long as both start at small amplitudes and experience a few e-foldings before saturating. To find the crossing
+point, I first derive an expression for the time evolution of the linear eigenmode amplitudes. According to Drazin~\cite{drazin1981}, such an evolution for the linear eigenmode $A_j$
+should take the form:
 
-First, to simplify matters, I use a local model in which each linear eigenmode can be identified by its wavevector $\vec{k} = (k_r, k_\theta, k_z)$. In reality, the number of eigenvectors at each
-$\vec{k}$ is equal to the number of fields (4 in my case), but I ignore all but the fastest growing one, which is the only important one in the linear phase of the simulation.
-So to start, I write the evolution of each eigenmode component during the linear phase of the simulation as:
+\beq
+\label{drazin_form}
+\diff{A_j}{t} =  s_j A_j + N_j(A_k)
+\eeq
+where the complex function $N_j$ of the $A_k$s represents the nonlinear action of all the $k$ modes on the $j$th (including the self-interaction). I now derive such an equation for my model
+set, finding the explicit forms for $s_j$ and $N_j$.
+
+\subsection{Linear Eigenvector Amplitude Evolution}
+\label{ss_eigenmode_ev}
+
+The linear eigenvectors are fixed composit objects of the independent fields ($N, \vpe, \phi$ and $T_e$). Each one has a fixed complex-valued spatial structure where the different fields have
+a certain amplitude and phase relationship between each other. Each one evolves in time under the linear equation set with a fixed frequency and growth rate. Eigenmode structures of global
+simulations have radial and axial shapes that are not described by well-known functions like sines and cosines or Bessel functions. So to simplify matters, 
+I use a local model in which each linear eigenmode can simply be identified by its wavevector $\vec{k} = (k_r, k_\theta, k_z)$. Then number of eigenvectors at each
+$\vec{k}$ is equal to the number of fields -- 4 in my case.
+
+Formally, the local fully spectral version of Eqs.~\ref{ni_eq}-~\ref{te_eq} can be written as
+
+\beq
+\label{vec_eqns}
+\pdiff{\bm{\xi}_{\vec{k}}}{t} = {\bf M}_{\vec{k}} \cdot \bm{\xi}_{\vec{k}} + \sum_{\vec{k'}} (k_r k'_\theta - k'_r k_\theta) \bm{\xi}_{\vec{k'}} \phi_{\vec{k}-\vec{k'}},
+\eeq
+where
+
+\beqar
+\label{xi_M_def}
+\bm{\xi}_{\vec{k}}  & = & \left( \begin{array}{c} N_{\vec{k}} \\ v_{\para e \vec{k}} \\ \phi_{\vec{k}} \\ T_{e \vec{k}} \end{array} \right), \nonumber \\
+{\bf M}_{\vec{k}}  & = & \left( \begin{array}{cccc}   - \mu_N \kperp^2 & -i k_z & -\frac{i k_\theta}{L_N} & 0 \\
+-\frac{i k_z m_i}{m_e} & - \nue & \frac{i k_z m_i}{m_e} & -1.71 \frac{i k_z m_i}{m_e} \\
+0 & \frac{i k_z}{\kperp^2} & -\nuin \mu_\phi \kperp^2 & 0 \\
+0 & -1.71 \frac{2}{3} i k_z & -\frac{i k_\theta}{L_T} & -\frac{2}{3} \kpe k_z^2 - \frac{2 m_e \nue}{m_i} - \mu_T \kperp^2
+\end{array} \right) \nonumber
+\eeqar
+where I have used $\pdr N_0 = -1/L_N$ in accordance with the local approximation, and I have neglected the sources, which are only nonzero for $k_r = k_\theta = 0$ in any case.
+The final term on the RHS is the nonlinear advection contribution. Without this, the system is linear, constituting a linear eigenvalue problem:
+
+\beq
+\label{lin_eval_problem}
+\pdiff{\bm{\rho}_{\vec{k},j}}{t} = -i \omega_{\vec{k},j} = {\bf M}_{\vec{k}} \cdot \bm{\rho}_{\vec{k},j}
+\eeq
+where $\omega_{\vec{k},j}$ and $\bm{\rho}_{\vec{k},j}$ are the eigenvalues and eigenvectors of ${\bf M}_{\vec{k}}$. $j$ is an index that goes from 1 to 4, 
+since there are 4 linear independent eigenvectors for each $\vec{k}$. I note that the linear matrix
+${\bf M}_{\vec{k}}$ is not normal; therefore, the eigenvectors are not orthogonal. This can be a problem for eigenvector decompositions. However, the \emph{left} eigenvectors
+are orthogonal to the right eigenvectors: ${\bf l}_{\vec{k},i}^T \bm{\rho}_{\vec{k},j} = \delta_{i,j}$, where
+
+\beq
+\label{left_eigvecs}
+{\bf l}_{\vec{k},i}^T \cdot {\bf M}_{\vec{k}} = -i \omega_{\vec{k},j} {\bf l}_{\vec{k},i}^T.
+\eeq
+
+Now decomposing the spectral vectors $\bm{\xi}_{\vec{k}}$ with the linear eigenvectors:
+
+\beq
+\label{eigendecomp}
+\bm{\xi}_{\vec{k}} = \sum_{j=1}^4 A_{\vec{k},j} \bm{\rho}_{\vec{k},j}
+\eeq
+where $A_{\vec{k},j}$ are the time-dependent eigenmode amplitude coefficients, I substitute this decomposition into Eq.~\ref{vec_eqns}:
+
+\beq
+\label{vec_eqns_sub}
+\sum_j \bm{\rho}_{\vec{k},j} \pdiff{A_{\vec{k},j}}{t} = \sum_j A_{\vec{k},j} {\bf M}_{\vec{k}} \cdot \bm{\rho}_{\vec{k},j} + \sum_{\vec{k'},j} A_{\vec{k'},j} (k_r k'_\theta - k'_r k_\theta) \bm{\rho}_{\vec{k'},j} \phi_{\vec{k}-\vec{k'}}.
+\eeq
+
+Contracting this equation on the left by the left eigenvector $l_{\vec{k},i}$ and using the eigenvector orthogonality gives
 
 \beq
 \label{eigenmode_evolution}
-\pdiff{A_{\vec{k}}}{t} = - i \omega_{\vec{k}} A_{\vec{k}} + T_{\vec{k}}
+\diff{A_{\vec{k},i}}{t} = - i \omega_{\vec{k},i} A_{\vec{k},i} + \sum_{k'} A_{\vec{k'},i} (k_r k'_\theta - k'_r k_\theta) \phi_{\vec{k}-\vec{k'}}.
 \eeq
 
-where $\omega = \omega_{R,\vec{k}} + i \gamma_{\vec{k}}$ and the nonlinear transfer term $T_{\vec{k}}$ equal to:
+This has the Drazin form of Eq.~\ref{drazin_form} with $s_j$ as the complex linear eigenfrequencies and the $N_j$ as a form indicative of three-wave interactions from nonlinear advection. With this,
+I proceed to find the amplitude at which the $n=0$ eigenmodes cross with the $n=1$ eigenmodes.
 
-\beq
-\label{T_veck}
-T_{\vec{k}} = \sum_{\vec{k'}} (k_r k'_\theta - k_\theta k'_r) A_{\vec{k'}} \phi_{\vec{k} - \vec{k'}}
-\eeq
+\subsection{Mixing Length Approximation}
+\label{ss_mixing_length}
 
-This equation is essentially the same as Eq.~\ref{density_evolution} but with eigenmodes instead of energies. It's easiest to see that the linear terms take the simple $-i \omega A_{\vec{k}}$
-form by neglecting the nonlinear term and noticing
-that the linear eigenmode has to evolve with its characteristic frequency $\omega$ and growth rate $\gamma$. Now the $n=1$ fastest growing eigenmode curve, which has $m \sim 60$,
-evolves as:
+To begin, I apply Eq.~\ref{eigenmode_evolution} to the fastest growing drift wave in the linear phase of the simulation before the $n=0 / n=1$ crossing.
+The $n=1$ fastest growing eigenmode curve, which has $m \sim 60$, evolves as:
 
 \beq
 \label{dw_evolution1}
-\pdiff{A_d}{t} = - i \omega_d A_d
+\diff{A_d}{t} = - i \omega_d A_d
 \eeq
 
 where $A_d$ represents the fastest growing $n=1, m \sim 60$ linear drift wave structure with time-dependent amplitude ($d$ is shorthand for the wavevector of this eigenmode). 
@@ -247,15 +306,15 @@ the linear term. Specifically, the evolution equation for the $n=0$ ``convective
 
 \beq
 \label{cc_evolution1}
-\pdiff{A_c}{t} = - i \omega_c A_c + \sum_{\vec{k'}} (k_{rc} k'_\theta - k'_r k_{\theta c}) A_{\vec{k'}} \phi_{c - \vec{k'}}.
+\diff{A_c}{t} = - i \omega_c A_c + \sum_{\vec{k'}} (k_{rc} k'_\theta - k'_r k_{\theta c}) A_{\vec{k'}} \phi_{c - \vec{k'}}.
 \eeq
 
-Now, the convective cells that grow the fastest have $m \sim 0$. This is clear by noting that the largest term in the sum should have $\vec{k'} = d$ and $c \sim 0$. 
+Now, the convective cells that nonlinearly grow the fastest have $m \sim 0$. This is clear by noting that the largest term in the sum should have $\vec{k'} = d$ and $c \sim 0$. 
 Using the symbol $M_{c d}$ for the wavevector difference $k_{r c} k_{\theta d} - k_{r d} k_{\theta c}$ and noting that $\phi_{-d} = \phi^*_d \sim A_d^*$,
 
 \beq
 \label{cc_evolution2}
-\pdiff{A_c}{t} \approx - i \omega_c A_c + M_{c d} |A_d|^2.
+\diff{A_c}{t} \approx - i \omega_c A_c + M_{c d} |A_d|^2.
 \eeq
 
 Plugging in Eq.~\ref{dw_evolution2} into the $A_d$ in this equation, and then solving this differential equation for $A_C(t)$ results in:
@@ -275,7 +334,10 @@ A_c(t) = A_c(0) + \frac{k_{r c} k_{\theta d} |A_d(0)|^2}{2 \gamma_d } \left( e^{
 \eeq
 
 At the time ($t_f$), when the amplitudes of the drift waves and convective cells equal one another, the initial perturbation $A_c(0)$ is much smaller than the second term on the right hand side
-of Eq.~\ref{cc_evolution4} and can therefore be neglected when looking at large times. So, setting the amplitude of $A_d(t_f)$ from Eq.~\ref{dw_evolution2} to the amplitude of 
+of Eq.~\ref{cc_evolution4} and can therefore be neglected when looking at large times. While this doesn't have to be true in general, it is true if the initial perturbations are set small enough.
+In fact, if the initial perturbations are not set to be small enough, the convective cells will not necessarily grow nonlinearly before saturating -- they could grow transiently due to the
+nonorthogonality of the linear eigenmodes~\cite{camargo1998,cohen2009}.
+So, setting the amplitude of $A_d(t_f)$ from Eq.~\ref{dw_evolution2} to the amplitude of 
 $A_c(t_f)$ from Eq.~\ref{cc_evolution4} and performing some algebra, the result is:
 
 \beq

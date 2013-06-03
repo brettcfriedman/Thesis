@@ -125,7 +125,7 @@ advection schemes contain their own diffusion, called numerical diffusion. Other
 I use artificial diffusion and viscosity for several reasons. The first is to prevent artificial high-wavenumber oscillations due to the Arakawa advection scheme that I use~\cite{arakawa1966}.
 Second, it smooths out the solutions, preventing the total density and temperature from becoming negative at any point in space, which is obviously unphysical. Third, I can use it
 to prevent the need to go to very fine grid spacing at which physical diffusion and viscosity are important. Finally, I can use it to help saturate the turbulence at levels consistent with experiment.
-These reasons are all somewhat related, and more discussion is left to Appendix~\ref{app_grid_convergence}.
+These reasons are all somewhat related, and I note that I performed an artificial diffusion and viscosity sensitivity study in Ref.~\cite{friedman2012}.
 
 Diffusion and viscosity are real effects that are present in the non-reduced Braginskii equations. In Chapter~\ref{c_braginskii}, I made the approximation that 
 $\grad \cdot (n {\bf v}_{\perp e}) = {\bf v}_{E} \cdot \grad n$, which neglected the polarization velocity part of ${\bf v}_{\perp e}$. Now the ``full polarization velocity''~\cite{simakov2003}

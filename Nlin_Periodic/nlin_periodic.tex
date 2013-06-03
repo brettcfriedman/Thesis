@@ -7,9 +7,10 @@ the energy dynamics.
 Furthermore, in this chapter, I consider only the simulations with periodic boundary conditions: the Periodic simulation and the $n=0$ suppressed simulation. I analyze the remaining simulations
 (Dirichlet, Neumann, and Sheath) in the next chapter.
 
+\section{Energy Dynamics Applied to LAPD Turbulence}
 
-\section{The Energy Spectra}
-\label{s_en_spec}
+\subsection{The Energy Spectra}
+\label{ss_en_spec}
 
 \begin{figure}[!ht]
 \centerline{\includegraphics[]{energy_spectra}}
@@ -42,10 +43,7 @@ As I later worked on energy dynamics calculations, I discovered, to my surprise,
 Our assumption regarding the direction of energy transfer was wrong. The paradigmatic plasma turbulence view led us astray.
 
 
-\section{Energy Dynamics Results}
-\label{s_per_en_dyn}
-
-\subsection{Dynamics Details}
+\subsection{Energy Dynamics Details}
 \label{ss_dyn_details}
 
 
@@ -154,48 +152,27 @@ from the fact that $Q_N(n=0)$ comprises $71 \%$ of all of the energy injection. 
  
 To me at least, this came as a big surprise due to my understanding of the unstable linear eigenmode drive paradigm.
 Given this paradigm, it seems counterintuitive that energy can be injected into the fluctuations at $n=0$, where only
-stable linear eigenmodes reside. Furthermore, linear eigenmodes are multi-field objects which have definite phase and magnitude relationships between the different fields. When there are no
-nonlinearities, the entire eigenmode grows at one particular growth rate, so all of the fields must grow together. The energy dynamics analysis above seems to indicate that the fields
-don't all grow together or transfer their energy in the same spectral direction.
+stable linear eigenmodes reside. 
 
 The reason why regions in wavenumber space where only stable linear eigenmodes exist can actually inject energy into the system is that the 
-linear eigenmodes are nonorthogonal and the nonlinearities can mix the nonorthogonal eigenmodes in complex ways. 
-I don't show the mathematics here, but others have pointed this out and shown it before~\cite{camargo1998,kim2010}. The implication is that stable linear eigenmodes, 
-taken in concert with one another, can inject energy into a system and mix so that the different individual fields act in different ways.
-Nonorthogonal bases can produce results that are just too complicated to be of use.
-For these reasons, I abandoned the linear eigenmode decomposition approach early on and chose the simpler decomposition detailed in Chapter~\ref{c_en_formalism}. 
-Notice that my decomposition actually takes each field separately. I do not attempt
-to create composit objects of different fields, like others have done using 
-linear eigenvectors~\cite{baver2002,terry2002,terry2006a,terry2006b,gatto2006,terry2009,kim2010,makwana2011}. This choice reflects
-the fact that the different fields can act in different ways.
+linear eigenmodes are nonorthogonal. Highly nonorthogonal stable eigenmodes may transiently draw energy from an equilibrium as I discussed in Sec.~\ref{s_nlin_stability}.
+To show that this happens in the simulation, I turn off the nonlinearities and observe the energy evolution. I show the total energy as a function of time after turning off the nonlinearities
+for the $(n=0,m=10)$ fluctuations in Fig.~\ref{transient_n0_growth}. At early time, the energy grows despite the fact that all of the linear eigenmodes with $n=0$ are stable. Furthermore,
+it grows linearly (algebraically) at very early time, consistent with simple model calculations~\cite{waleffe1995}. 
+At late time, the energy drops and doesn't recover. But this is because I have shut off the nonlinearities. As I discussed previously, 
+the energy-conserving nonlinearities mix energy in the system, enforcing the structures which grow transiently, leading to a self-sustaining system of stable nonorthogonal linear eigenmodes.
+The key to this self-sustaining process is the ability of the linearly stable eigenmodes to transiently draw energy from the equilibrium, which happens in these simulations.
+This explanation does not take away the necessity of the $n \ne 0$ fluctuations, which are essential in this particular nonlinear instability for allowing access to the adiabatic response,
+another important step in the self-sustainment process.
 
-Now, after I found this curious nonlinear instability, I wondered if others had previously found this. After all, the equations and the geometry that I use are not new. In fact, a look at 
-Fig.~\ref{reduced_nl_diagram} reveals that even simpler models like the 3D Hasegawa-Wakatani equations~\cite{hasegawa1983} contain the proper components to cause the nonlinear instability. And 
-cylindrical simulations of the Hasegawa-Wakatani equations are three decades old (although the original simulations were 2D).
-My search of the literature reveals that this nonlinear instability was, in fact, identified in 1995. Actually, going even further back, in 1977-1979, 
-Cheng et al.~\cite{cheng1977,cheng1979} performed 3D turbulence simulations that may have actually been driven by the nonlinear instability. 
-In their work, they identified a dominance of $k_\para=0$ ``convective cells [that] are non-linearly excited as a result of mode-coupling of the drift instabilities.'' 
-It's unclear what equation set they used
-and what exactly they meant by this mode coupling, but their results seem similar to mine, and it's reasonable to believe that they at least identified the consequences of the nonlinear instability.
+\begin{figure}[!ht]
+\centerline{\includegraphics[]{transient_n0_growth}}
+\caption{Transient linear $n=0$ growth}
+\label{transient_n0_growth}
+\end{figure}
 
-In 1995, Biskamp and Zeiler simulated local cylindrical plasma fluid turbulence in the first published use of the 3D Hasegawa-Wakatani equations~\cite{biskamp1995}. 
-Using an energetics analysis, they in fact, correctly identified the nonlinear instability mechanism that drove the $k_\para=0$ structures in their simulations. So the nonlinear instability
-mechanism is, in fact, not new. Furthermore, others expanded on this original work. 
-Drake et al. showed that elimination of the linear instability by removing the $k_\para \ne 0$ components of the linear drive term
-had virtually no affect on the turbulence~\cite{drake1995}. Furthermore, they showed that adding magnetic shear, which also stabilized the linear drift waves, did not stop the turbulence
-from sustaining itself. Both of these showed that the nonlinear instability could act as a subcritical instability.
-Additionally, B.D. Scott and others have explore nonlinear drift wave turbulence in a number of different models with different physics effects such as magnetic shear and curvature
-and found that drift wave turbulence with very long parallel structures tends to sustain itself despite the presence or lack thereof of linear 
-instabilities~\cite{scott1990,scott1992,zeiler1996,zeiler1997,korsholm1999,scott2002,scott2003,scott2005}.
-
-Nevertheless, it still seems as though no one showed that nonlinear-instability driven drift wave turbulence was relevant to an experiment and not just a simulation artifact. I have attempted
-to do this here and in published papers~\cite{friedman2012b,friedman2013},
-showing that the simulations driven by the nonlinear instability are validated against experiment (see Sec.~\ref{s_stat_exam}). Also, I will show next that the nonlinear instability
-is crucial for the simulation to produce experimentally-consistent turbulence.
-
-
-\section{n=0 Suppression}
-\label{s_n0_supp}
+\subsection{n=0 Suppression}
+\label{ss_n0_supp}
 
 I previously introduced the $n=0$ suppressed simulation in Sec.~\ref{s_stat_exam}, where I discussed the nature of the simulation and some of its statistical properties. I claimed before that
 this simulation, in which I artificially remove the $n=0$ components of the density, temperature, and potential fluctuations, eliminates the nonlinear instability.
@@ -233,6 +210,7 @@ and $n=0$ (the dashed line) for the Periodic simulation during the linear expone
 The $n=0$ curve, on the other hand, is the linear growth rate of the $n=0$ linear eigenmodes, which all have negative growth rates of course. The red curves map out $\gamma$ for the 
 turbulent stage of the Periodic simulation. The $n=0$ growth rate is \emph{positive} for low $m$, while the $n=1$ growth rate is negative for all $m$. This isn't surprising given the
 previous section's evidence for $n=0$ energy injection due to the nonlinear instability, but it is certainly a nice way to show the contrast with the linear growth rate curves.
+The growth rates in the turbulent stage are consistent with the slopes of the transient growth curves like that shown in Fig.~\ref{transient_n0_growth}.
 Finally, the green curves are the growth rates for the $n=0$ suppressed simulation during the ``turbulent phase'' (recall from Fig.~\ref{n_statistics} that the fluctuations remain rather
 coherent, and the state is only weakly turbulent). 
 These growth rates are somewhat similar to the linear growth rates, representative of the expectation under the unstable linear eigenmode paradigm. 
@@ -270,3 +248,69 @@ the growth rates without the zonal flows. Interestingly, the zonal flows only af
 mostly at medium $m$. Anyhow, the zonal flows don't affect the nonlinear instability, and they also have a relatively weak affect on turbulent saturation compared to some other types
 of turbulence like ITG turbulence~\cite{dimits2000,Holland2003}.
 
+
+\section{The Nonlinear Instability in Context}
+\label{s_nl_inst_context}
+
+\subsection{Nonlinear Instability History}
+\label{ss_nl_history}
+
+Now, after I found this curious nonlinear instability, I wondered if others had previously found this particular mechanism. 
+After all, the equations and the geometry that I use are not new. In fact, a look at 
+Fig.~\ref{reduced_nl_diagram} reveals that even simpler models like the 3D Hasegawa-Wakatani equations~\cite{hasegawa1983} contain the proper components to cause the nonlinear instability. And 
+cylindrical simulations of the Hasegawa-Wakatani equations are three decades old (although the original simulations were 2D).
+My search of the literature reveals that this nonlinear instability was, in fact, identified in 1995. Actually, going even further back, in 1977-1979, 
+Cheng et al.~\cite{cheng1977,cheng1979} performed 3D turbulence simulations that may have actually been driven by the nonlinear instability. 
+In their work, they identified a dominance of $k_\para=0$ ``convective cells [that] are non-linearly excited as a result of mode-coupling of the drift instabilities.'' 
+It's unclear what equation set they used
+and what exactly they meant by this mode coupling, but their results seem similar to mine, and it's reasonable to believe that they at least identified the consequences of the nonlinear instability.
+
+In 1995, Biskamp and Zeiler simulated local cylindrical plasma fluid turbulence in the first published use of the 3D Hasegawa-Wakatani equations~\cite{biskamp1995}. 
+Using an energetics analysis, they in fact, correctly identified the nonlinear instability mechanism that drove the $k_\para=0$ structures in their simulations. So the nonlinear instability
+mechanism is, in fact, not new. Furthermore, others expanded on this original work. 
+Drake et al. showed that elimination of the linear instability by removing the $k_\para \ne 0$ components of the linear drive term
+had virtually no affect on the turbulence~\cite{drake1995}. Furthermore, they showed that adding magnetic shear, which also stabilized the linear drift waves, did not stop the turbulence
+from sustaining itself. Both of these showed that the nonlinear instability could act as a subcritical instability.
+Additionally, Scott and others have explore nonlinear drift wave turbulence in a number of different models with different physics effects such as magnetic shear and curvature
+and found that drift wave turbulence with very long parallel structures tends to sustain itself despite the presence or lack thereof of linear 
+instabilities~\cite{scott1990,scott1992,zeiler1996,zeiler1997,korsholm1999,scott2002,scott2003,scott2005}.
+
+After visually exploring their turbulent simulations, Drake et al. proposed a physical mechanism for the nonlinear instability. The mechanism contains three steps: (1) a radially elongated $k_z = 0$
+convective cell radially transports density across the equilibrium density gradient, causing a density fluctuation with an azimuthal density gradient. (2) Radially propagating 
+drift waves with $k_z \ne 0$ grow on this density gradient. (3) The flows associated with these drift waves reinforce the original radial flows of the convective cell. They went on to simulate
+this mechanism in a reduced equation set, using a finely crafted initial state to show the growth of the structures involved in the mechanism. It's not difficult to see that this mechanism
+is the same one that I described using Fig.~\ref{reduced_nl_diagram}, though my description used modal energy transfer language while Drake's uses the language of flows and drift waves.
+Furthermore, he lumped together my two middle steps into his single middle step. Nevertheless, our explanations are equivalent.
+
+Drake et al. cleverly used their physical insight to develop a reduced turbulent model, consisting of only three modes: a $k_z = 0$ radially elongated mode, a $k_z \ne 0$ drift wave with finite
+radial and azimuthal wavenumbers, and a second $k_z \ne 0$ drift wave with higher azimuthal wavenumber with a phase such that its interaction with the other drift wave drives the $k_z = 0$
+mode. The electrostatic potential resulting from these modes is given by the expression
+
+\beq
+\label{drake_potential}
+\phi = \phi_0 \ {\rm cos}(\pi y) + \left[ \phi_1 \ {\rm cos}(\pi y) + \phi_2 \ {\rm sin}(2 \pi y) \right] \times {\rm sin}(k_z z) {\rm exp}(i k_x x).
+\eeq
+
+The evolution of these modes can be calculated by insertion of this expression into the evolution equations (such as Eqs.~\ref{ni_eq} and~\ref{rho_eq}). Further simplifying the resulting equations, 
+they calculated that the $k_z = 0$ mode would grow with an algebraic time dependence of $t^{4/3}$ (they didn't have any dissipation in the model to stop the growth). Such an algebraic time
+dependence is consistent with the notion of non-normal transient growth~\cite{waleffe1995}. They didn't make this connection, but in light of my Fig.~\ref{transient_n0_growth} and general
+properties of non-normal subcritical turbulence, this isn't a surprising result.
+
+Later, Krommes, noted the similarity between Drake's self-sustainment mechanism and the mechanism of turbulent self-sustainment in subcritical hydrodynamic flows like Poisuille pipe 
+flow~\cite{krommes1999}. The self-sustainment mechanism in hydrodynamic flows is the following: (1) advection of mean shear by weak streamwise rolls (vortices) which create streaks (spanwise
+velocity fluctuations); (2) secondary instability of the resulting streaks; (3) nonlinear self-interaction of the streaks that re-energizes the original streamwise rolls. The streamwise rolls
+are elongated $k_z = 0$ structures. Furthermore, the first step is a linear interaction, called the 'lift-up' mechanism, which relies on nonorthogonal eigenmodes that grow transiently with
+algebraic dependence~\cite{trefethen1993,waleffe1995,henningson1996}. This self-sustainment mechanism is analagous to the Drake plasma mechanism with the caveat that a secondary drift wave
+instability in the plasma case replaces the wake-like instability in the neutral fluid case. Such a correspondence between the two mechanisms led Krommes to suggest using mathematical techniques
+and conclusions from the neutral-fluid studies to further study the plasma mechanism. Krommes and others also tried to expand on Drake et al.'s reduced model. That work never seems to have been
+published (to my knowledge), but their method was to extract a low-order dynamical system that exhibits the critical self-sustainment mechanism. Krommes claims that numerical simulations of the
+low-order systems produced, in some regimes, chaotic orbits similar to the Lorenz attractor.
+
+I further note here a curious connection between the aforementioned work and studies done on LAPD. In LAPD, the frequency spectra sometimes have an exponential shape, which has been linked
+to the presence of Lorentzian-shaped pulses in the time signals~\cite{pace2008a,pace2008b}. In an attempt to recreate these numerically, Shi et al. prescribed a potential field, much like Drake's
+of Eq.~\ref{drake_potential}, except that this field was two-dimensional without any $z$ dependence and used two drift wave modes rather than three modes like Drake~\cite{shi2009}. 
+Shi's low-dimensional model produced the Lorentzian-shaped pulses in the time signals. 
+Maggs and Morales later connected the Lorentzian pulses to deterministic chaos and explained why deterministic chaos produces such shaped pulses~\cite{maggs2011,maggs2012a,maggs2012b}.
+They showed that broadband turbulence (at least the frequency spectra) can be the result of low-order chaotic systems. The connection between this work and Drake's and Krommes's is tenuous
+at this point. But can the few basic modes of Drake's mechanism create all the turbulence in LAPD, and does the turbulence in LAPD and other machines work in the same basic way as the turbulence
+in neutral-fluid systems?

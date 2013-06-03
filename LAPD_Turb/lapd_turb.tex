@@ -192,11 +192,21 @@ experimental Langmuir probe data when possible.
 \section{LAPD Turbulence: A Statistical Examination}
 \label{s_stat_exam}
 
-Stochastic turbulent systems or even chaotic systems with relatively few degrees of freedom that are subject to external fluctuations do not have predictable phase space states
-for long time periods. These systems do, however, have reproducible average properties.
-It's therefore useful to look at time series and spatial states of such systems in a statistical way. Turbulence in plasmas, in fact, is often characterized by statistical properties
-such as spectra, pdfs, and spatial and temporal correlations.
-Furthermore, statistical data can be extracted from both simulations and experiment in similar ways, which can then be used to validate simulations. 
+Dynamical systems are often described statistically using such tools as spectra, pdfs, and spatial and temporal correlations. This is probably the most common way to describe stochastic systems.
+Recall from Chapter~\ref{c_turb_and_inst} that stochastic systems are those whose temporal autocorrelations decay to zero exponentially fast. I show the temporal autocorrelations of the experiment
+and a simulation in Fig.~\ref{autocorrelation}, 
+showing that the autocorrelations recede exponentially (confirmed by a semilog plot), with the simulation having a longer correlation time than the experiment. This is not
+surprising given the visually longer lived structures in the simulation as seen in Fig.~\ref{sim_v_exp_anim}.
+
+
+\begin{figure}[!ht]
+\centerline{\includegraphics[]{autocorrelation}}
+\caption{Temporal density autocorrelation}
+\label{autocorrelation}
+\end{figure}
+
+Now before I proceed with more statistical data comparisons to qualify and quantify the agreement between the simulations and experiment, I must first explain how I can extract
+equivalent information from the simulations and experiment. In general, this hinges upon experimental measurement theory.
 
 \subsection{Experimental Probe Data}
 \label{ss_probe_data}
