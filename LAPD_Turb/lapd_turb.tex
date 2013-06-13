@@ -288,7 +288,9 @@ linear instabilities as the Periodic simulation, however.
 
 Fig.~\ref{n_statistics} a) shows the frequency power spectrum of the density fluctuations. I use a sliding Hamming window on the time series data and take the FFT, then take a volume
 average from 15 to 35 cm to get each simulation curve. I use the same technique for the experimental density fluctuation data, except I only have probe data at one location in the
-$\theta-z$ plane. The axial location is near the center of the machine. Fig.~\ref{n_statistics} b) shows the probability distribution function (PDF) of the density fluctuations,
+$\theta-z$ plane. The axial location is near the center of the machine. I plot the frequency spectrum in a log-log format to emphasize the low-frequency comparison, which is where most of the
+power is located, but I also show the spectrum in a log-linear format in Fig.~\ref{lorentzians}, and discuss this more later.
+Fig.~\ref{n_statistics} b) shows the probability distribution function (PDF) of the density fluctuations,
 while Fig.~\ref{n_statistics} c) shows the RMS amplitude of the density fluctuations as a function of radius. Fig.~\ref{n_statistics} d) plots the radial $k_r$ power spectrum of the simulations.
 I don't have experimental radial spectra data, which requires multiple probes at different radii. Fig.~\ref{n_statistics} e) is the azimuthal $m_\theta$ power spectra. 
 Two probes separated azimuthally are used to obtain the experimental spectra. Finally Fig.~\ref{n_statistics} f) is the axial $k_\para$ spectra, and I don't have experimental axial spectra due
@@ -325,10 +327,56 @@ agree between simulation and experiment lends evidence to my claim that the simu
 \label{n_correlation}
 \end{figure}
 
-One final statistical measurement that may be compared between simulation and experiment is the spatial correlation. Experimentally, this can be done by fixing one probe at a certain
+Another statistical measurement that may be compared between simulation and experiment is the spatial correlation. Experimentally, this can be done by fixing one probe at a certain
 location and moving another probe around and measuring the correlation between the two $I_{sat}$ signals. The second probe can scan the $r-\theta$ plane at an axial location close
 to the first probe. The results of the simulated spatial correlation compared to the experimental correlation are shown in Fig.~\ref{n_correlation}. For the simulation, I show only
 the result from the Periodic simulation. The darkest red point, which
 has a correlation value of 1 marks the location of the stationary probe. The black line is the $1/e$ contour, where the distance from the stationary probe to this contour is
 the correlation length. The simulation correlation length of about 1 cm is about half of that of the experimental correlation length. Furthermore, neither have completely isotropic
 structure, and their slight divergences from isotropy are not that similar. However, there is no complex mode structure or long extended correlations in either one.
+
+Finally, I come back to the time signals and the frequency spectra of the density and $I_{sat}$ signals. Typically, people do not compare time signals of chaotic systems because the sensitivity
+to initial conditions ensures that time signals of different experiments or simulations will certainly not be identical, and any qualitative judgements are too subjective. On the other hand,
+strange attractors do sometimes have properties with identifiable visual characteristics. For example, the orbits of the well-known Lorenz attractor look like the wings of a butterfly~\cite{lorenz1963}.
+Recently, Pace et al. discovered that the time signals in some LAPD experiments and in the edge of some magnetic confinement devices
+ are made up of Lorentzian-shaped pulses~\cite{pace2008a,pace2008b}. A Lorentzian is simply a function of the form
+
+\beq
+\label{lorentz_eqn}
+f(t) = A/\left[1 + (t - t_0)^2/\tau^2 \right]
+\eeq
+where $A$ is the pulse amplitude, $t_0$ is its center, and $\tau$ is the pulse width. Now since the absolute value of the Fourier transform of a Lorentzian is simply a decaying exponential,
+the Lorentzian pulses in the time signals lead to frequency power spectra that have exponential shape, which show up as a straight line in a log-linear plot. In such a plot, the slope of the line
+is proportional to the Lorentzian width $\tau$. Sometimes, however, the Lorentzian
+pulses in the time signals have different widths, which cause different spectral slopes, leading to power spectra with non-exponential shape. 
+
+To explore this finding in the experiment that I have described in this Chapter as well as in the simulations, I plot the frequency spectra of the experiment,
+the Periodic simulation, and the $n=0$ suppressed simulation in Fig.~\ref{lorentzians} a). I don't use any window functions, since they could distort any structures in the time signals,
+and I use only one radial location (30 cm) rather than doing a volume average. Clearly, the spectra are not exponential for either the experiment or the simulations. This doesn't rule out
+Lorentzian pulses in the time signals, however, as long as the time signals have pulses of varying width. So next, I look at the time signals of the experiment and simulations. I show representative
+signals for the experiment, Periodic simulation, and $n=0$ suppressed simulation in Figs.~\ref{lorentzians} b), c), and d), respectively. Notice that the experiment and Periodic simulation
+appear to have qualitatively similar time signals, while the $n=0$ suppressed simulation has a much different, simpler looking signal. Furthermore, the experiment and Periodic simulation contain
+a number of pulse-like features. I take a closer look at some of these pulses in Figs.~\ref{lorentzians} e) (experiment) and f) (Periodic simulation), trying to find times when the pulses
+are relatively isolated. In Fig.~\ref{lorentzians} e), I fit one of these pulses to a Lorentzian function (the dashed line), 
+proving that this pulse, does in fact have a Lorentzian shape. I confirm that a Lorentzian does provide a better fit than a Gaussian, which doesn't fit the pulse as well for as long of a time
+range as the Lorentzian. Furthermore, Gaussian pulses create spectra that look very different from those in Fig.~\ref{lorentzians} a), supporting the claim that the pulses have Lorentzian
+shape rather than Gaussian. Finally, in Fig.~\ref{lorentzians} f),
+I look at a signal snipet from the Periodic simulation with two relatively isolated pulses, and I fit a sum of two Lorentzian functions to this. Clearly, the fit is excellent as
+both of these pulses have Lorentzian shape, and importantly, they have different widths, explaining the non-exponential shape of the spectra. I don't show a fit to the $n=0$ suppressed simulation
+signal, but I note that it is quite sinusoidal with seemingly two or so dominant low frequency waves, which is clear from the highly peaked, non-broadband frequency spectra.
+
+\begin{figure}[!ht]
+\centerline{\includegraphics[]{lorentzians}}
+\caption{Lorentzian pulses in time signals}
+\label{lorentzians}
+\end{figure}
+
+Now the reason for the Lorentzian pulses in the time signals was explained by Maggs and Morales~\cite{maggs2012a}. They showed that in nonlinear systems, 
+right around the bifurcation from limit cycle attractors to chaotic strange attractors, one of the variables has a trajectory that involves a Lorentzian pulse or a series of Lorentzian pulses.
+In a plasma, that trajectory is associated with an ${\bf E \times B}$ flow, which advects the scalar density and temperature, imprinting the Lorentzian shape onto them.
+The fact that experimental signals are made up of Lorentzian pulses indicates that the systems are deterministic, not random, and they are associated with the mathematical construct called
+a strange attractor. Furthermore, these systems have some control parameter or bifurcation parameter associated with them that determines their steady state, 
+like how nuetral fluids have the Reynolds number which partially determines the attractor into which the system falls. That bifurcation parameter must be high enough so that the attractor is not
+still a limit cycle, but low enough so that the attractor still has a Lorentzian trajectory associated with it.
+The fact that both the simulation and the experiment have Lorentzian trajectories means that both are governed by a nonlinear deterministic chaotic process where their bifurcation parameters
+are just above the limit cycle threashold. This lends further support to the validation of the simulation model.
