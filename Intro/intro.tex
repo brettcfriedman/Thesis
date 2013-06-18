@@ -11,20 +11,22 @@ and fissionable uranium. The limiting component of dueterium-tritium fusion reac
 through nuclear fusion for at least a million years~\cite{wesson2004}.
 
 Due to its great potential, scientists have been working on controlling fusion reactions for over half a century. The community has made much progress, but fusion is not yet a commercially
-viable energy source, and there are still several scientific and technological obstacles to overcome before it is. The main issue in controlling fusion reactions is the need to contain
-reaction fuel for a long enough time at sufficiently high temperatures and densities. One of the best options is to contain an ionized plasma of fusion reactants with magnetic fields. 
-Possibly the best way to do this -- and certainly the most intensely studied -- is by using a tokamak. Tokamaks around the world have already achieved temperatures and pressures
+viable energy source, and there are still several scientific and technological obstacles to overcome before it is. The main obstacle to achieving controlled fusion reactions the confinement of the
+reaction fuel for a long enough time at sufficiently high temperatures and densities to achieve a self-sustaining reaction. 
+One of the best ways to contain the fuel is to maintain it in a plasma state and restrict the motion of the plasma using magnetic fields. 
+Possibly the best way to do this -- and certainly the most intensely studied -- is with a tokamak. Tokamaks around the world have already achieved temperatures and pressures
 necessary to produce fusion but have yet to confine the plasmas for long enough to achieve a self-sustained fusion reaction. Seemingly, this problem can be solved by making
 the tokamaks larger, although it's still unclear if the large tokamaks will be able to operate in a high confinement mode (H-mode), which will probably be necessary in order to
 keep the tokamaks economically viable. It's also unclear if the material walls of the larger tokamaks will be able to survive the large plasma fluxes.
 
 The plasma confinement time, for a given sized tokamak, is inversely proportional to the rate of cross-field transport in the tokamak, so it's important to know how to minimize that
-transport. Now, while the energy transport must be kept low, fusion product alpha particles (and other non-intrinsic impurities) must be transported out of the core so particle transport
+transport. Now, while the energy transport must be minimized, fusion product alpha particles (and other non-intrinsic impurities) must be transported out of the core so particle transport
 must be kept sufficiently high. The cross-field particle and energy transport is primarily driven by microturbulence, which is driven by instabilities due to the presence of free energy sources.
 These free energy sources are due to non-Maxwellian velocity-space features of the distribution functions, spatial inhomogeneity of the distribution functions, and stored electromagnetic energy.
 These energy sources always exist in the normal operating conditions of a tokamak. For example temperature gradients must exist in tokamaks
 since the hot tokamak core cannot extend all the way to the walls, which are kept close to room temperature. In fact, we must take great care in order to prevent a high flux of extremely
-hot plasma from hitting the material walls. Transport can actually help in this regard by spreading out the plasma beam that crosses the last-closed-flux-surface so that its flux
+hot plasma from hitting the material walls, which can melt them or sputter atoms into the core. 
+Transport can actually help in this regard by spreading out the plasma beam that crosses the last-closed-flux-surface so that its flux
 per unit area hitting material limiters and divertor targets is reduced. Altogether, turbulent transport is needed in some ways, but is detrimental in other ways. A balance may be key,
 or maybe clever techniques and engineering can be used to control the transport in the necessary ways. In either case, it's important to be able to predict how the turbulence and the
 transport will react to changes in design or changes in operational parameters. 
@@ -57,7 +59,8 @@ provide methods of analysis or ideas that may be checked when tokamak simulation
 
 My dissertation focuses on direct numerical simulations of low frequency turbulent fluctuations in LAPD. Since LAPD has low temperature ($T_e \le 10$ eV and $T_i \le 1$ eV) and is very long,
 it is highly collisional, making it suitable for modelling with fluid equations. Thus, I use a reduced Braginskii two-fluid model~\cite{Braginskii1965} for the equations, which I expand around
-an equilibrium state. I take the equilibrium density, electron temperature, magnetic field, and electrostatic potential profiles from experimental measurements. I use cold ions and neglect ion acoustic
+an equilibrium, time-independent state (a Reynolds decomposition). 
+I take the equilibrium density, electron temperature, magnetic field, and electrostatic potential profiles from experimental measurements. I use cold ions and neglect ion acoustic
 wave effects. I perform both linear and nonlinear simulations with the BOUT++ code~\cite{dudson2009}, where I retain only the advective nonlinearities in the nonlinear simulations.
 In the nonlinear turbulent simulations, I apply corrective density and temperature sources to keep the flux-surface averaged density and temperature from diverging from the quasi-steady state
 experimental profiles.
@@ -65,9 +68,11 @@ experimental profiles.
 In all but the last chapter of the dissertation, I focus on simulating a single experimental configuration. In this configuration, the LAPD plasma is created solely with the cathode/annode
 source that emits and accelerates electrons, which ionize neutral helium atoms. The only obstructing feature is an azimuthal limiter about 30 cm in radius, which is close to the annode. 
 This limiter is also biased so that the equilibrium radial electric field
-is nulled out. This simplifies the simulations because it eliminates one of the equilibrium profiles that can cause instability as well as ${\bf E \times B}$ shear-induced turbulent suppression.
-The only equilibrium gradients in this experiment and in the simulations are the density and electron temperature gradients, which point in the radial direction and are strongest around the limiter edge.
-In the last chapter before the conclusion, I simulate experiments in which the limiter is biased differently, so that different non-zero radial electric fields exist.
+is nulled out. This simplifies the simulations because it eliminates one of the equilibrium profiles that can cause instability. Furthermore, it eliminates any questions regarding
+${\bf E \times B}$ shear-induced turbulent suppression, which is an important field of study in its own right but not my focus.
+So the only equilibrium gradients in this experiment and in the simulations are the density and electron temperature gradients, which point in the radial direction and are strongest around the limiter edge.
+In the last chapter before the conclusion, I simulate experiments in which the limiter is biased differently, so that different non-zero radial electric fields exist. I still focus, however, on the instability
+properties rather than on the ${\bf E \times B}$ shear dynamics.
 
 In the null radial electric field simulations, I use several different idealized axial boundary conditions including periodic, zero-value, zero-derivative, and Bohm sheath. For the first three
 axial boundary conditions, the only linear instability that exists in the model is the drift wave instability, which can be driven by both the equilibrium density and electron temperature gradients.
@@ -75,38 +80,38 @@ For the simulation with the Bohm sheath boundary condition, a Conducting Wall Mo
 drift waves have finite $k_\para$ such that their axial wavelengths are on the order of the machine length (or twice the machine length), the linear Conducting Wall Mode waves have $k_\para \approx 0$.
 
 I start the nonlinear null radial electric field simulations from small random noise. The fluctuations grow through their linear instabilities until they saturate with 
-normalized density $\tilde{n}/n$ and potential $e \tilde{\phi}/T_e$ fluctuations reaching about $10 \%$. The saturation is due to nonlinear three-wave transfer from the unstable waves
+normalized density $\tilde{n}/n$ and potential $e \tilde{\phi}/T_e$ fluctuations reaching an RMS value of about $10 \%$. The saturation is due to nonlinear three-wave transfer from the unstable waves
 to stable ones, where energy is ultimately dissipated by artificial diffusion and viscosity as well as ion-neutral collisions. 
 The zonal flow may aid in this nonlinear transfer, but it doesn't seem to be a major player in the turbulent
 dynamics, and I don't focus on it. In fact, I don't focus on the saturation mechanism or the dissipation routes at all.
 
 Statistical analysis of the turbulence reveals that it is broadband and qualitatively and quantitatively similar to the turbulence in the experiment. The level of validation arguably means that
-the results from the simulations can provide information regarding the fluctuations in the experiment. The simulations are useful because they prodive a determinstic dynamical system to
+the results from the simulations can provide information regarding the fluctuations in the experiment. The simulations are useful because they provide a determinstic dynamical system to
 associate with the experimental turbulence, and they provide much more spatial information than experimental measurements do. One immediate result that I obtain because of this enhanced spatial knowledge
 is that the simulation turbulence is dominated by $k_\para = 0$ flute-like structures. I explore the cause and effects of this by deriving and analyzing the energy dynamics of the turbulence,
 which is possible because of the deterministic dynamical systems aspect of the simulations.
 
-The energy dynamics reveals dynamic processes such as energy injection from the free energy equilibrium gradients into the fluctuations, energy transfer between different waves or modes,
+The energy dynamics reveals dynamical processes such as energy injection from the free energy equilibrium gradients into the fluctuations, energy transfer between different waves or modes,
 energy transfer between potential and kinetic energy degrees of freedom, and energy dissipation of the fluctuations. The most interesting result is that a multi-step nonlinear instability
 process drives energy into the fluctuations, ultimately sustaining the turbulence. The process begins with $k_\para = 0$ convective cells advecting density across the equilibrium density gradient,
 which build up $k_\para = 0$ density fluctuations. These density fluctuations break up by three-wave transfer (or equivalently they excite a secondary instability), driving finite $k_\para$
 drift waves. These finite $k_\para$ drift waves have access to the adiabatic response, meaning they can transfer energy between potential and kinetic energy. The resultant drift waves then
-transfer some of their kinetic energy back to the convective cells. This process is self-sustaining and nonlinear because the three-wave transfers from the $k_\para = 0$ density fluctuations
-to the drift waves and from the drift waves back to the convective cells are both nonlinear processes. 
+transfer some of their kinetic energy back to the convective cells. This process is self-sustaining and it is necessarily nonlinear because the three-wave transfers from the $k_\para = 0$ density fluctuations
+to the drift waves and from the drift waves back to the convective cells are both purely nonlinear processes. 
 
 Now despite the nonlinear nature of the process, linear effects are still quite important due to the fact that the nonlinearities of the system are energetically conservative.
-This means that the energy that supports the process ultimately comes from a linear mechanism, specifically the mechanism in which the convective cells convect density across the gradient. 
+This means that the energy that supports the process ultimately comes from a linear mechanism, specifically the mechanism in which the convective cells advect density across the gradient. 
 But if one thinks in terms of linear eigenmodes and linear instabilities, this probably doesn't fit with one's intuition. 
 The reason is that the linear mechanism occurs at $k_\para = 0$, where no linearly unstable drift
 waves exist, yet a linear process at $k_\para = 0$ still brings energy into the turbulent system. The nonintuitive process responsible for this is a transient growth mechanism of nonorthogonal
 stable linear eigenmodes. Because the linear system is non-normal, the linear eigenmodes are not orthogonal to one another, and they might even be largely anti-parallel to each other.
 When this happens, even when all of the eigenmodes decay, the system as a whole may still grow, although only transiently. Nevertheless, this growth, when reinforced by nonlinear
-effects, can sustain itself, continuing to drive energy into the system. Interestingly, the nonlinear instability and the linear mechanism that drives it is analagous to that which drives turbulence
+effects, can sustain itself, continuing to drive energy into the system. Interestingly, the nonlinear instability and the linear mechanism that drives it are analagous to those which drive turbulence
 in many subcritical neutral fluid flows. This connection between neutral fluid and plasma turbulence may provide further hints on how to proceed with research in the future because the neutral
 fluid community has worked so much with systems that are dominated by this instability process.
 
-While the nonlinear instability is easy to identify in the simulation with periodic axial boundary conditions, it is not as easy in the simulations with the other boundary conditions. The reason is
+While the nonlinear instability is easy to identify in the simulation with periodic axial boundary conditions, it is not as easy to identify in the simulations with the other boundary conditions. The reason is
 that the unstable linear eigenmodes of the simulations with non-periodic boundary conditions can have more flute-like structure than those of the periodic simulation. The simulation with Bohm
 sheath boundaries is especially difficult to analyze because the linear eigenmodes are quite flute-like. Nevertheless, the similarity between these simulations and the periodic one combined
-with energy dynamics evidence points to the fact that these too are dominated by the nonlinear instability mechanism, which is rather robust.
+with energy dynamics evidence points to the fact that all of the simulations are dominated by the nonlinear instability mechanism, making it rather robust.
 

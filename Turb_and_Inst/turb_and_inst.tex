@@ -1,7 +1,7 @@
 \chapter{Turbulence and Instability}
 \label{c_turb_and_inst}
 
-Turbulence is a ubiquitous phenomenon in fluids and has been studied for centuries. It is often called the last unsolved problem in classical physics because we cannot predict in detail how or why
+Turbulence is a ubiquitous phenomenon in fluids that has been recognized and studied for centuries. It is often called the last unsolved problem in classical physics because we cannot predict in detail how or why
 turbulence occurs or fully predict its behavior. It is, however, extremely important to gain an understanding of it in laboratory plasmas and magnetically confined
 fusion devices because it causes increased particle and energy
 transport. This is not necessarily a good or bad property as far fusion devices are concerned on the whole -- better energy confinement is needed in the core but not in the scrape-off-layer,
@@ -18,8 +18,8 @@ Apparently, some scientists in the first half of the 20$^{th}$ century didn't re
 to studying turbulence~\cite{tennekes1972}. In any case, statistical theory dominated. 
 Not until the 1970's was a deterministic theory of turbulence formulated. Nevertheless, the deterministic approach does
 not mean that turbulent statistics are useless because even though the turbulence is not random, it can still be stochastic. I note that random and stochastic are often used interchangeably,
-but formally, stochastic just refers to a variable whose autocorrelation decays exponentially fast to zero. Thus, a deterministic system may be stochastic, but not random. And stochasticity
-is sufficient for statistical tools to be effective~\cite{mcdonough04}.
+but formally, stochastic refers to a variable whose autocorrelation decays exponentially fast to zero. Thus, a deterministic system may be stochastic, but not random. And stochasticity
+is sufficient for statistical tools to be effective~\cite{mcdonough04}. Even non-stochastic systems are often described statistically, although they often have more informative descriptions as well.
 
 In any case, certain statistical descriptions are still widely accepted in the fluid and plasma communities. Perhaps the most important is Kolmogorov's theory (K41 theory) of high Reynolds number
 small scale turbulence~\cite{Kolmogorov1941,tennekes1972}. 
@@ -40,7 +40,7 @@ In 1971, Ruelle and Takens showed that the Navier-Stokes equations are capable o
 concept of a strange attractor~\cite{ruelle1971,mcdonough04}. They also presented a sequence of transitions (bifurcations) that a flow undergoes as the Reynolds number is increased
 on its way to a chaotic state: steady $\rightarrow$ periodic $\rightarrow$ quasi-periodic $\rightarrow$ chaotic. This isn't the only possible bifurcation sequence; 
 in fact, some flows like Poisueille pipe flow go straight from steady to chaotic. 
-In any case, it's significant that the sequence is short and finite, meaning that fully developed turbulence may occur at finite Reynolds number, and it can be understood in terms
+In any case, it's significant that the sequence is short and finite, meaning that turbulence may occur at finite Reynolds number, and it can be understood in terms
 of a strange attractor. Interestingly, Biskamp and Kaifen showed that a system of three plasma drift waves undergoes a Ruelle-Takens bifurcation sequence~\cite{biskamp1985}.
 
 Recently, Maggs and Morales gave support to the deterministic viewpoint of plasma turbulence (in several different machines and experiments) by connecting the exponential frequency spectra
@@ -65,7 +65,7 @@ and the structure of turbulence. Both the neutral-fluid community and the plasma
 \label{s_lin_inst_plasmas}
 
 Linear instabilities are those that can grow from infinitesimally small fluctuations about an equilibrium. They can be calculated by linearizing a dynamical equation set about an equilibrium, where
-at least one equilibrium profile has a finite gradient. The linear system will generally have the form
+at least one equilibrium profile has a finite gradient. A linear dynamical system can be written in the form
 
 \beq
 \label{dyn_sys_lin}
@@ -78,13 +78,13 @@ from noisy infinitessimal perturbations to the equilibrium. In this case, the sy
 condition for linear instability, it is not sufficient. At least one of the eigenvalues must have a positive real part. This is why so much effort goes to calculating linear plasma systems,
 testing for linear instability.
 
-In general, plasma physics has so many more types of equilibrium gradients and physical processes that neutral fluids do not, that there are many more linear plasma instabilities than
-linear fluid instabilities. Plasmas have linear instabilities due to density gradients, temperature gradients, velocity gradients, current gradients, magnetic field curvature, 
-etc~\cite{wesson2004,chen2006}. 
+In general, plasma physics has so many more types of equilibrium gradients and physical processes than neutral fluids, that there are many more linear plasma instabilities than
+linear neutral fluid instabilities. Plasmas have linear instabilities due to density gradients, temperature gradients, velocity gradients, current gradients, magnetic field curvature,
+and non-Maxwellian velocity-space features to name a few~\cite{wesson2004,chen2006}. 
 Linear plasma instabilities can be collisional, collionless, electrostatic, electromagnetic, ionization-related, sheath-induced, etc. The shear number of instabilities can be overwhelming.
 In physical systems, any number of linear instabilities can be present at the same time, combining with each other, with some being more significant than others. Often times, it can take
-quite the effort to identify which linear instability with what specific properties is responsible for turbulence in a given situation. This can be important if one wants to create reduced
-models or if one wants to be able to predict the type of turbulence will occur in future machines. Unfortunately, however, this isn't even the entire story as turbulence is inherently nonlinear,
+great effort to identify a particular linear instability with particular properties that is responsible for turbulence in a given situation. This can be important if one wants to create reduced
+models or if one wants to be able to predict the type of turbulence that will occur in future machines. Unfortunately, however, this isn't even the entire story as turbulence is inherently nonlinear,
 opening the door for even more instabilities.
 
 \subsection{Supercritical Stability and Subcritical Instability}
@@ -106,15 +106,18 @@ He described the evolution of the amplitude $|A|$ of the most unstable or least 
 \eeq
 where $l$ is the Landau constant and the $l |A|^4$ term is the nonlinearity. Landau's equation admits an analytic solution given an initial condition, making it easy to explore. 
 Several different qualitative scenarios arise depending on the signs and magnitudes of $\sigma$ and $l$. If $l>0, \sigma>0$, as $t \rightarrow \infty, |A| \rightarrow (2 \sigma/l)^{1/2}$ no matter
-the value of the intial condition $A_0$. This value of $A_e \equiv (2 \sigma/l)^{1/2}$ is called an attractor with a global basin of attraction since any initial state asymptotically evolves to it. 
-Note that the linear problem
+the value of the intial condition $A_0$. This value of $A_e \equiv (2 \sigma/l)^{1/2}$ is called a fixed point attractor with a basin of attraction consisting of all values of $A_0$
+since any initial state asymptotically evolves to it. Note that the linear problem
 is unstable because $|A| \rightarrow \infty$ as $t \rightarrow \infty$, but the nonlinear problem is stable in that it evolves to a finite value as $t \rightarrow \infty$. This is called
-supercritical stability. If $l>0, \sigma<0$, as $t \rightarrow \infty, |A| \rightarrow 0$ for both the linear and nonlinear problem. Here, zero is an attractor. The situation is rather simple for
+supercritical stability. If $l>0, \sigma<0$, as $t \rightarrow \infty, |A| \rightarrow 0$ for both the linear and nonlinear problem. Here, the point $|A|=0$ is the fixed point attractor. 
+The situation is rather simple for
 $l>0$ and the bifurcation diagram for this is shown in Fig.~\ref{bifurcation_diagrams} a). The branching of the curve of the equilibrium solutions at $R = R_c, |A| = 0$ is called a bifurcation.
 
 On the other hand, if $l<0, \sigma>0$, both the linear and the nonlinear problem are unstable with the nonlinear problem growing super-exponentially in time, becoming infinite at finite time.
 Such a situation is unphysical, and the Landau equation is too simple in this case. The most interesting and most commonly studied case is when $l<0, \sigma<0$. If $A_0 < A_e$, the solution
-decays to zero as $t \rightarrow \infty$. However, if $A_0 > A_e$, the solution is unstable and breaks down at finite time. Fig.~\ref{bifurcation_diagrams} b) depicts the bifurcation diagram
+decays to zero as $t \rightarrow \infty$. However, if $A_0 > A_e$, the solution is unstable and breaks down at finite time. This means that the system is unstable only when the initial
+condition has a finite amplitude, which is in contrast to a linear instability, which is unstable to infinitesimal initial perturbations. Finite amplitude instabilities are called nonlinear
+instabilities. Fig.~\ref{bifurcation_diagrams} b) depicts the bifurcation diagram
 for the case of $l<0$. In this figure, $R_G$ represents a Reynolds number below which the unstable bifurcated solution doesn't exist. This isn't a part of the Landau equation, but Landau
 suggested that this should be the case. 
 
@@ -136,9 +139,9 @@ is another example of this. Plane Poiseuille flow, also admits subcritical insta
 \subsection{Non-normality, Transient Growth, and Subcritical Turbulence}
 \label{s_nonormality}
 
-Subcritical instability is especially unintuitive when one considers cases in which the nonlinearities of the equation set are energetically conservative, which is often the case. Then, only
+Subcritical instability is especially unintuitive when one considers cases in which the nonlinearities of the equation set are energetically conservative, which is typical. Then, only
 the linear terms in the equations can extract energy from the equilibrium gradients. It seems reasonable that when all of the linear eigenmodes of a system are stable, there shouldn't be
-any instability. This makes subcritical instability a mysterious phenomenon in some cases. However, several neutral-fluid researchers in the early 90's explained the mechanism behind linear subcritical
+any instability. This makes subcritical instability a mysterious phenomenon. However, several neutral-fluid researchers in the early 90's explained the mechanism behind linear subcritical
 growth~\cite{gustavsson1991,butler1992,reddy1993,reddy1993b,trefethen1993,henningson1994,henningson1996}. The mechanism requires that the eigenvectors of the linear system be nonorthogonal.
 In other words, the linear operator matrix (like ${\bf M}$ in Eq.~\ref{dyn_sys_lin}) must be non-normal. 
 Such non-normality is a necessary condition for sustained subcritical turbulence in systems with conservative nonlinearities.
