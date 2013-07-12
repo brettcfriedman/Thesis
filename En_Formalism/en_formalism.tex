@@ -150,19 +150,34 @@ My direct calculations have confirmed this.
 While the total energy dynamics can reveal some important information such as the amount of energy entering the density fluctuations vs. the temperature fluctuations, the direction of
 energy flow through the adiabatic response, and how much energy is dissipated by the various mechanisms, the total dynamics cannot show the mechanism of the nonlinear instability.
 In fact, the total energy dynamics are rather useless in revealing any nonlinear physics. Spectral or mode-decomposed energy dynamics, on the other hand, provide much more information
-regarding mode-specific processes like cascades and complex nonlinear processes.
+regarding mode-specific processes like cascades and complex nonlinear processes. I note that mode-decompositions are most useful for diagnosing stochastic systems, 
+which require statistical description like the Kolmogorov theory~\cite{Kolmogorov1941}. 
+On the other hand, statistical, mode-based analyses are overly complicated for systems controlled by deterministic chaos, where one can uncover dynamical processes in more straight-forward ways. 
+But as I show in Chapter~\ref{c_chaos}, the turbulent simulations and experiment, although deterministic, possess too many degrees of freedom to be simply described with chaotic analyses. 
+I therefore, proceed with a statistical, mode-decomposed analysis.
 
-When deriving mode-decomposed energy dynamics, one first has to choose a set of basis functions. As long as the functions form an independent complete basis, they are acceptable.
-Fourier modes are a natural basis to use for any coordinate with periodic boundaries. Fourier modes are also orthogonal to one another, making them ideal. Linear eigenmodes provide
-another good choice for a basis; however, they can be non-orthogonal in some systems, making them somewhat unweildy. I began this study using a linear eigenmode decomposition,
-but I eventually gave up that path because the linear eigenmodes of this system are non-orthogonal. The results were complicated and didn't show anything more interesting than a simpler
-Fourier decomposition would show. Hatch et al. dealt with this non-orthogonality problem with two distinct methods~\cite{hatch2011}. The first was to use a Gram-Schmidt orthogonalization
-procedure starting with the most unstable linear eigenmode to make the modes orthogonal. The resulting modes other than the most unstable linear eigenmode, however, were no longer
-the linear eigenmodes. The second method was to use a proper orthogonal decomposition (POD, which is essentially a kind of singular value decomposition) to create orthogonal modes that best
-captured the dominant turbulent structures. Both of these methods are very interesting and quite useful for some systems, however, they are probably most useful for systems with
-strong linear instabilities where most of the energy of the turbulence is contained in the fastest growing linear eigenmode or a dominant POD mode. That is not the case for the LAPD turbulence.
+When deriving mode-decomposed energy dynamics, one first has to choose a set of basis functions (modes) on which to decompose the fluctuations. 
+Generally, basis functions are time-independent spatial structures that are linearly
+independent and span the whole computational space $\Omega$. For example, a particular set of basis functions $\psi_i(\vec{r})$ can linearly sum to represent any 3D function on $\Omega$:
 
-I found that the most useful basis to take is a partial Fourier basis. Namely, I simply use a Fourier decomposition in the azimuthal and axial directions.
+\beq
+\label{func_decomp}
+f(\vec{r}) = \sum_i a_i \psi_i(\vec{r}).
+\eeq
+
+In dynamical systems, the system is represented by a time-dependent 3D function, causing the amplitudes $a_i$ to vary with time:
+
+\beq
+\label{func_decomp_time}
+f(\vec{r},t) = \sum_i a_i(t) \psi_i(\vec{r}).
+\eeq
+
+Fourier modes or linear eigenvectors are common examples of basis functions. However, Fourier modes are not always a useful or a natural basis, 
+and linear eigenmodes can be unweildy when they are non-orthogonal to each other, which is the case for my dynamical system. In the next section, I discuss an alternative basis, 
+namely that obtained by Proper Orthogonal Decomposition, but for now, I describe a basis upon which I base most of my results. That basis is a partial Fourier basis, which I have found useful 
+in analyzing the simulations and uncovering interesting physics.
+
+What I mean by partial Fourier basis is that I decompose the azimuthal and axial directions in Fourier series, leaving the radial direction undecomposed.
 For example, I decompose the density in the following way:
 
 \beq
@@ -173,12 +188,12 @@ N(r,\theta,z,t) = \sum_{\vec{k}} n_{\vec{k}}(r,t) e^{i(m \theta + k_z z)}.
 Here, $k_z = \frac{2 \pi n}{L_\para \rho_s}$, where $n$ is the axial mode number and $m$ is the azimuthal mode number, and the $\vec{k}$ symbol is short for $(m,n)$.
 The sum over $\vec{k}$ is in fact a double sum over $m$ and $n$. Furthermore, positive and negative
 $m$ and $n$ are included in the sums to ensure reality of $N$ since $n_{-\vec{k}} = n_{\vec{k}}^*$.
-Similar decompositions are used for $\vpe, \phi,$ and $T_e$. Note that the radial part of the basis function $n_{\vec{k}}(r,t)$ is time-dependent and shouldn't really be called a basis
-function at all because of this. I cannot say anything about nonlinear processes involving different radial modes since I haven't decomposed the radial structures into a time-independent
-basis. Essentially, I have limited the amount of information I can gain from this decomposition. I have intentionally done this to focus on a few particular results, which would be
-more difficult to see if I used an additional radial decomposition.
+Similar decompositions are used for $\vpe, \phi,$ and $T_e$. Note that the radial part of the basis function $n_{\vec{k}}(r,t)$ isn't really a basis function in the general sense. First,
+it is time-dependent. Second, it doesn't span the radial domain. In fact, at a particular time, it only describes one very particular 1D (complex) function. Nevertheless, by not using a 
+radial decomposition, I greatly reduce the number of modes of the problem, allowing me to focus on certain processes of interest.
 
-To derive the spectral energy equations, I first substitute the Fourier decompositions into Eqs.~\ref{ni_eq}-~\ref{te_eq}. Using the density evolution equation as an example, I get:
+Now, to derive the spectral energy equations, I first substitute the basis decompositions (Eq.~\ref{density_decomp} and those corresponding to the other fields) into Eqs.~\ref{ni_eq}-~\ref{te_eq}. 
+Using the density evolution equation as an example, I get:
 
 \beqar
 \label{density_eq_fourier}
@@ -272,3 +287,180 @@ T_v(\vec{k},\vec{k}') & = & \left< \fmei \frac{N_0}{r} \left( i m' v_{\vec{k}'} 
 \eeqar
 
 
+\section{Proper Orthogonal Decomposition}
+\label{s_pod}
+
+\subsection{Decomposition}
+\label{ss_pod_decomp}
+
+As I alluded to above, there are many choices by which one can mode-decompose a turbulent system. Full Fourier decompositions and linear eigenmode decompositions are common. I choose
+not to use a radial Fourier decomposition for a couple of reasons. First, the radial Fourier modes are poor representatives of the turbulent structures. 
+That is, too many radial Fourier modes have large coefficients upon decomposition, which makes simple modelling difficult. Second, the equilibrium profiles have radial dependence,
+and some of the differential operators contain factors of the radius $r$. This means that the integration over the volume which gets rid of the exponentials 
+(like the step between Eq.~\ref{density_eq_fourier} and Eq.~\ref{density_evolution}), does not work for the radial coordinate. This is more of an aesthetic consideration than a mathematical one;
+nevertheless, I prefer to avoid it.
+
+The linear eigenmode decomposition is an attractive one because the dynamical energy expressions can be written elegantly (see Sec.~\ref{ss_nl_sat_levels}), and it seems that the fastest growing
+linear eigenmodes should make up most of the turbulent amplitude. 
+However, there is the practical difficulty in doing an eigenmode decomposition in that one has to somehow find all of the linear eigenvectors, 
+which cannot be done with an initial value code like BOUT++. One must write or use an eigensystem code to do this. 
+On a more fundamental level, however, dynamical systems with non-normal linear operators, which include those that contain equilibrium gradient drive terms,
+have non-orthogonal linear eigenvectors. Using a non-orthogonal basis decomposition can be too unweildy for a decomposition analysis because the total energy 
+contains contributions from each individual eigenmode plus contribtutions from cross terms. I showed a simple example of this in Sec.~\ref{s_nonormality}. 
+The fact that the cross terms can have negative energies is undesirable and unmanageable. Using left and right eigenvectors to introduce some kind of orthogonality condition can
+partly simplify matters, but energies and the dynamical terms still contain cross terms, leaving still overly complicated results~\cite{kim2010}.
+I, in fact, began this line of research doing an eigenmode decomposition, but I eventually
+gave up that path because the results were too complicated and the interesting physics didn't depend on that particular decomposition.
+
+Hatch et al. dealt with the non-orthogonal eigenvector problem using two distinct methods~\cite{hatch2011}. The first was to use a Gram-Schmidt orthogonalization
+procedure, retaining the most unstable linear eigenmode and orthogonalizing the others from this. The resulting orthogonal modes other than the most unstable linear eigenmode, however, are not
+linear eigenmodes after the procedure. They more or less form an arbitrary orthogonal basis, leaving this method with limited applicability. 
+The second method they used was proper orthogonal decomposition (POD, aka Principle Component Analysis) to create orthogonal modes that best
+captured the dominant turbulent structures. The POD has properties that make it the most desirable decomposition (other than the one in the previous section) for my dynamical system.
+
+POD is a procedure for extracting an orthogonal basis from an ensemble of space-time signals. Its power lies in its generality, its linearity, and its creation of an ``optimal'' basis.
+A nice review of the properties of POD is given by Berkooz et al.~\cite{berkooz1993}. A less descriptive and less rigorous description of POD is given in Futatani et al.~\cite{futatani2009},
+and I will follow their treatment to show how to construct the POD and present some of its properties. Simply, the POD is a singular value decomposition (SVD) of the data given by
+
+\beq
+\label{svd}
+A(\vec{r}_i,t_j) = \sum_{q=1}^{N_{\rm{POD}}} \sigma_q u_q(\vec{r}_i) w_q(t_j)
+\eeq
+where $A(\vec{r},t)$ is the data.  In my case, four independent variables
+$(N, \phi, \vpe, T_e)$ comprise the data. These must be appended together to get the full matrix $A$. Furthermore, $N_{\rm{POD}} = \rm{min}[4 \times N_r \times N_\theta \times N_z,N_t]$. 
+In other words, $N_{\rm{POD}}$ is the lesser
+of 4 times the total number of total grid points (the degrees of freedom) and the number of time points. For me, $N_{\rm{POD}} = N_t$ because I choose to retain more spatial data than time data.
+Linear eigenmodes and full Fourier modes, on the other hand, always number $4 \times N_r \times N_\theta \times N_z$. This means that the spatial POD functions, $u_q(\vec{r})$,
+do not span the computational domain; any arbitrary function on the computational domain cannot be represented by a linear combination of the $u_q$ POD functions. 
+They do, however, span a subspace of the domain and every data signal that was used to derive the $u_q$ POD functions can be represented by a linear combination of them.
+
+Before I continue, I note a couple of practical considerations. First, I find it useful at times to first Fourier decompose the data in the azimuthal and axial dimensions before performing the POD.
+In that case, the data for each Fourier pair $\vec{k}=(m,n)$ is only a function of the radial coordinate $r$ and time: $A_{\vec{k}}(r,t)$. The spatial POD functions $u_q$ are then 1D functions of
+radius. Second, if I do not Fourier decompose the data, I must make $A$ a 2D matrix in order to take the SVD computationally. To do this, I simply unravel or 
+collapse all of the spatial dimensions into a 1D vector. Then a single column of $A$ is the unravelled spatial data at one particular instant in time, and the time varies from column to column.
+Furthermore, the spatial and temporal POD functions $u_q$ and $w_q$ are real, not complex.
+
+Continuing on, the spatial POD $u_q$ modes and the temporal POD $w_q$ modes satisfy the following orthonormality conditions:
+
+\beq
+\label{pod_orthonormality}
+\sum_{i=1}^{N_{\rm{POD}}} u_q(\vec{r}_i) u^*_l(\vec{r}_i) = \sum_{j=1}^{N_{\rm{POD}}} w_q(t_j) w^*_l(t_j) = \delta_{q l}.
+\eeq
+
+The positive real numbers $\sigma_q$ are the singular values, and they are sorted in descending order, i.e., $\sigma_1 \ge \sigma_2 \ge \sigma_3 \cdots$. Then for $1 \le h \le N_{\rm{POD}}$, I
+can define a rank-$h$ truncation of the dataset $A^{(h)}$ as
+
+\beq
+\label{pod_truncation}
+A_{i j}^{(h)} = \sum_{q=1}^h \sigma_q u_q(\vec{r}_i) w_q(t_j).
+\eeq
+What makes the POD more optimal than any other decomposition is that this truncation approximation is better than any other rank-$h$ approximations with other bases. Formally,
+
+\beq
+\label{pod_optimality}
+\Vert A - A^{(h)} \Vert^2 = \rm{min} \left\{ \Vert A - B \Vert^2 \right\}, \rm{for rank}(B) = h.
+\eeq
+where $\Vert A \Vert = \sqrt{\sum_{i j} A_{i j}}$ is the Frobenius norm.
+Now in general, $\Vert A \Vert^2 = \sum_{q=1}^{N_{\rm{POD}}} \sigma_q^2 $ is the energy of the data and $\sigma_q^2$ represents the energy contained in the $q^{th}$ POD mode. In this sense, the POD is a
+decomposition of the data in terms of energy content. In other words, the modes with the highest $\sigma_q$ comprise most of the energy of the data. If the $\sigma_q$'s descend rapidly, as they
+often do, the truncated data reconstitution of Eq.~\ref{pod_truncation} represents the original data quite well. This is obviously useful in energetics analyses.
+
+\subsection{POD Energy Dynamics}
+\label{ss_pod_ed}
+
+In order to construct the energy dynamics of the POD modes, I must first alter the data a bit because
+energy of the system in Eq.~\ref{tot_energy} is not simply given by $\Vert A \Vert^2$ if $A$ is made up of the variables $(N, \phi, \vpe, T_e)$ from which I constructed the POD above.
+The reason is that the energy
+contains equilibrium constants as well as the perpendicular gradient of $\phi$ rather than $\phi$ itself; the energy is not simply $E \ne \Vert A \Vert^2 = \left( N^2 + \phi^2 + \vpe^2 + T_e^2 \right)$. 
+To fix this, I instead reconstruct $A$ from the variables
+$(\sqrt{T_{e0}/N_0} N, \sqrt{N_0} \grad_r \phi, \sqrt{N_0} \grad_\theta \phi, \sqrt{N_0} \fmei \vpe, \sqrt{3 N_0/2 T_{e0}} T_e)$. This variable weighting provides the equality, 
+$E = \frac{1}{2} \Vert A \Vert^2$. I then perform the POD with this $A$.
+The spatial POD modes $u_q$ can be unweighted, broken apart, and unraveled to get back functions such as $n_q(\vec{r})$ which is the density part of the $u_q$ POD mode. Let me give a name to this
+unweighted vector: $x_q = (n_q, \phi_q, v_q, t_q)$. The original data is still decomposed in terms of this vector,
+
+\beq
+\label{unweighted_decomp}
+(N,\phi,\vpe,T_e) = \sum_{q=1}^{N_{\rm{POD}}} \sigma_q x_q(\vec{r}) w_q(t)
+\eeq
+and equivalently
+\beq
+\label{n_pod_decomp}
+N = \sum_{q=1}^{N_{\rm{POD}}} \sigma_q n_q(\vec{r}) w_q(t)
+\eeq
+but there is no orthogonality relation of these $n_q$ or even the full $x_q$ vectors, i.e.,
+
+\beq
+\label{x_nonorthogonality}
+\sum_{i=1}^{N_{\rm{POD}}} n_q(\vec{r}_i) n^*_l(\vec{r}_i) \ne \delta_{q l}, \sum_{i=1}^{N_{\rm{POD}}} x_q(\vec{r}_i) x^*_l(\vec{r}_i) \ne \delta_{q l}.
+\eeq
+
+Note that I construct the data
+that goes into the POD with 5 variables rather than 4 due to the need for both $-E_r = \grad_r \phi$ and $-E_\theta = \grad_\theta \phi$ in the energy expression and the requirement that $A$
+be a scalar. This is straight-forward enough to do, but a potential complication arises when I unweight the $u_q$ POD modes to recover $\phi_q(\vec{r})$. Seemingly, the unweighting
+recovers a $\phi_{r,q}$ and a $\phi_{\theta,q}$ that can be different, but in sum, $\sum_{q=1}^{N_{\rm{POD}}} \sigma_q \phi_{r,q} w_q = \sum_{q=1}^{N_{\rm{POD}}} \sigma_q \phi_{\theta,q} w_q = \phi$ must hold.
+Fortunately, however, the POD ensures that $\phi_{r,q} = \phi_{\theta,q}$ because each of the POD modes preserves any mathematical property of the original data such as the zero-curl nature
+of the electric field. I have confirmed this directly.
+
+With this change of definition of $A$ and the corresponding definitions for the POD modes, I can now construct the POD energy dynamics. Like in the previous sections, I start with Eqs.~\ref{ni_eq}-
+~\ref{te_eq}. This time, I decompose them in terms of the POD modes. For example, I susbstitute $N(\vec{r},t) = \sum_{q=1}^{N_{\rm{POD}}} \sigma_q n_q(\vec{r}) w_q$ into $N$ in the equations,
+and the same for the other independent variables $(\phi, \vpe, T_e)$. Eq.~\ref{ni_eq} then becomes
+
+\beqar
+\label{pod_ni_eq}
+\sum_{q=1}^{N_{\rm{POD}}} \sigma_q n_q \pdiff{w_q}{t} & = & \sum_{q=1}^{N_{\rm{POD}}} \sigma_q w_q \left[- \frac{1}{r} \pdiff{\phi_q}{\theta} \pdiff{N_0}{r} - 
+N_0 \pdiff{v_q}{z} + \mu_N \gradperp^2 n_q \right] + S_N \nonumber \\
+& + & \frac{1}{r} \sum_{q,l} \sigma_q \sigma_l w_q w_l \left( \pdiff{\phi_q}{r} \pdiff{n_l}{\theta} - \pdiff{n_q}{r} \pdiff{\phi_l}{\theta} \right).
+\eeqar
+Next, multiply this equation through by $T_{e0}/N_0 \sigma_p n^*_p w^*_p$ and the other equations by their corresponding energy prefactors and POD's. The LHS of the density equation is
+
+\beq
+\label{pod_ni_lhs}
+\sum_{q=1}^{N_{\rm{POD}}} \frac{T_{e0}}{N_0} \sigma_q \sigma_p n_q n^*_p w^*_p \pdiff{w_q}{t} 
+\eeq
+In Sec.~\ref{s_spec_en_dyn}, volume integrating this term at this point isolated $E_N(\vec{k})$. Volume integration of Eq.~\ref{pod_ni_lhs} will not
+produce the density energy of POD mode $p$: $E_N(p)$. The reason is that $n_q$ and $n^*_p$ are not orthogonal under volume integration as pointed out in Eq.~\ref{x_nonorthogonality}. They are not
+even orthogonal under volume integration with the appropriate energy prefactor. The reason is that
+$n_q$ is only part of the total POD mode, which contains $\phi_q, v_q,$ and $t_q$ as well. The orthogonality relation only holds when the energy of all of these are summed and the prefactors
+are added. That is, the orthogonality relation for the POD modes is a total energy orthogonality. As a consequence, there is no meaning to an equation for $\pdiff{E_N(p)}{t}$. There is only
+meaning to an equation for the evolution of the energy of an entire POD mode: $\pdiff{E_{tot}(p)}{t}$. So, adding the four equations together and integrating over the volume results in
+a LHS of
+
+\beq
+\label{pod_lhs_en}
+\sigma_p^2 w^*_p \pdiff{w_p}{t} = \frac{1}{2} \pdiff{\left( \sigma_p^2 |w_p|^2 \right)}{t} = \pdiff{E(p)}{t}.
+\eeq
+The RHS, on the other hand, does not simplify much at all upon summing the equations together and performing volume integration -- other than the fact that the adiabatic response terms cancel each
+other due to the equation summation. Take the $- {\bf v}_E \cdot \grad N_0$ term as an example.
+As it stands, the term appears as
+
+\beq
+\label{pod_first_term}
+- \int_V \left( \sum_{q=1}^{N_{\rm{POD}}} \frac{1}{r} \sigma_q \sigma_p w_q w^*_p n^*_p  \pdiff{\phi_q}{\theta} \pdiff{N_0}{r} \right) dV.
+\eeq
+While such a term may be calculated as is, it is unfortunate that the sum over all of the POD modes remains. However, recall that the temporal $w_q$ POD modes are orthogonal to each other upon
+time integration (Eq.~\ref{pod_orthonormality}). So if I time integrate the energy evolution equation, this term becomes
+
+\beq
+\label{pod_first_tint}
+- \int_V \left( \frac{T_{e0}}{r N_0} \sigma_p^2 n^*_p  \pdiff{\phi_p}{\theta} \pdiff{N_0}{r} \right) dV
+\eeq
+and is only a function of a single POD mode! This step is one of the reasons why the POD is preferable to other decompositions like the left/right linear eigenmode decomposition. One may notice
+that time integration destroys the LHS $\pdiff{E(p)}{t}$ in the steady-state regime. Necessarily, the RHS must be zero as well. However, the goal is the understand the mode dynamics in the
+steady-state regime, and simply separating linear and nonlinear terms on the RHS, like what I did in Eq.~\ref{Fourier_density_evolution} can give information regarding which POD modes inject
+energy into the system, which ones dissipate energy, and which modes transfer to which other modes. Specifically,
+
+\beq
+\label{pod_ev_breakdown}
+\int_t \pdiff{E(p)}{t} dt = Q(p) + \sum_{q,l} T(p,q,l) = 0
+\eeq
+with the $Q(p)/\sigma_p^2$ being the volume integral of
+
+\beqar
+\label{Q_pod}
+& & \frac{T_{e0}}{N_0} n^*_p \left( - \frac{1}{r} \pdiff{\phi_p}{\theta} \pdiff{N_0}{r} + \mu_N \gradperp^2 n_p \right) \nonumber \\
+& + & \frac{3 N_0}{2 T_{e0}} t^*_p \left( - \frac{1}{r} \pdiff{\phi_p}{\theta} \pdiff{T_{e0}}{r} + \mu_T \gradperp^2 t_p + \frac{2 \kappa_{\para e}}{3 N_0} \gradpar^2 t_p - \frac{2 m_e}{m_i} \nue t_p  \right) \nonumber \\
+& - & \phi_p^* \left( \mu_\phi \gradperp^2 \rho_p + \nuin \rho_p \right) - \nue \fmei N_0 |v_p|^2
+\eeqar
+where positive values of $Q(p)$ indicate energy injection into the POD $p$-mode from the equilibrium gradients, while negative values indicate dissipation of energy.
+The nonlinear transfer term, unfortunately, cannot be simplified with the orthogonality relations due to the appearance of triple time products ($\int_t w_q w_l w^*_p dt$) and spatial products without
+the right form for orthogonality. I do not write it out explicitly here, but I note that $T(p,q,l)$ represents the energy transfer from POD modes $q$ and $l$ to POD mode $p$.
