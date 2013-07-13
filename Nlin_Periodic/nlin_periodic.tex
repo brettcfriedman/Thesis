@@ -171,7 +171,25 @@ another important step in the self-sustainment process.
 \label{transient_n0_growth}
 \end{figure}
 
-\subsection{n=0 Suppression}
+\subsection{POD dynamics}
+\label{ss_pod_dynamics}
+
+The transient growth mechanism due to the linear eigenmode nonorthogonality is quite unintuitive. It shows how difficult it is to gain intuition based on linear eigenmodes when they are
+nonorthogonal. It really points to the need to use an orthogonal basis for mode decompositions. As I discussed in Sec.~\ref{ss_pod_decomp}, the POD basis is ideal in many ways. Therefore, I
+perform a POD on the simulation following my treatment in Sec.~\ref{ss_pod_decomp} and calculate the energy dynamics following Sec.~\ref{ss_pod_ed}. However, before I perform the POD
+and the associated energy dynamics, I Fourier decompose the data axially and aximuthally to connect the results to those above. Since the axial dynamics proved essential in understanding
+the nonlinear instability, I use that to inform my POD analysis.
+
+Each complex spatial POD mode is a function of $r, m,$ and $n$.
+
+\begin{figure}[!ht]
+\centerline{\includegraphics[]{pod_nm}}
+\caption{POD structures and growth rates}
+\label{pod_nm}
+\end{figure}
+
+
+\section{n=0 Suppression}
 \label{ss_n0_supp}
 
 I previously introduced the $n=0$ suppressed simulation in Sec.~\ref{s_stat_exam}, where I discussed the nature of the simulation and some of its statistical properties. I claimed before that
@@ -181,8 +199,8 @@ One may also consider other ways to remove the nonlinear instability while keepi
 drive terms or remove one or more of the nonlinear advection terms, although this would affect quite a bit more than just the nonlinear instability. In any case, my method
 certainly removes the nonlinear instability mechanism while keeping the linear instability intact, allowing the simulation to act more in the paradigmatic manner.
 
-Rather than showing another diagram of the energy flow for the $n=0$ suppressed simulation, I present the energy dynamics data in a new, compressed way. That is, I construct a growth rate
-spectrum from the energy dynamics. I define the growth rate as:
+Rather than showing another diagram of the energy flow for the $n=0$ suppressed simulation, I construct a \emph{spectral} growth rate from the spectral energy dynamics 
+(those of Sec.~\ref{s_spec_en_dyn}). I define this growth rate as:
 
 \beq
 \label{gamma_def}
@@ -249,11 +267,8 @@ mostly at medium $m$. Anyhow, the zonal flows don't affect the nonlinear instabi
 of turbulence like ITG turbulence~\cite{dimits2000,Holland2003}.
 
 
-\section{The Nonlinear Instability in Context}
+\section{Nonlinear Instability Literary History}
 \label{s_nl_inst_context}
-
-\subsection{Nonlinear Instability History}
-\label{ss_nl_history}
 
 Now, after I found this curious nonlinear instability, I wondered if others had previously found this particular mechanism. 
 After all, the equations and the geometry that I use are not new. In fact, a look at 
@@ -302,15 +317,4 @@ velocity fluctuations); (2) secondary instability of the resulting streaks; (3) 
 are elongated $k_z = 0$ structures. Furthermore, the first step is a linear interaction, called the 'lift-up' mechanism, which relies on nonorthogonal eigenmodes that grow transiently with
 algebraic dependence~\cite{trefethen1993,waleffe1995,henningson1996}. This self-sustainment mechanism is analagous to the Drake plasma mechanism with the caveat that a secondary drift wave
 instability in the plasma case replaces the wake-like instability in the neutral fluid case. Such a correspondence between the two mechanisms led Krommes to suggest using mathematical techniques
-and conclusions from the neutral-fluid studies to further study the plasma mechanism. Krommes and others also tried to expand on Drake et al.'s reduced model. That work never seems to have been
-published (to my knowledge), but their method was to extract a low-order dynamical system that exhibits the critical self-sustainment mechanism. Krommes claims that numerical simulations of the
-low-order systems produced, in some regimes, chaotic orbits similar to the Lorenz attractor.
-
-I further note here a curious connection between the aforementioned work and studies done on LAPD. In LAPD, the frequency spectra sometimes have an exponential shape, which has been linked
-to the presence of Lorentzian-shaped pulses in the time signals~\cite{pace2008a,pace2008b}. In an attempt to recreate these numerically, Shi et al. prescribed a potential field, much like Drake's
-of Eq.~\ref{drake_potential}, except that this field was two-dimensional without any $z$ dependence and used two drift wave modes rather than three modes like Drake~\cite{shi2009}. 
-Shi's low-dimensional model produced the Lorentzian-shaped pulses in the time signals. 
-Maggs and Morales later connected the Lorentzian pulses to deterministic chaos and explained why deterministic chaos produces such shaped pulses~\cite{maggs2011,maggs2012a,maggs2012b}.
-They showed that broadband turbulence (at least the frequency spectra) can be the result of low-order chaotic systems. The connection between this work and Drake's and Krommes's is tenuous
-at this point. But can the few basic modes of Drake's mechanism create all the turbulence in LAPD, and does the turbulence in LAPD and other machines work in the same basic way as the turbulence
-in neutral-fluid systems?
+and conclusions from the neutral-fluid studies to further study the plasma mechanism. 
