@@ -180,7 +180,34 @@ perform a POD on the simulation following my treatment in Sec.~\ref{ss_pod_decom
 and the associated energy dynamics, I Fourier decompose the data axially and aximuthally to connect the results to those above. Since the axial dynamics proved essential in understanding
 the nonlinear instability, I use that to inform my POD analysis.
 
-Each complex spatial POD mode is a function of $r, m,$ and $n$.
+Each complex spatial POD mode is a function of $r, m,$ and $n$. I show an example of the radial structures of the first and fourth POD modes for $n=0,m=10$ in Fig.~\ref{pod_nm} a), where the solid line
+is the real part and the dashed line is the imaginary part. The lowest POD modes for a given $(m,n)$ -- those that contain the most energy, indicated by the highest values of $\sigma_p$ -- 
+have relatively smooth radial structures, while the higher POD modes are more oscillatory.
+
+Recall Eqs.~\ref{pod_ev_breakdown} and~\ref{L_pod}, in which I defined the POD energy dynamics, specifially the nonconservative linear term $L(p)$. This term quantifies the time-integrated
+change of energy of POD mode $p$ due to the linear terms of the equations. Of course, the nonlinear terms mix the energy between the different POD modes, so that in steady state turbulence,
+all of the POD modes retain a quasi-stationary level of energy. But in the Kolmogorov sense, it is informative to know which POD modes inject energy into the system and which dissipate energy.
+$L(p)$ gives this information. 
+
+A compact way to show the nonconservative energy dynamics is through the effective POD growth rate: $\gamma(p) = L(p)/\sigma_p^2$ (more accurately $\gamma(m,n,p) = L(m,n,p)/\sigma_{mnp}^2$). 
+I show this quantity, plotted against the square root of the energy $\sqrt{E(p)} = \sigma_p$
+for a large number of POD modes in Fig.~\ref{pod_nm} b). In this figure, I plot POD modes with four different values of $(m,n)$, which I choose because they are particularly illustrative.
+First, I choose to show the $m=10, n=0$ POD modes because this is approximately where most of the energy is located in the turbulence (see Fig.~\ref{energy_spectra}).
+This manifests itself in the relatively large values of $\sigma_p$ for some of these modes. Now, the lowest $m=10, n=0$ POD modes (those with the highest $\sigma_p$)
+have positive growth rates, meaning these POD modes inject energy into the turbulence. This confirms the picture that I revealed in the previous sections, in which $n=0$ structures
+inject fluctuation energy into the turbulence. It also confirms
+that orthogonal POD modes can provide better insight into turbulent processes than the linear eigenmodes of the system. This isn't surprising, given that the POD modes are derived from the turbulence,
+while the linear eigenmodes have no knowledge of nonlinear physics. Nevertheless, POD modes prove to be especially useful for non-normal systems.
+
+Another set of POD modes that I plot in Fig.~\ref{pod_nm} b) are those with $m=60, n=1$ because this is the approximate location of the most unstable linear eigenmodes (see Fig.~\ref{lin_dw_gamma}).
+These modes all have fairly low energy, and except for one mode that is just above marginal stability, they all have negative growth rates. 
+This is also a non-normal effect, but it is opposite that which makes the $n=0$ modes unstable.
+Again, this result is unintuitive and quite unexpected if one only considers linear eigenmodes.
+
+To compare to these two cases, I also show POD modes for $m=60, n=0$ and $m=10, n=1$. Again, some of the $n=0$ modes have positive growth rates, while all of the $n=1$ modes have negative growth
+rates. The linear eigenmodes have no discernable bearing on the stability properties of the turbulent dynamics as measured by the POD modes. The POD basis is dramatically more useful for
+understanding the turbulence than the linear eigenmode basis. This comes with the caveats, however, that the POD basis cannot be obtained without the nonlinear simulation, and that the simpler
+partial Fourier decomposition that I used in the previous sections is just as good, if not better, than the POD basis in revealing turbulent processes.
 
 \begin{figure}[!ht]
 \centerline{\includegraphics[]{pod_nm}}
@@ -200,7 +227,7 @@ drive terms or remove one or more of the nonlinear advection terms, although thi
 certainly removes the nonlinear instability mechanism while keeping the linear instability intact, allowing the simulation to act more in the paradigmatic manner.
 
 Rather than showing another diagram of the energy flow for the $n=0$ suppressed simulation, I construct a \emph{spectral} growth rate from the spectral energy dynamics 
-(those of Sec.~\ref{s_spec_en_dyn}). I define this growth rate as:
+(those of Sec.~\ref{s_spec_en_dyn}). I emphasize, that I am not using the POD here. Thus, I define this growth rate as:
 
 \beq
 \label{gamma_def}
@@ -211,10 +238,10 @@ Recall that $\sum_j C_j(\vec{k}) = 0$, so $C_j$ does not appear in this sum. I a
 only involves the energy injection and dissipation at each wavenumber and not the three-wave transfers ($T_j(\vec{k},\vec{k'})$). 
 Adding the three-wave transfers would always make this sum about equal to zero in the turbulent
 quasi-steady state stage of the simulation anyway, rendering this quantity useless. 
-In the linear stage of the simulations, this method reproduces the linear growth rate spectrum.
-Specifically, this $\gamma$ is equivalent to the linear growth rate for the fastest growing branch $n=1$ eigenmodes.
-I actually used this $\gamma$ to generate the curves in Figs.~\ref{lin_dw_gamma} and~\ref{lin_all_gamma}, though I used other methods to confirm the accuracy of this calculation.
-$\gamma$ can also be applied to the turbulent stage of the simulation, in which it gives a composit look at the net energy injection into the system at each $\vec{k}$ normalized
+In the \emph{linear} stage of the simulations, this method reproduces the linear growth rate spectrum.
+I actually used this $\gamma$ to generate the curves in Figs.~\ref{lin_dw_gamma} and~\ref{lin_all_gamma}, though I used other more common methods to confirm the accuracy of that calculation.
+$\gamma$ can also be applied to the turbulent stage of the simulation (like I did with the POD modes in the previous section), 
+in which it gives a composit look at the net energy injection into the system at each $\vec{k}$ normalized
 by the steady-state energy at that given $\vec{k}$.
 
 \begin{figure}[!ht]

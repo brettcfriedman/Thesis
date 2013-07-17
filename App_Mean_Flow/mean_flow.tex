@@ -1,11 +1,39 @@
 \chapter{Finite Mean Flow Simulations}
 \label{app_mean_flow}
 
+In the main text, I focused on one particular LAPD experiment, which essentially contained no mean ${\bf E \times B}$ flow or flow shear. Focusing on this experiment
+allowed me to model the system with a smaller number of linear terms in the equation set than if the experiment had contained significant ${\bf E \times B}$ flow. 
+Furthermore, neglecting mean flow and flow shear eliminated a couple of linear instabilities, namely Kelvin-Helmholtz
+and rotational interchange instabilities, which are both flute-like ($k_{\para} = 0$) instabilities. It would have been less obvious, then, that the nonlinear instability caused the appearance
+of dominant $k_{\para} = 0$ structures, though ultimately, energy analysis would have sorted this out. Furthermore, the low flow experiments have proven to be easier to successfully simulate than
+the high flow experiments, and the low flow experiment and simulations contain so much interesting physics that they deserve study in their own right.
+
+The high ${\bf E \times B}$ flow experiments, which also have high flow shear, are quite relevant to tokamak research, specifically research into the High Confinement Mode (H-mode)
+and the transition to the H-mode. Researchers have long realized that H-mode is associated with strong toroidal rotation of the tokamak plasma and that the shear associated with this rotation
+is the likely cause of of the decrease in energy transport. The particular physical mechanism of turbulent-shear interaction that causes the flux suppression is still an area of intense
+research, and many testable theories have been created to address this.
+
+
 \section{The LAPD Biasing Experiment}
 \label{s_biasing_exp}
 
 \section{New Linear Instabilities}
 \label{s_flow_inst}
+
+\beqar
+\label{ni_eq_flow}
+\pdt N = - {\mathbf v_E} \cdot \grad N_0 - {\mathbf v_{E0}} \cdot \grad N - N_0 \gradpar \vpe + \mu_N \gradperp^2 N + S_N + \{\phi,N\}, \\
+\label{ve_eq_flow}
+\pdt \vpe = - {\mathbf v_{E0}} \cdot \grad \vpe - \fmie \frac{T_{e0}}{N_0} \gradpar N - 1.71 \fmie \gradpar T_e + \fmie \gradpar \phi - \nue \vpe + \{\phi,\vpe \}, \\
+\label{rho_eq_flow}
+\pdt \varpi = - {\mathbf v_E} \cdot \grad \varpi_0 - {\mathbf v_{E0}} \cdot \grad \varpi- 
+\frac{1}{r} \pdiff{\phi_0}{r} \left(\pdiff{N_0}{r} \pdiffxy{\phi}{r}{\theta} - \pdiffs{\phi_0}{r} \pdiff{N}{\theta} \right) \nonumber \\
+ - N_0 \gradpar \vpe  - \nuin \varpi + \mu_\phi \gradperp^2 \varpi + \{\phi,\varpi \}, \\
+\label{te_eq_flow}
+\pdt T_e = - {\mathbf v_E} \cdot \grad T_{e0} - {\mathbf v_{E0}} \cdot \grad T_e - 1.71 \frac{2}{3} T_{e0} \gradpar \vpe + \frac{2}{3 N_0} \kpe \gradpar^2 T_e  \nonumber \\
+- \frac{2 m_e}{m_i} \nue T_e  + \mu_T \gradperp^2 T_e +  S_T + \{\phi,T_e\}.
+\eeqar
+
 
 \section{Statistical Comparisons to Experiment}
 \label{s_flow_stats}

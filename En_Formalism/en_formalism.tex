@@ -451,16 +451,18 @@ energy into the system, which ones dissipate energy, and which modes transfer to
 
 \beq
 \label{pod_ev_breakdown}
-\int_t \pdiff{E(p)}{t} dt = Q(p) + \sum_{q,l} T(p,q,l) = 0
+\int_t \pdiff{E(p)}{t} dt = L(p) + \sum_{q,l} T(p,q,l) = 0
 \eeq
-with the $Q(p)/\sigma_p^2$ being the volume integral of
+with the $L(p)/\sigma_p^2$ being the volume integral of
 
 \beqar
-\label{Q_pod}
+\label{L_pod}
 & & \frac{T_{e0}}{N_0} n^*_p \left( - \frac{1}{r} \pdiff{\phi_p}{\theta} \pdiff{N_0}{r} + \mu_N \gradperp^2 n_p \right) \nonumber \\
 & + & \frac{3 N_0}{2 T_{e0}} t^*_p \left( - \frac{1}{r} \pdiff{\phi_p}{\theta} \pdiff{T_{e0}}{r} + \mu_T \gradperp^2 t_p + \frac{2 \kappa_{\para e}}{3 N_0} \gradpar^2 t_p - \frac{2 m_e}{m_i} \nue t_p  \right) \nonumber \\
 & - & \phi_p^* \left( \mu_\phi \gradperp^2 \rho_p + \nuin \rho_p \right) - \nue \fmei N_0 |v_p|^2
 \eeqar
-where positive values of $Q(p)$ indicate energy injection into the POD $p$-mode from the equilibrium gradients, while negative values indicate dissipation of energy.
-The nonlinear transfer term, unfortunately, cannot be simplified with the orthogonality relations due to the appearance of triple time products ($\int_t w_q w_l w^*_p dt$) and spatial products without
+where positive values of $L(p)$ indicate energy injection into the POD $p$-mode from the equilibrium gradients, while negative values indicate dissipation of energy. $L(p)$ of course, is the
+linear nonconservative part of the energy dynamics.
+The conservative nonlinear transfer term, unfortunately, cannot be simplified with the orthogonality relations 
+due to the appearance of triple time products ($\int_t w_q w_l w^*_p dt$) and spatial products without
 the right form for orthogonality. I do not write it out explicitly here, but I note that $T(p,q,l)$ represents the energy transfer from POD modes $q$ and $l$ to POD mode $p$.
