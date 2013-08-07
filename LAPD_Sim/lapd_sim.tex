@@ -71,11 +71,9 @@ the source and sink and integrate axially, the region inside of the cathode radi
 
 Now when I simulate the turbulence in LAPD without the source terms, turbulence drives radial transport such that the total flux-surface-averaged density gradient relaxes over time as seen
 in Fig.~\ref{source} a) until the radial transport ceases. It's interesting that $\left< N_t \right>_{fs} = \left< N_0 + N \right>_{fs}$ doesn't become totally flat, but maintains a gradient. 
-This is probably a result
-of the partial linearization of the equations, especially the diffusion term $\mu_N \gradperp^2 N$, and possibly boundary conditions. Nevertheless, the strong relaxation is not physical due
-to the presence of the physical source/sink mechanism. (Note that the equilibrium density profile $N_0$ used in the simulation to make Fig.~\ref{source} a)
-is not the same $N_0$ shown in Fig.~\ref{equilibrium_profiles}. I show the relaxation of the profile in Fig.~\ref{source} a) because it has a very steep gradient, which makes
-the relaxation effect more pronounced and easier to see.)
+This is probably a result of the turbulence transport ceasing and the
+partial linearization of the equations, specifically the diffusion term $\mu_N \gradperp^2 N$, preventing classical transport of the total equilibrium profile. Also the radial boundary conditions
+probably have an affect as well. Nevertheless, the strong relaxation that is present is not physical because of the experimentally present source/sink mechanism. 
 
 \begin{figure}[!ht]
 \centerline{\includegraphics[]{source}}
@@ -85,7 +83,7 @@ the relaxation effect more pronounced and easier to see.)
 
 
 Now, rather than developing a first principle's source based on the theoretical source/sink expressions, I use ad hoc controlling sources. 
-I estimate that $\left< N_t \right>_{fs}$ remains constant over time, and model the source using the integral
+I estimate that $\left< N_t \right>_{fs}$ remains relatively constant over time, and model the source using the integral
 portion of a PID controller. This means that I write an equation for the source:
 
 \beq
@@ -115,6 +113,14 @@ They input the sources and derive the plasma state. On the other hand, I input p
 state and derive the sources. As stated before, our method has the advantage of using experimentally measured profiles. 
 This experimental input allows us to more easily simulate turbulence that resembles that
 in the experiment, and therefore make conclusions on the fluctuation properties. I do not, however, evolve the equilibrium and gain the knowledge that comes from that.
+
+Before I go on, I note that in the past, Pavel Popovich and I tried a number of different approaches to the source problem. One approach was simply to remove the flux-surface-averaged fluctuating
+density and temperature components at each time step. This is similar to the source technique above, but it supplies a quicker cutoff of the flux-surface-averaged fluctuating components than the
+source above because it doesn't preserve past history of the source. Another technique that we used was to derive a source like that in Fig.~\ref{source} b) in one simulation, and then start
+another simulation using that as a purely time-independent source. This supplied a slower cutoff of the flux-surface-averaged fluctuating components than the other two methods. Results of
+the evolution of the total density profile can be seen in Popovich et al.~\cite{popovich2010b}. In any case, we couldn't find any significant difference in the results upon use of these different
+sources. This third technique is just too slow to implement, so I do not use it for simulations in this paper. I prefer the PID source in general. Furthermore, I generally implement a condition
+with the PID source so that it does not drive the total density or temperature negative as I discuss in Appendix~\ref{app_bout}.
 
 \subsection{Artificial Diffusion and Viscosity}
 \label{ss_art_diff}
