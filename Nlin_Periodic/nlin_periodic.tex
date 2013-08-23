@@ -4,7 +4,7 @@
 In this chapter, I use the energy dynamics machinery developed in the last chapter to show where in wavenumber space and to which fields energy is deposited, how it's transferred,
 and where it's dissipated. I show that the linear instability plasma paradigm doesn't hold for the LAPD simulations, but rather, a complex nonlinear instability process dominates
 the energy dynamics.
-Furthermore, in this chapter, I consider only the simulations with periodic boundary conditions: the Periodic simulation and the $n=0$ suppressed simulation. I analyze the remaining simulations
+Furthermore, in this chapter, I consider only the simulations with periodic boundary conditions -- the Periodic simulation and the $n=0$ suppressed simulation. I analyze the remaining simulations
 (Dirichlet, Neumann, and Sheath) in the next chapter.
 
 \section{Energy Dynamics Applied to LAPD Turbulence}
@@ -12,29 +12,29 @@ Furthermore, in this chapter, I consider only the simulations with periodic boun
 \subsection{The Energy Spectra}
 \label{ss_en_spec}
 
-\begin{figure}[!ht]
+\begin{figure}
 \centerline{\includegraphics[]{energy_spectra}}
 \caption{Energy k-Spectra}
 \label{energy_spectra}
 \end{figure}
 
 Although I have already discussed the relative importance of the $n=0$ fluctuation flute structures and shown evidence for this in Figs.~\ref{3D_turb_anim},~\ref{rms_evolution}, and
-~\ref{n_statistics}, I now use the energy expressions in Eqs.~\ref{ENk},~\ref{Ephik},~\ref{ETk}, and~\ref{Evk} to show a detailed look at the energy
-wavenumber spectra. The spectra for the four fields in $(m,n)$ space are shown in Fig.~\ref{energy_spectra}. As expected from Figs.~\ref{3D_turb_anim},~\ref{rms_evolution}, and
-~\ref{n_statistics}, most of the density energy $E_N(\vec{k})$ is located at $n=0$ (and $1 < m < 10$). This wavenumber location is much different from my expectation which was
+~\ref{n_statistics}, I now use the energy expressions in Eqs.~\ref{ENk},~\ref{Ephik},~\ref{ETk}, and~\ref{Evk} to take a detailed look at the energy
+wavenumber spectra. The spectra for the four fields in $(m,n)$ space are presented in Fig.~\ref{energy_spectra}. As expected from Figs.~\ref{3D_turb_anim},~\ref{rms_evolution}, and
+~\ref{n_statistics}, most of the density energy $E_N(\vec{k})$ is located at $n=0$ (and $1 < m < 10$). This wavenumber location is much different from 
 that of the fastest growing linear eigenmode, which is at $(n = 1, m = 60)$. Additionally, $E_T(\vec{k})$ and $E_\phi(\vec{k})$ have similar-looking spectra as $E_N(\vec{k})$, though
 the actual magnitudes of the energy are quite different for the three fields. Finally, $E_v(\vec{k})$ has a remarkably different energy spectrum than the other fields. Most of
 the energy is contained at $n \ge 1$ and $m \sim 30$, which is somewhat similar to the linear eigenmode growth rate spectrum, though $m$ is lower.
 
-Although these results are rather unexpected given the hypothesis that the most unstable linear eigenmode should pump energy into the turbulent system, one could still build upon this
-hypothesis to explain the nature of the spectra. 
+Although these results seem contradictory to the notion that the most unstable linear eigenmode should pump energy into the turbulent system and thus dominate the energy, one might attribute
+the spectral results to a strong inverse cascade. 
 In fact, in Ref.~\cite{Umansky2011}, my collaborators and I posited and tested this hypothesis. Our specific hypothesis was that the most unstable linear eigenmode pumped energy into the system at
-its characteristic wavenumber and then proceeded to cascade energy forward and backward into other waves. The inverse cascade into $n=0$ would be particularly strong to account for all of
-the energy in the $n=0$ Fourier components.
-
+its characteristic wavenumber and then proceeded to cascade energy forward and backward into other waves. The inverse cascade into $n=0$ and low $m$ would be particularly strong to account for all of
+the energy in the $n=0$, low $m$ Fourier components.
 Our test of this inverse cascade revolved around the use of a particular bicoherence three wave interaction, namely that between
-three density fluctuation Fourier modes of $(n,m)=(1,25),(-1,-24)$ and $(0,1)$. Note that in that study, we used a different set of profiles and parameters for the simulation 
-than the one I use in this report, and the dominant azimuthal mode numbers in that study were smaller than those in this report.
+three density fluctuation Fourier modes of $(n,m)=(1,25),(-1,-24)$ and $(0,1)$ -- not exactly local in $m$ space as in a typical cascade picture. 
+Note that in that study, we used a different set of profiles and smaller magnetic field for the simulation 
+than the one I use here, so the dominant azimuthal mode numbers in that study were smaller than those in this dissertation.
 In any case, in Ref.~\cite{Umansky2011}, we found a strong bicoherence amplitude for this three-wave interaction
 and assumed that this meant that the waves with $(n,m)=(1,25)$ and $(-1,-24)$ coupled to transfer their energy
 to waves with $(0,1)$. This fit within the standard linear instability paradigm because linear eigenmodes with $(n,m) \sim (\pm 1, \pm 25)$ were the most unstable for that system.
@@ -47,7 +47,7 @@ Our assumption regarding the direction of energy transfer was wrong. The paradig
 \label{ss_dyn_details}
 
 
-\begin{figure}[!ht]
+\begin{figure}
 \centerline{\includegraphics[]{mn_dynamics}}
 \caption{Periodic simulation energy dynamics}
 \label{mn_dynamics}
@@ -61,29 +61,23 @@ terms in the energy dynamics equations for $n=0, \pm 1$ and $0 \le m \le 100$,
 neglecting all dynamics with $|n| \ge 2$, which have relatively small values and are mostly insignificant. The dynamics curves are all averaged over a time period during the
 turbulent stage of the simulation where the dynamics processes have all reached a quasi-steady state.
 The label $n = \pm 1$ represents the addition of terms with $n=1$ and $n=-1$.
-Fig.~\ref{mn_dynamics} a) reveals the density potential energy injection ($Q_N$) and the adiabatic response transfer ($C_N$). I don't show the dissipation ($D_N$) in this figure, which
+Fig.~\ref{mn_dynamics} a) displays the density potential energy injection ($Q_N$) and the adiabatic response transfer ($C_N$). I don't show the dissipation ($D_N$) in this figure, which
 is why the curves don't seem to add up to zero as they would if all dynamics were shown.
 Nevertheless, this figure immediately reveals that the majority of the energy is injected
 straight into the $n=0$ fluctuations from the equilibrium density gradient rather than into the $n= \pm 1$ fluctuations! Looking at Eq.~\ref{QNk} again, and I reiterate, $Q_N(\vec{k})$ does not
-depend on $n$, so it is perfectly acceptable to inject energy straight into $n=0$ fluctuations. However, $C_N(\vec{k})$ is proportional to $n$ (Eq.~\ref{CNk}), so energy can only travel
+depend on $n$, so it is perfectly acceptable to inject energy straight into $n=0$ fluctuations. However, $C_N(\vec{k})$ is dependent upon $n$ (Eq.~\ref{CNk}), so energy can only travel
 through the adiabatic response path in finite $n$ structures. This is why the unstable linear eigenmodes have finite $n$ -- because eigenmodes with $n=0$ cannot access the adiabatic response and thus
 have no field coupling. But with nonlinearities involved, there is nothing to prevent energy extraction at $n=0$.
 Likewise, Fig.~\ref{mn_dynamics} b) reveals the same kind of story for the temperature potential energy, although the magnitudes are quite low compared to the density ones,
 indicating that the temperature fluctuations are relatively insignificant as a player in the total energy dynamics.
 
 Fig.~\ref{mn_dynamics} c) shows the perpendicular kinetic energy dynamics. Recall $Q_\phi = 0$, so there is no direct energy injection; rather, energy enters $\phi$ fluctuations via the adiabatic
-response ($C_\phi$). Even though no energy enters $\phi$ at $n=0$, flute-like dissipation $D_\phi(n=0)$ is significant, forshadowing the need for three-wave energy transfer into $n=0 \ \phi$ 
+response ($C_\phi$). Even though no energy enters $\phi$ at $n=0$, flute-like dissipation $D_\phi(n=0)$ is significant, foreshadowing the three-wave energy transfer into $n=0 \ \phi$ 
 fluctuations. Additionally, although I don't show $|n| \ge 2$ dynamics, they are somewhat important for $C_\phi$ and $D_\phi$, accounting for the obviously unbalanced dynamics in this figure.
 Lastly, Fig.~\ref{mn_dynamics} d) reveals the parallel kinetic energy dynamics, which simply includes the adiabatic transfer ($C_v$) and electron-ion frictional dissipation ($D_v$). Recall that
 $C_N + C_\phi + C_T = - C_v$ for each $\vec{k}$. In other words, looking at the $C_j$ terms altogether,
 one can see that energy is drawn from the density and potential fluctuations into the $\vpe$ fluctuations and then moves onto the electrostatic potential $\phi$
 fluctuations. That is only clear when looking at all of the $C_j$ taken together.
-
-\begin{figure}[!ht]
-\centerline{\includegraphics[]{nl_dynamics}}
-\caption{Periodic simulation three-wave transfer dynamics}
-\label{nl_dynamics}
-\end{figure}
 
 Fig.~\ref{mn_dynamics} only shows the dynamical pieces due to the linear terms of Eqs.~\ref{ni_eq}-~\ref{te_eq}, and they therefore don't show the nonlinear transfer between different $\vec{k}$.
 The advective nonlinearities provide this transfer (the $T_j(\vec{k},\vec{k'})$ terms), 
@@ -96,22 +90,21 @@ $T_N$ and $T_T$ transfer, on the aggregate, energy in the range $5 < m < 30$ to 
 for $5 < m < 30$. This means that energy is injected from the equilibrium gradients at $5 < m < 30$ and then three-wave transferred into other azimuthal wave numbers in both forward and inverse
 cascades (mostly forward). 
 Actually the summation I use hides the information regarding the locality of wavenumber transfer, so it's indeterminate from this figure whether the transfer process is by cascading or non-local transfer.
-I defer this detail to future work. 
 On the other hand, $T_\phi$ and $T_v$ have the opposite character of $T_N$ and $T_T$, meaning that the transfer dynamics are the other way around. This is typical in 
 similar systems, such as Hasegawa-Wakatani systems~\cite{hasegawa1983,Camargo1995} in which the density potential energy exhibits a forward cascade, while the perpendicular kinetic energy
-exhibits an inverse cascade. It was also obvious that this had to happen given the azimuthal assymetry between $C_\phi$ and $D_\phi$ (see Fig.~\ref{mn_dynamics} c)).
+exhibits an inverse cascade. It was also obvious that this had to happen given the azimuthal asymmetry between $C_\phi$ and $D_\phi$ (see Fig.~\ref{mn_dynamics} c)).
+
+\begin{figure}
+\centerline{\includegraphics[]{nl_dynamics}}
+\caption{Periodic simulation three-wave transfer dynamics}
+\label{nl_dynamics}
+\end{figure}
 
 More importantly, however, Fig.~\ref{nl_dynamics} b) shows the axial wavenumber transfers. Again $T_N$ and $T_T$ are similar. Both show energy transfer from $n=0$ to $n \ne 0$. This is truly important!
 It is the most direct evidence for the nonlinear instability.
 Our paradigmatic hypothesis in Ref.~\cite{Umansky2011} posited the opposite transfer direction. The most unstable linear eigenmodes have $n = \pm 1$ and all eigenmodes with $n=0$ are stable,
 yet Fig.~\ref{nl_dynamics} b) shows that the dominant energy transfer is from $n=0$ to $n \ne 0$, at least for $N$ and $T_e$. Again, $T_\phi$ and $T_v$ have the opposite character of $T_N$ and $T_T$,
 as really they must, since $\phi$ and $\vpe$ gain their energy through the adiabatic response.
-
-\begin{figure}[!ht]
-\centerline{\includegraphics[width=\textwidth]{per_en_flow_diagram}}
-\caption{Periodic simulation energy flow diagram}
-\label{per_en_flow_diagram}
-\end{figure}
 
 It's still difficult to see the energy flow paths from Figs.~\ref{mn_dynamics} and~\ref{nl_dynamics} alone. So I have put the results in a flow diagram -- Fig.~\ref{per_en_flow_diagram}. In order to
 do this, I've summed all quantities over $m$ and $n$ (including $|n| \ge 2$), 
@@ -120,15 +113,21 @@ energy injection at $n=0$, while $Q_N(!0)$ represents the density fluctuation en
 $\sum_{m}E_N(m,n=0)$,
 $N(!0)$ represents $\sum_{m,n \ne 0} E_N(\vec{k})$, etc. Note that every term is summed over $m$.
 
-The diagram starts at the top with the equilibrium density
-and temperature profile gradients. They ultimately supply free energy for the fluctuations. Pointing out of them, the yellow $Q_j$'s extract that energy, channeling it
-to the density and potential fluctuations. The $Q_j$'s
-are normalized so that they sum to 100 so that each one represents a percentage of energy brought into the system. Clearly, the $n=0$ components dominate the energy injection from the equilibrium
-gradients, and the density injection is much stronger than the temperature injection. The blue $T_N$ and $T_T$ three-wave transfers both go in the direction of $n=0$ to $n \ne 0$. Dissipation occurs
-for every fluctuation component and takes all of the injected energy out of the system during the quasi-steady-state stage. 
-Next, the red $C_N$ and $C_T$ transfer channels transfer energy from $N$ and $T_e$ to $\vpe$, only at $n \ne 0$, which is the start of the adiabatic response. Actually,
-$C_T = 0$ because the parallel heat conduction is such a large dissipative factor. Completing the adiabatic response, $C_\phi$ transfers energy from $\vpe$ to $\phi$ at $n \ne 0$. Finally,
-$T_\phi$ shows axial transfer into $n=0$ $\phi$ components.
+\begin{figure}
+\centerline{\includegraphics[width=\textwidth]{per_en_flow_diagram}}
+\caption{Periodic simulation energy flow diagram}
+\label{per_en_flow_diagram}
+\end{figure}
+
+The diagram starts at the top with the equilibrium density and temperature profile gradients in the orange boxes. They ultimately supply free energy for the fluctuations. 
+Pointing out of them, the yellow $Q_j$'s extract that energy, channeling it to the density and temperature fluctuations. 
+The $Q_j$'s are normalized so that they sum to 100 so that each one represents a percentage of energy brought into the system. 
+Clearly, the $n=0$ components dominate the energy injection from the equilibrium gradients, and the density injection is much stronger than the temperature injection. 
+The blue $T_N$ and $T_T$ three-wave transfers both go in the direction of $n=0$ to $n \ne 0$. 
+Dissipation (the magenta arrows) acts on every fluctuation component and ultimately removes all of the injected energy from the system during the steady-state turbulent phase. 
+Next, the red $C_N$ and $C_T$ transfer channels transfer energy from $N$ and $T_e$ to $\vpe$, only at $n \ne 0$, which is the start of the adiabatic response. 
+Actually, $C_T = 0$ because the parallel heat conduction is so dissipative. Completing the adiabatic response, $C_\phi$ transfers energy from $\vpe$ to $\phi$ at $n \ne 0$. 
+Finally, $T_\phi$ shows axial transfer into $n=0$ $\phi$ components.
 
 
 \subsection{Nonlinear Instability}
@@ -136,36 +135,34 @@ $T_\phi$ shows axial transfer into $n=0$ $\phi$ components.
 
 Fig.~\ref{per_en_flow_diagram} provides a look at the way energy flows through the system. The nonlinear instability mechanism can be extracted from a subset of the steps in the flow diagram.
 I provide a reduced diagram in Fig.~\ref{reduced_nl_diagram} to isolate the essential interactions of the nonlinear instability mechanism. Notice that I focus only on the density fluctuation
-side (as opposed to the temperature fluctuation side) because it's clear from the numbers in Fig.~\ref{per_en_flow_diagram} that the density fluctuations are a much stronger drive for
-the system than the temperature fluctuations. Again, starting at the top, the $n=0$ potential fluctuations draw energy from the equilibrium density gradient by advection, depositing that
-energy into the $n=0$ density fluctuations. Then, those density fluctuations nonlinearly transfer energy into $n \ne 0$ density fluctuations. Next, the adiabatic response acts to transfer
+side -- as opposed to the temperature fluctuation side -- because it's clear from the numbers in Fig.~\ref{per_en_flow_diagram} that the density fluctuations are a much stronger drive for
+the system than the temperature fluctuations. Again, starting at the top, the $n=0$ density fluctuations draw energy from the equilibrium density gradient by $n=0$ fluctuating flow advection.
+Then, those density fluctuations nonlinearly transfer energy into $n \ne 0$ density fluctuations. Next, the adiabatic response acts to transfer
 some of that energy into $n \ne 0$ potential fluctuations, which finally nonlinearly transfer energy into the $n=0$ potential fluctuations.
-
-\begin{figure}[!ht]
+Shown in this way, it's clear that the process is self-sustaining. It's also the dominant process by which the fluctuations get their energy from the equilibrium gradients, which is clear
+from the fact that $Q_N(n=0)$ comprises $71 \%$ of all of the energy injection. Also, the net direction of $T_N$ (from $n=0$ to $n \ne 0$) and its large magnitude support this.
+ 
+\begin{figure}
 \centerline{\includegraphics[]{reduced_nl_diagram}}
 \caption{Nonlinear instability diagram}
 \label{reduced_nl_diagram}
 \end{figure}
 
-Shown in this way, it's clear that the process is self-sustaining. It's also the dominant process by which the fluctuations get their energy from the equilibrium gradients, which is clear
-from the fact that $Q_N(n=0)$ comprises $71 \%$ of all of the energy injection. Also, the net direction of $T_N$ (from $n=0$ to $n \ne 0$) and its large magnitude support this.
- 
 To me at least, this came as a big surprise due to my understanding of the unstable linear eigenmode drive paradigm.
-Given this paradigm, it seems counterintuitive that energy can be injected into the fluctuations at $n=0$, where only
+Given this paradigm, it seems counter-intuitive that energy can be injected into the fluctuations at $n=0$, where only
 stable linear eigenmodes reside. 
-
-The reason why regions in wavenumber space where only stable linear eigenmodes exist can actually inject energy into the system is that the 
-linear eigenmodes are nonorthogonal. Highly nonorthogonal stable eigenmodes may transiently draw energy from an equilibrium as I discussed in Sec.~\ref{s_nlin_stability}.
+The reason why stable regions in wavenumber space inject energy into the system is that the linear eigenmodes are nonorthogonal. 
+Highly nonorthogonal stable eigenmodes may transiently draw energy from an equilibrium as I discussed in Sec.~\ref{s_nlin_stability}.
 To show that this happens in the simulation, I turn off the nonlinearities and observe the energy evolution. I show the total energy as a function of time after turning off the nonlinearities
-for the $(n=0,m=10)$ fluctuations in Fig.~\ref{transient_n0_growth}. At early time, the energy grows despite the fact that all of the linear eigenmodes with $n=0$ are stable. Furthermore,
+for the $n=0,m=10$ fluctuations in Fig.~\ref{transient_n0_growth}. At early time, the energy grows despite the fact that all of the linear eigenmodes with $n=0$ are stable. Furthermore,
 it grows linearly (algebraically) at very early time, consistent with simple model calculations~\cite{waleffe1995}. 
-At late time, the energy drops and doesn't recover. But this is because I have shut off the nonlinearities. As I discussed previously, 
-the energy-conserving nonlinearities mix energy in the system, enforcing the structures which grow transiently, leading to a self-sustaining system of stable nonorthogonal linear eigenmodes.
+At late time, the energy drops and doesn't recover because I have shut off the nonlinearities. As I discussed previously, 
+the energy-conserving nonlinearities mix energy in the system, reinforcing structures which grow transiently, leading to a self-sustaining system of stable nonorthogonal linear eigenmodes.
 The key to this self-sustaining process is the ability of the linearly stable eigenmodes to transiently draw energy from the equilibrium, which happens in these simulations.
 This explanation does not take away the necessity of the $n \ne 0$ fluctuations, which are essential in this particular nonlinear instability for allowing access to the adiabatic response,
 another important step in the self-sustainment process.
 
-\begin{figure}[!ht]
+\begin{figure}
 \centerline{\includegraphics[]{transient_n0_growth}}
 \caption{Transient linear $n=0$ growth}
 \label{transient_n0_growth}
@@ -175,26 +172,31 @@ another important step in the self-sustainment process.
 \label{ss_pod_dynamics}
 
 The transient growth mechanism due to the linear eigenmode nonorthogonality is quite unintuitive. It shows how difficult it is to gain intuition based on linear eigenmodes when they are
-nonorthogonal. It really points to the need to use an orthogonal basis for mode decompositions. As I discussed in Sec.~\ref{ss_pod_decomp}, the POD basis is ideal in many ways. Therefore, I
+nonorthogonal and how complicated their energetics analysis can be. This points to the need to use an orthogonal basis for mode decompositions. 
+As I discussed in Sec.~\ref{ss_pod_decomp}, the POD basis is ideal in many ways. Therefore, I
 perform a POD on the simulation following my treatment in Sec.~\ref{ss_pod_decomp} and calculate the energy dynamics following Sec.~\ref{ss_pod_ed}. However, before I perform the POD
-and the associated energy dynamics, I Fourier decompose the data axially and aximuthally to connect the results to those above. Since the axial dynamics proved essential in understanding
+and the associated energy dynamics, I Fourier decompose the data axially and azimuthally to connect the results to those above. Since the axial dynamics proved essential in understanding
 the nonlinear instability, I use that to inform my POD analysis.
-
 Each complex spatial POD mode is a function of $r, m,$ and $n$. I show an example of the radial structures of the first and fourth POD modes for $n=0,m=10$ in Fig.~\ref{pod_nm} a), where the solid line
 is the real part and the dashed line is the imaginary part. The lowest POD modes for a given $(m,n)$ -- those that contain the most energy, indicated by the highest values of $\sigma_p$ -- 
 have relatively smooth radial structures, while the higher POD modes are more oscillatory.
 
-Recall Eqs.~\ref{pod_ev_breakdown} and~\ref{L_pod}, in which I defined the POD energy dynamics, specifially the nonconservative linear term $L(p)$. This term quantifies the time-integrated
+\begin{figure}
+\centerline{\includegraphics[]{pod_nm}}
+\caption{POD structures and growth rates}
+\label{pod_nm}
+\end{figure}
+
+Recall Eqs.~\ref{pod_ev_breakdown} and~\ref{L_pod}, in which I defined the POD energy dynamics, specifically the nonconservative linear term $L(p)$. This term quantifies the time-integrated
 change of energy of POD mode $p$ due to the linear terms of the equations. Of course, the nonlinear terms mix the energy between the different POD modes, so that in steady state turbulence,
 all of the POD modes retain a quasi-stationary level of energy. But in the Kolmogorov sense, it is informative to know which POD modes inject energy into the system and which dissipate energy.
 $L(p)$ gives this information. 
-
 A compact way to show the nonconservative energy dynamics is through the effective POD growth rate: $\gamma(p) = L(p)/\sigma_p^2$ (more accurately $\gamma(m,n,p) = L(m,n,p)/\sigma_{mnp}^2$). 
 I show this quantity, plotted against the square root of the energy $\sqrt{E(p)} = \sigma_p$
 for a large number of POD modes in Fig.~\ref{pod_nm} b). In this figure, I plot POD modes with four different values of $(m,n)$, which I choose because they are particularly illustrative.
 First, I choose to show the $m=10, n=0$ POD modes because this is approximately where most of the energy is located in the turbulence (see Fig.~\ref{energy_spectra}).
-This manifests itself in the relatively large values of $\sigma_p$ for some of these modes. Now, the lowest $m=10, n=0$ POD modes (those with the highest $\sigma_p$)
-have positive growth rates, meaning these POD modes inject energy into the turbulence. This confirms the picture that I revealed in the previous sections, in which $n=0$ structures
+This manifests itself in the relatively large values of $\sigma_p$ for some of these modes. Furthermore, the lowest $m=10, n=0$ POD modes -- those with the highest $\sigma_p$ --
+have positive growth rates, meaning these POD modes inject energy into the turbulence. This confirms the picture that I advocated in the previous sections, in which $n=0$ structures
 inject fluctuation energy into the turbulence. It also confirms
 that orthogonal POD modes can provide better insight into turbulent processes than the linear eigenmodes of the system. This isn't surprising, given that the POD modes are derived from the turbulence,
 while the linear eigenmodes have no knowledge of nonlinear physics. Nevertheless, POD modes prove to be especially useful for non-normal systems.
@@ -203,17 +205,11 @@ Another set of POD modes that I plot in Fig.~\ref{pod_nm} b) are those with $m=6
 These modes all have fairly low energy, and except for one mode that is just above marginal stability, they all have negative growth rates. 
 This is also a non-normal effect, but it is opposite that which makes the $n=0$ modes unstable.
 Again, this result is unintuitive and quite unexpected if one only considers linear eigenmodes.
-
 To compare to these two cases, I also show POD modes for $m=60, n=0$ and $m=10, n=1$. Again, some of the $n=0$ modes have positive growth rates, while all of the $n=1$ modes have negative growth
-rates. The linear eigenmodes have no discernable bearing on the stability properties of the turbulent dynamics as measured by the POD modes. The POD basis is dramatically more useful for
-understanding the turbulence than the linear eigenmode basis. This comes with the caveats, however, that the POD basis cannot be obtained without the nonlinear simulation, and that the simpler
-partial Fourier decomposition that I used in the previous sections is just as good, if not better, than the POD basis in revealing turbulent processes.
-
-\begin{figure}[!ht]
-\centerline{\includegraphics[]{pod_nm}}
-\caption{POD structures and growth rates}
-\label{pod_nm}
-\end{figure}
+rates. The linear eigenmodes have no bearing on the structure of the POD modes and therefore no obvious effect on the stability properties of the turbulent dynamics. 
+The POD basis is dramatically more useful for understanding the turbulence than the linear eigenmode basis. 
+Nevertheless, the POD basis is more difficult to obtain than the partial Fourier decomposition that I used in the previous sections, and it is probably worse in illuminating some turbulent processes
+like the nonlinear instability. I therefore leave it be for now.
 
 
 \section{n=0 Suppression}
@@ -228,23 +224,20 @@ certainly removes the nonlinear instability mechanism while keeping the linear i
 
 Rather than showing another diagram of the energy flow for the $n=0$ suppressed simulation, I construct a \emph{spectral} growth rate from the spectral energy dynamics 
 (those of Sec.~\ref{s_spec_en_dyn}). I emphasize, that I am not using the POD here. Thus, I define this growth rate as:
-
 \beq
 \label{gamma_def}
 \gamma(\vec{k}) = \pdiff{E_{tot}({\vec{k}})}{t} \bigg|_{lin} \bigg/ \left( 2 E_{tot}(\vec{k}) \right) = \sum_j \left[ Q_j(\vec{k}) + D_j(\vec{k}) \right] \bigg/ \left( 2 E_{tot}(\vec{k}) \right).
 \eeq
-
 Recall that $\sum_j C_j(\vec{k}) = 0$, so $C_j$ does not appear in this sum. I also only include the linear contribution to $ \pdiff{E_{tot}({\vec{k}})}{t}$ so that the growth rate
 only involves the energy injection and dissipation at each wavenumber and not the three-wave transfers ($T_j(\vec{k},\vec{k'})$). 
 Adding the three-wave transfers would always make this sum about equal to zero in the turbulent
 quasi-steady state stage of the simulation anyway, rendering this quantity useless. 
 In the \emph{linear} stage of the simulations, this method reproduces the linear growth rate spectrum.
 I actually used this $\gamma$ to generate the curves in Figs.~\ref{lin_dw_gamma} and~\ref{lin_all_gamma}, though I used other more common methods to confirm the accuracy of that calculation.
-$\gamma$ can also be applied to the turbulent stage of the simulation (like I did with the POD modes in the previous section), 
-in which it gives a composit look at the net energy injection into the system at each $\vec{k}$ normalized
-by the steady-state energy at that given $\vec{k}$.
+$\gamma$ can also be applied to the turbulent stage of the simulation -- like I did with the POD modes in the previous section -- 
+where it describes the net energy injection into the system -- or dissipation -- at each $\vec{k}$ normalized by the steady-state energy at that given $\vec{k}$.
 
-\begin{figure}[!ht]
+\begin{figure}
 \centerline{\includegraphics[]{lin_per_non0_gamma}}
 \caption{Linear vs. nonlinear growth rates}
 \label{lin_per_non0_gamma}
@@ -252,55 +245,56 @@ by the steady-state energy at that given $\vec{k}$.
 
 Fig.~\ref{lin_per_non0_gamma} shows the results of this calculation for three different cases. First, the light blue (cyan) curves represent $\gamma(m)$ for $n=1$ (the solid line)
 and $n=0$ (the dashed line) for the Periodic simulation during the linear exponential growth stage. The $n=1$ curve is the same as that shown in Figs.~\ref{lin_dw_gamma} and~\ref{lin_all_gamma}.
-The $n=0$ curve, on the other hand, is the linear growth rate of the $n=0$ linear eigenmodes, which all have negative growth rates of course. The red curves map out $\gamma$ for the 
-turbulent stage of the Periodic simulation. The $n=0$ growth rate is \emph{positive} for low $m$, while the $n=1$ growth rate is negative for all $m$. This isn't surprising given the
+The $n=0$ curve, on the other hand, is the linear growth rate of the $n=0$ linear eigenmodes, which all have negative growth rates -- since I take this after the transient growth has ended. 
+The red curves map out $\gamma$ for the turbulent stage of the Periodic simulation. 
+The $n=0$ growth rate is \emph{positive} for low $m$, while the $n=1$ growth rate is negative for all $m$. This isn't surprising given the
 previous section's evidence for $n=0$ energy injection due to the nonlinear instability, but it is certainly a nice way to show the contrast with the linear growth rate curves.
 The growth rates in the turbulent stage are consistent with the slopes of the transient growth curves like that shown in Fig.~\ref{transient_n0_growth}.
-Finally, the green curves are the growth rates for the $n=0$ suppressed simulation during the ``turbulent phase'' (recall from Fig.~\ref{n_statistics} that the fluctuations remain rather
-coherent, and the state is only weakly turbulent). 
-These growth rates are somewhat similar to the linear growth rates, representative of the expectation under the unstable linear eigenmode paradigm. 
+Finally, the green curves are the growth rates for the $n=0$ suppressed simulation during the ``turbulent phase'' -- recall from Fig.~\ref{n_statistics} that the fluctuations remain rather
+coherent, and the state is only weakly turbulent.
+These growth rates are somewhat similar to the linear growth rates just as one might expect given the unstable linear eigenmode paradigm. 
 
 Now, one may wonder why there is any $n=0$ growth rate curve at all for the $n=0$ suppressed simulation. 
 The reason is because I remove the $n=0$ components after they are nonlinearly excited. I allow the nonlinearities to transfer energy 
-into the $n=0$ components at each time step and then I save the data. The energy, by the way, is transferred from $n=1$ to $n=0$ modes as in the paradigmatic process. Then, I remove
-these $n=0$ components before the equations are evolved again. So there are small values for these $n=0$ components that come out in the data, but are not used to evolve the equations. This allows
-construction of the $n=0$ growth rate curve.
+into the $n=0$ components at each time step and then I save the data. The energy, by the way, is transferred from $n=1$ to $n=0$ modes in this simulation -- consistent with the paradigmatic picture. 
+Then, I remove these $n=0$ components before the equations are evolved again. So there are small values for these $n=0$ components that come out in the data, but are not used to evolve the equations. 
+This allows construction of the $n=0$ growth rate curve.
 Furthermore, notice that the $n=0$ suppressed simulation growth rates do not exactly match the linear growth rates. The reason for this is that the nonlinearities change the structures and
 phases between the fields. Or to put it another way, they excite slower growing or damped eigenmodes that lessen the effect of the most unstable eigenmodes. This is consistent with the linear
 instability paradigm.
 
-\begin{figure}[!ht]
-\centerline{\includegraphics[]{zf_gamma_spec}}
-\caption{Zonal flow affect on spectra and growth rate}
-\label{zf_gamma_spec}
-\end{figure}
-
 Finally, one might notice that manually removing all of the $n=0$ fluctuation components means that the zonal flows ($n=0, m=0$ component of $\phi$) are also removed. 
-Zonal flows are often seen as being an important saturation mechanism for turbulence by either shearing the turbulent eddies~\cite{biglari1990} or by exciting stable eigenmodes~\cite{makwana2012}.
+Zonal flows are often invoked as being an important saturation mechanism for turbulence by either shearing the turbulent eddies~\cite{biglari1990} or by exciting stable eigenmodes~\cite{makwana2012}.
 They are often considered to provide the most important nonlinear interactions to plasma turbulence. So one might naively think that their removal in the $n=0$ suppressed simulation
 causes the removal of the nonlinear instability. I say ``naively'' because the nonlinear instability mechanism outlined in Fig.~\ref{reduced_nl_diagram} doesn't depend upon zonal flows.
-But to prove this and to explore the real affect of the zonal flows, I have rerun the $n=0$ suppressed simulation without removing the zonal flows. I still remove all of the $n=0$
+But to prove this and to explore the real effect of the zonal flows, I have rerun the $n=0$ suppressed simulation without removing the zonal flows. I still remove all of the $n=0$
 components of the density and temperature fluctuations and all of the $n=0, m \ne 0$ components of $\phi$, but I leave the zonal flow component intact. I show some comparisons of the two
 simulations in Fig.~\ref{zf_gamma_spec}. In Fig.~\ref{zf_gamma_spec} a), I show the $k_r$ spectrum of the two simulations, revealing that the zonal flows cause radial wavenumber transfers
 from low $k_r$ to medium $k_r$. This is a simple consequence of a three-wave interaction between the dominant low $k_r$ structures and the zonal flows which have finite $k_r$. This interaction
 causes a slight saturation effect because the medium $k_r$ modes have lower growth rates than the low $k_r$ modes, and the overall saturation level is depressed by about a factor of 2
 when I retain the zonal flows.
 
+\begin{figure}
+\centerline{\includegraphics[]{zf_gamma_spec}}
+\caption{Zonal flow affect on spectra and growth rate}
+\label{zf_gamma_spec}
+\end{figure}
+
 Nevertheless, the zonal flows don't cause the nonlinear instability, which is evident from Fig.~\ref{zf_gamma_spec} b) where the nonlinear growth rates of the two simulations are shown
-along with the linear growth rates. Recall from Fig.~\ref{lin_per_non0_gamma} how different the growth rates look when the nonlinear instability is present.
+along with the linear growth rates. Recall from Fig.~\ref{lin_per_non0_gamma} how different the growth rates look when the nonlinear instability is active.
 The simulation with the zonal flows is qualitatively similar to the simulation without the zonal flows, but as expected, the growth rates with the zonal flows are less than or equal to
-the growth rates without the zonal flows. Interestingly, the zonal flows only affect the growth rates at $n=1$ at very low and very high $m$, but they affect the $n=0$ growth rates
-mostly at medium $m$. Anyhow, the zonal flows don't affect the nonlinear instability, and they also have a relatively weak affect on turbulent saturation compared to some other types
-of turbulence like ITG turbulence~\cite{dimits2000,Holland2003}.
+the growth rates without the zonal flows. Interestingly, the zonal flows only affect the $n=1$ growth rates at very low high $m$, but they affect the $n=0$ growth rates
+mostly at medium $m$. Anyhow, the zonal flows don't affect the nonlinear instability and have a relatively weak affect on turbulent saturation compared to other types
+of turbulence like ITG~\cite{dimits2000,Holland2003}.
 
 
 \section{Nonlinear Instability Literary History}
 \label{s_nl_inst_context}
 
-Now, after I found this curious nonlinear instability, I wondered if others had previously found this particular mechanism. 
+After I found this curious nonlinear instability, I wondered if others had previously found this particular mechanism. 
 After all, the equations and the geometry that I use are not new. In fact, a look at 
 Fig.~\ref{reduced_nl_diagram} reveals that even simpler models like the 3D Hasegawa-Wakatani equations~\cite{hasegawa1983} contain the proper components to cause the nonlinear instability. And 
-cylindrical simulations of the Hasegawa-Wakatani equations are three decades old (although the original simulations were 2D).
+cylindrical simulations of the Hasegawa-Wakatani equations are three decades old -- although the original simulations were 2D.
 My search of the literature reveals that this nonlinear instability was, in fact, identified in 1995. Actually, going even further back, in 1977-1979, 
 Cheng et al.~\cite{cheng1977,cheng1979} performed 3D turbulence simulations that may have actually been driven by the nonlinear instability. 
 In their work, they identified a dominance of $k_\para=0$ ``convective cells [that] are non-linearly excited as a result of mode-coupling of the drift instabilities.'' 
@@ -312,36 +306,35 @@ Using an energetics analysis, they in fact, correctly identified the nonlinear i
 mechanism is, in fact, not new. Furthermore, others expanded on this original work. 
 Drake et al. showed that elimination of the linear instability by removing the $k_\para \ne 0$ components of the linear drive term
 had virtually no affect on the turbulence~\cite{drake1995}. Furthermore, they showed that adding magnetic shear, which also stabilized the linear drift waves, did not stop the turbulence
-from sustaining itself. Both of these showed that the nonlinear instability could act as a subcritical instability.
+from sustaining itself. Both of these showed that the nonlinear instability could act as a subcritical instability. A few years later, Camargo identified the nonorthogonality of the linear
+eigenmodes in the Hasegawa-Wakatani equations as a possible reason for effects that were previously attributed to nonlinear physics~\cite{camargo1998}.
 Additionally, Scott and others have explore nonlinear drift wave turbulence in a number of different models with different physics effects such as magnetic shear and curvature
-and found that drift wave turbulence with very long parallel structures tends to sustain itself despite the presence or lack thereof of linear 
-instabilities~\cite{scott1990,scott1992,zeiler1996,zeiler1997,korsholm1999,scott2002,scott2003,scott2005}.
+and found that drift wave turbulence with very long parallel structures tends to sustain itself despite the lack of linear 
+instability~\cite{scott1990,scott1992,zeiler1996,zeiler1997,korsholm1999,scott2002,scott2003,scott2005}.
 
 After visually exploring their turbulent simulations, Drake et al. proposed a physical mechanism for the nonlinear instability. The mechanism contains three steps: (1) a radially elongated $k_z = 0$
 convective cell radially transports density across the equilibrium density gradient, causing a density fluctuation with an azimuthal density gradient. (2) Radially propagating 
 drift waves with $k_z \ne 0$ grow on this density gradient. (3) The flows associated with these drift waves reinforce the original radial flows of the convective cell. They went on to simulate
 this mechanism in a reduced equation set, using a finely crafted initial state to show the growth of the structures involved in the mechanism. It's not difficult to see that this mechanism
 is the same one that I described using Fig.~\ref{reduced_nl_diagram}, though my description used modal energy transfer language while Drake's uses the language of flows and drift waves.
-Furthermore, he lumped together my two middle steps into his single middle step. Nevertheless, our explanations are equivalent.
+Furthermore, they lumped together my two middle steps into his single middle step. Nevertheless, our explanations are equivalent.
 
 Drake et al. cleverly used their physical insight to develop a reduced turbulent model, consisting of only three modes: a $k_z = 0$ radially elongated mode, a $k_z \ne 0$ drift wave with finite
 radial and azimuthal wavenumbers, and a second $k_z \ne 0$ drift wave with higher azimuthal wavenumber with a phase such that its interaction with the other drift wave drives the $k_z = 0$
 mode. The electrostatic potential resulting from these modes is given by the expression
-
 \beq
 \label{drake_potential}
 \phi = \phi_0 \ {\rm cos}(\pi y) + \left[ \phi_1 \ {\rm cos}(\pi y) + \phi_2 \ {\rm sin}(2 \pi y) \right] \times {\rm sin}(k_z z) {\rm exp}(i k_x x).
 \eeq
-
 The evolution of these modes can be calculated by insertion of this expression into the evolution equations (such as Eqs.~\ref{ni_eq} and~\ref{rho_eq}). Further simplifying the resulting equations, 
-they calculated that the $k_z = 0$ mode would grow with an algebraic time dependence of $t^{4/3}$ (they didn't have any dissipation in the model to stop the growth). Such an algebraic time
+they calculated that the $k_z = 0$ mode would grow with an algebraic time dependence of $t^{4/3}$; they didn't have any dissipation in the model to stop the growth, though. Such an algebraic time
 dependence is consistent with the notion of non-normal transient growth~\cite{waleffe1995}. They didn't make this connection, but in light of my Fig.~\ref{transient_n0_growth} and general
 properties of non-normal subcritical turbulence, this isn't a surprising result.
 
-Later, Krommes, noted the similarity between Drake's self-sustainment mechanism and the mechanism of turbulent self-sustainment in subcritical hydrodynamic flows like Poisuille pipe 
+Later, Krommes, noted the similarity between Drake's self-sustainment mechanism and the mechanism of turbulent self-sustainment in subcritical hydrodynamic flows like Poiseuille pipe 
 flow~\cite{krommes1999}. The self-sustainment mechanism in hydrodynamic flows is the following: (1) advection of mean shear by weak streamwise rolls (vortices) which create streaks (spanwise
 velocity fluctuations); (2) secondary instability of the resulting streaks; (3) nonlinear self-interaction of the streaks that re-energizes the original streamwise rolls. The streamwise rolls
 are elongated $k_z = 0$ structures. Furthermore, the first step is a linear interaction, called the 'lift-up' mechanism, which relies on nonorthogonal eigenmodes that grow transiently with
-algebraic dependence~\cite{trefethen1993,waleffe1995,henningson1996}. This self-sustainment mechanism is analagous to the Drake plasma mechanism with the caveat that a secondary drift wave
+algebraic dependence~\cite{trefethen1993,waleffe1995,henningson1996}. This self-sustainment mechanism is analogous to the Drake plasma mechanism with the caveat that a secondary drift wave
 instability in the plasma case replaces the wake-like instability in the neutral fluid case. Such a correspondence between the two mechanisms led Krommes to suggest using mathematical techniques
 and conclusions from the neutral-fluid studies to further study the plasma mechanism. 

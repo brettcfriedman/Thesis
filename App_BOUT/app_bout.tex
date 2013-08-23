@@ -62,7 +62,6 @@ code. The Arakawa advection scheme~\cite{arakawa1966} is useful for my purposes 
 I have used this advection scheme for all of the zero equilibrium flow simulations of Chapters~\ref{c_nlin_periodic} and ~\ref{c_nlin_nonper}. The Arakawa advection scheme can cause overshoots
 or spurious fluctuations at steep gradients, which is one of the reasons why I used artificial diffusion and viscosity in the equations. Another problem with the Arakawa advection scheme
 is that it is not a positivity-preserving scheme. The advection equation:
-
 \beq
 \label{advec_eqn}
 \pdiff{A}{t} + {\bf v} \cdot \grad A = 0,
@@ -75,23 +74,19 @@ difference advection schemes take this into account and do not allow $A$ to beco
 become unphysical, invalidating the simulation. As long as the fluctuations are not too large, the total density and temperature remain positive when I use Arakawa advection. But I found
 that in the finite mean flow simulations, the fluctuations can become large enough that the total density and/or temperature become negative when I use the Arakawa scheme.
 In those cases, I use a first-order upwind (U1) advection scheme. In this scheme, the component $\left( v_x \pdiff{A}{x} \right)_{U1}$ is approximated as:
-
 \beqar
 \label{upwind_def}
 v_{x,i} \frac{A_i - A_{i-1}}{\Delta x} \quad {\rm for} \quad v_{x,i} > 0, \nonumber \\
 v_{x,i} \frac{A_{i+1} - A_i}{\Delta x} \quad {\rm for} \quad v_{x,i} < 0.
 \eeqar
-
 It is easily confirmed that any local minimum must grow in amplitude from this formula ($A$ is advected into the local minimum). Also note that a local maximum must shrink. Because of these
 properties, solutions tend to numerically smooth out, indicative of diffusive action. To show this explicitly, Eq.~\ref{upwind_def} can be rewritten in an interesting way:
-
 \beq
 \label{u1_exp}
 \left( v_x \pdiff{A}{x} \right)_{U1} = v_{x,i} \frac{A_{i+1} - A_{i-1}}{2 \Delta x} - \frac{\Delta x}{2} |v_{x,i}| \frac{A_{i+1} - 2 A_i + A_{i-1}}{(\Delta x)^2}.
 \eeq
 The first term on the RHS is simply the expression for central second order advection, while the second term on the RHS is $\frac{\Delta x}{2} |v_{x,i}|$ times the expression for the central
 second order second derivative. So,
-
 \beq
 \label{u1_symb}
 \left( v_x \pdiff{A}{x} \right)_{U1} = \left( v_x \pdiff{A}{x} \right)_{C2} - \frac{\Delta x}{2} |v_{x,i}| \left( \pdiffs{A}{x} \right)_{C2},
@@ -116,15 +111,12 @@ Perhaps the real power of BOUT++ lies in its time integration procedures. While 
 much more sophisticated solver packages can be compiled with the code and used given simple user option choices. These packages generally work as a black box for the user, who only has to make a few
 choices regarding error tolerances and problem stiffness. The code that I use is the CVODE package that comes in the Sundials suite of codes. CVODE is a parallel solver that
 can solve stiff or nonstiff ODE initial value problems of the form~\cite{cvode}:
-
 \beq
 \label{ode_system}
 \diff{u}{t} = f(t,u).
 \eeq
-
 Plasma simulations tend to be stiff due to the large range of time scales involved. Simple explicit schemes are generally too inefficient or too inacurate to use,
 and only some implicit schemes work with stiff systems. For stiff problems, CVODE uses the Backward Differentiation Formula (BDF). This formula approximates $u$ at time $n$ as
-
 \beq
 \label{bdf}
 u_n = \sum_{i = 1}^q \alpha_{n-i} u_{n-i} + h_n \beta_0 f_n,
@@ -132,13 +124,11 @@ u_n = \sum_{i = 1}^q \alpha_{n-i} u_{n-i} + h_n \beta_0 f_n,
 where $f_n \equiv f(u_n,t_n)$, $h_n$ is the timestep at time $n$, $q$ is the order of the BDF method, 
 and $\alpha{n-i}$ and $\beta_0$ are coefficients determined by the order of the BDF method. Since, $f_n$ is unknown,
 CVODE uses a Newton formula to approximate it as
-
 \beq
 \label{newton_it}
 f_n \approx f_{n-1} + \pdiff{f}{u} (u_n - u_{n-1}).
 \eeq
 $\pdiff{f}{u} \equiv J$ is the Jacobian. This allows Eq.~\ref{bdf} to be written as
-
 \beq
 \label{un_eqn}
 (1 - h_n \beta_0 J) u_n = \sum_{i = 1}^q \alpha_{n-i} u_{n-i} + h_n \beta_0 f_{n-1} - h_n \beta_0 J u_{n-1}.

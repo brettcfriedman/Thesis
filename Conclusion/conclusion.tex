@@ -1,2 +1,43 @@
 \chapter{Conclusion}
 \label{conclusion}
+
+In this dissertation, I model, simulate, and analyze the turbulence in a particular experiment on LAPD, in which the mean radial electric field is nulled out. 
+The model I use in the simulations is an electrostatic reduced Braginskii two-fluid model that describes the time evolution
+of density, electron temperature, electrostatic potential, and parallel electron velocity fluctuations in the edge region of LAPD. The spatial domain I use is annular, encompassing the radial coordinates
+over which a significant equilibrium density gradient exists. 
+I use a few different axial boundary conditions, such as periodic and Bohm sheath, but they have little bearing on the nature of the turbulence.
+My model breaks the independent variables in the equations into time-independent equilibrium parts and time-dependent fluctuating parts, and I use experimentally obtained values as input for the
+equilibrium parts. The simulations start with a small random initial fluctuation, which is evolved in time, growing at first due to a linear drift wave instability. The fluctuations cause
+density and temperature transport across the equilibrium gradients, leading to relaxation of the profiles. I correct for this with ad hoc sources and sinks, which roughly model the ionization
+source and recombination sink in LAPD.
+
+After the initial exponential growth of the fluctuations due to the linear drift wave instability, the fluctuations saturate and the frequency and azimuthal wavenumber spectra become broadband
+with no visible coherent peaks, at which point the fluctuations become turbulent. The turbulence develops intermittent pressure and flow filamentary structures that grow and dissipate, but look much
+different than the unstable linear drift waves. The difference is most easily seen in the long axial wavelengths that these structures possess. Their wavelengths are much longer than
+the machine length, which is in contrast to the linear drift waves, whose axial wavelengths are equal to or on the order of the machine length depending on boundary conditions. An energy
+dynamics analysis that I derive reveals the mechanism that drives these structures, which dominate the turbulent energy. These long $k_\para \sim 0$ intermittent potential 
+filaments convect equilibrium density
+across the equilibrium density gradient, setting up local density filaments. These density filaments, also with $k_\para \sim 0$, produce azimuthal density gradients, which drive radially
+propagating secondary drift waves. These finite $k_\para$ drift waves have pressure and electrostatic components associated with them, which are coupled by the adiabatic response. The potential
+component of these drift waves nonlinearly couple to one another and reinforce the original convective filament, allowing the process to bootstrap itself, at least intermittently. The growth
+of these structures is by nonlinear instability because they require a finite amplitude to start, and they require nonlinear terms in the equations to sustain their growth.
+
+The reason why $k_\para \sim 0$ structures can grow and support themselves at all in a dynamical system with no $k_\para = 0$ linear instability is because the linear eigenmodes of the linear
+dynamical system are nonorthogonal. Nonorthogonal eigenmodes that individually decay under linear dynamics can, in fact, produce transient energy growth, which is always responsible for
+subcritical instability in conservative dynamical systems. The instability, however, can only occur when the fluctuations are given some finite threshold amplitude, and nonlinearities are able
+to mix energy between different eigenmodes. In my simulations, the linear drift wave instability kick-start the fluctuations, but noise may provide the impetus
+in real systems or in linearly stable systems.
+
+Additionally, I analyze the experiment and simulations in regards to their deterministic character. In other words, I attempt to figure out how many effective degrees of freedom control
+the turbulence. Using two different methods -- permutation entropy analysis by means of time delay trajectory reconstruction and Proper Orthogonal Decomposition -- I determine that
+more than a few degrees of freedom, possibly even dozens or hundreds, are all active. The turbulence in my particular experiment is not a manifestation of low-dimensional chaos, but is
+rather quite stochastic. It is difficult to generalize this result to other cases, however, due to the flowless nature of the experiment and the lack of parallel confinement in LAPD.
+
+It seems that one can always understand more about a particular experiment or phenomenon, but eventually the problem of diminishing returns sets in. So barring any problems with my results or methods,
+future efforts will best be directed toward analyzing different experiments or determining how certain results change with changing parameters. I have two ideas in mind, which based on my results,
+may present interesting avenues of research. The first idea is to change some parameter -- maybe plasma radius -- that changes the chaotic nature of the experiment. Bifurcation theory rests
+on the idea that a control parameter -- or set of parameters -- changes the nature of the attractor solutions of the system, especially the attractor dimension. 
+Can one see this in experiments? If so, what are the implications for magnetic fusion? Second, experiments on LAPD that vary the mean radial electric
+field have already been done, and simulations based on these experiments need to be properly performed and analyzed to help uncover some important physics. While I have made some progress
+on these simulations and their analysis, which I describe in Appendix~\ref{app_mean_flow}, I have not yet achieved a sufficient level of validation or analyzed the results in depth.
+These are two paths of exploration that await future research. There is still much to be done in LAPD experiments and simulations to uncover the nature of plasma turbulence.

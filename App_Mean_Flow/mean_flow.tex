@@ -19,7 +19,7 @@ so that others can build upon this work.
 \section{The LAPD Biasing Experiment}
 \label{s_biasing_exp}
 
-\begin{figure}[!ht]
+\begin{figure}
 \centerline{\includegraphics[]{flow_profiles}}
 \caption{Equilibrium profiles for different biases}
 \label{flow_profiles}
@@ -37,7 +37,6 @@ as a single conducting plate. In this case, my discussion of the sheath in Sec.~
 the current into the plate and the temperature profile. I considered the case for a floating conducting plate, in which, $\phi = \Lambda T_e /e$, with 
 $\Lambda = \rm{ln} \left( \frac{1}{2 \sqrt{\pi}} \sqrt{\fmie}  \right)$, and where $\phi$ is the potential difference between the sheath edge and the conducting plate. If the plate is not
 floating, but drawing a current, as is the case with the cathode, the proportionality factor relating $\phi$ and $T_e$ is different and not necessarily constant:
-
 \beq
 \label{lambda_r}
 \Lambda(r) = \rm{ln} \left( \frac{1}{2 \sqrt{\pi}} \sqrt{\fmie} \frac{1}{1 - \frac{J_\para}{e n c_s}} \right).
@@ -61,13 +60,11 @@ through the biasing source (maintaining a potential difference) through the cath
 The electrons in the plasma can carry the current along the magnetic field lines, but many of the field lines that terminate on the cathode are radially separated from the limiter field lines,
 so a radial current forms to complete the circuit. This radial current is primarily carried by ions. Recall from Sec.~\ref{s_vorticity_eqn} that there are two contributions from the ions
 to the cross-field current: the polarization current and the Pederson current. The polarization current due to the ions, however, is
-
 \beq
 \label{pol_curr}
 J_{pi} \approx e n \vec{b} \times \left( \pdt + {\bf v}_E \cdot \grad \right) {\bf v}_E
 \eeq
 where the equilibrium part of this cannot involve the time derivative part. Now the radial part of the equilibrium polarization current is
-
 \beq
 \label{rad_pol_curr}
 J_{pir} \approx \frac{e n }{r} E_\theta \pdiff{E_\theta}{\theta}
@@ -95,14 +92,12 @@ the help of well-validated numerical simulations. Therefore, I have attempted to
 text on the null flow experiment and simulations.
 
 
-
 \section{Simulation Model}
 \label{s_sim_model}
 
 The simulation model that I use is the same that I use in the main text (See Chapter~\ref{c_braginskii}) with mostly obvious and straight forward additions to account for the mean potential
 profiles in the experiments that I simulate in this appendix. I treat the potential the same way that I treated the density and temperature in the main text; I divide it into a time-independent
 equilibrium part and a time-dependent fluctuating component. With this, the model equations that I solve become:
-
 \beqar
 \label{ni_eq_flow}
 \pdt N = - {\mathbf v_E} \cdot \grad N_0 - {\mathbf v_{E0}} \cdot \grad N - N_0 \gradpar \vpe + \mu_N \gradperp^2 N + S_N + \{\phi,N\}, \\
@@ -141,7 +136,7 @@ upwind advection scheme for the advective nonlinearities in these equations, whi
 \section{New Linear Instabilities}
 \label{s_flow_inst}
 
-\begin{figure}[!ht]
+\begin{figure}
 \centerline{\includegraphics[]{flow_lin_inst}}
 \caption{Linear growth rates and axial structures for high mean flow}
 \label{flow_lin_inst}
@@ -153,7 +148,6 @@ a plasma-specific instability), is due to the radial gradient in the azimuthal $
 rotation of the plasma in the presence of the magnetic field.
 
 The KH instability is a convective vorticity instability, meaning it can be described by the simple equation
-
 \beq
 \label{kh_inst_eq}
 \pdiff{\varpi}{t} = - {\bf v} \cdot \grad \varpi.
@@ -173,7 +167,6 @@ $- {\mathbf v_E} \cdot \grad \varpi_0$ and $- {\mathbf v_{E0}} \cdot \grad \varp
 The RIC instability is analagous to the more commonly known interchange instability in magnetic confinement devices like tokamaks. That interchange instability is a result of a curved magnetic
 field that causes particles to feel a centrifugal force as they travel along the field. The RIC instability in LAPD is not caused by magnetic field curvature (there is none), but by the
 centrifugal force on particles as they are rotated around the cylinder. The force on the particles is ${\bf F} = m v_\theta^2/r \hat{{\bf r}}$. Forces on particles, of course, cause drifts:
-
 \beq
 \label{force_drift}
 v_f = \frac{1}{q} \frac{{\bf F \times B}}{B^2}.
@@ -203,13 +196,13 @@ independent calculations.
 \section{Statistical Comparisons to Experiment}
 \label{s_flow_stats}
 
-\begin{figure}[!ht]
+\begin{figure}
 \centerline{\includegraphics[]{flow_statistics}}
 \caption{Mean flow experiment and simulation statistical comparisons}
 \label{flow_statistics}
 \end{figure}
 
-\begin{figure}[!ht]
+\begin{figure}
 \centerline{\includegraphics[]{flow_flux}}
 \caption{Particle and heat flux for flow simulations}
 \label{flow_flux}
@@ -262,13 +255,13 @@ gradients rather than taking them as input may be better suited to answering thi
 \subsection{The Broadband View}
 \label{ss_broad_view}
 
-\begin{figure}[!ht]
+\begin{figure}
 \centerline{\includegraphics[]{flow_energy_spectra}}
 \caption{Energy spectra for the high flow simulation}
 \label{flow_energy_spectra}
 \end{figure}
 
-\begin{figure}[!ht]
+\begin{figure}
 \centerline{\includegraphics[]{flow_lin_vs_nl_gamma}}
 \caption{High flow linear vs. nonlinear growth rates}
 \label{flow_lin_vs_nl_gamma}
@@ -282,7 +275,6 @@ $-\frac{1}{r} \pdiff{\phi_0}{r} \left(\pdiff{N_0}{r} \pdiffxy{\phi}{r}{\theta} -
 
 Mean flow advection terms such as $- {\mathbf v_{E0}} \cdot \grad N$ have zero contribution to the energy dynamics. This can be seen easily by recalling the procedure for calculating
 the dynamics, which begins with multiplying Eq.~\ref{ni_eq_flow} by $T_{e0}/N_0 N$ and integrating over the volume. This term becomes
-
 \beq
 \label{en_mean_advec}
 - \int_V \left( \frac{T_{e0}}{N_0} N {\mathbf v_{E0}} \cdot \grad N \right) dV = - \frac{1}{2} \int_r {\mathbf v_{E0,r}} \frac{T_{e0}}{N_0} \int_{\theta,z} \pdiff{N^2}{\theta} r d\theta dz dr.
@@ -332,15 +324,35 @@ the KH and RIC instabilities are not wholly significant, though they cannot be r
 \subsection{The Coherent Mode}
 \label{ss_coherent_mode}
 
-\begin{figure}[!ht]
-\centerline{\includegraphics[]{flow_fourier_nf}}
-\caption{Frequency/n-number power spectra for the high flow simulation}
-\label{flow_fourier_nf}
+\begin{figure}
+\centerline{\includegraphics[]{coherent_r_f_spec}}
+\caption{Radial frequency power spectra for the high flow simulation}
+\label{coherent_r_f_spec}
 \end{figure}
 
 In Sec.~\ref{s_biasing_exp}, I mentioned that Schaffner et al.~\cite{schaffner2012} identified a coherent mode that grows within the broadband turbulence when the mean 
-flow becomes large due to high biasing. In fact, I reproduce in the simulation a signature of the coherent mode, namely the peak at about 12 kHz in the frequency spectrum (Fig.~\ref{flow_statistics} g)).
-That means that I should be able to use the great spatial data from the simulation to figure out the cause of this coherent mode.
+flow becomes large due to high biasing. In fact, I reproduce in the simulation a signature of the coherent mode, namely the peak at about $12$ kHz in the frequency spectrum (Fig.~\ref{flow_statistics} g)).
+That means that the simulation data can be used to figure out the cause of this coherent mode.
 
-My first thought in searching out the origin of this coherent mode was that maybe it has to do with that curious feature in the energy spectra at $|m|=1,|n|=2$, which is unique to the high flow case.
-I decided then to look at the 3D Fourier space $(m,n,f)$ to see if that feature has the correct frequency associated with it. Fig.~\ref{flow_fourier_nf} shows this space for the 
+In order to understand the coherent mode better, I first look at the frequency spectra as a function of radius, which I show in Fig.~\ref{coherent_r_f_spec}. Figure~\ref{coherent_r_f_spec} a)
+is the spectra of the density fluctuations, while Fig.~\ref{coherent_r_f_spec} b) is the spectra of the potential fluctuations. The difference between the spectra of the two fields is remarkable,
+with the potential having a coherent spectra and the density having a broadband spectra. While the $12$ kHz coherent mode shows up in both fields, it is far more significant in the potential field.
+This indicates that the coherent mode is a flow-driven mode as opposed to a drift wave, which shouldn't be too surprising given that the mode emerges only when the flow becomes large.
+Furthermore, the coherent mode is somewhat localized at a radial position around $23-26$ cm. By comparing this to Fig.~\ref{flow_profiles} f), one sees that this mode peaks where the flow shear
+peaks, but where the flow magnitude is small, which provides evidence that the mode is KH-driven rather than RIC-driven. To further test this, I run two more simulations: one with the removal
+of the KH term in Eq.~\ref{rho_eq_flow}, the other with the removal of the RIC terms. I provide the radial frequency spectra of these two simulations in Fig.~\ref{coherent_r_f_spec_removals}.
+The results of these simulations are not that straight-forward. When I remove the KH term, the coherent mode at $12$ kHz disappears, and the frequency spectrum of the potential changes significantly,
+somewhat validating the idea that the coherent mode is KH-driven. However, removal of the RIC term also has an effect on the coherent mode. It shifts its frequency. While there is still a sharp peak
+in the spectrum at about $12$ kHz, there is a more significant peak at about $7$ kHz, meaning that the $12$ kHz peak is probably just a side-band of this. Possibly, the RIC term shifts the
+frequency of the KH-driven mode, though it's not obvious why it would do so.
+
+\begin{figure}
+\centerline{\includegraphics[]{coherent_r_f_spec_removals}}
+\caption{Frequency power spectra without KH or RIC term}
+\label{coherent_r_f_spec_removals}
+\end{figure}
+
+To further test the KH-driven coherent mode hypothesis, I look at the energy dynamics of the full simulation with both the KH and RIC terms included. However, in order to try to isolate the coherent
+mode, I volume average over only the annulus in the $23-26$ cm radial domain, which should eliminate the background that is still largely controlled by the nonlinear instability. I do not show
+any specific results of the energy dynamics, but qualitatively in this domain, the KH mechanism injects energy into the system, primarily at $n=0$ and at $m=1,2$. The RIC, on the other hand,
+is not active here, and the nonlinear instability is also not strong here. The evidence, then, points to a KH-driven coherent mode where the RIC only affects the frequency of the mode.
