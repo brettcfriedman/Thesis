@@ -54,16 +54,16 @@ sister. And I especially acknowledge my grandparents, who have given me all of t
                 {Regent Scholar, University of California, Irvine.}
 
 \vitaitem   {2007}
-                {B.S.~(Physics) Summa Cum Laude, University of California, Irvine.}
+                {B.S.~(Physics) Summa Cum Laude, UC Irvine.}
 
 \vitaitem   {2007}
                 {Chancellor's Fellow, University of California, Los Angeles.}
 
 \vitaitem   {2007-2009}
-                {Teaching Assistant, Department of Physics and Astronomy, University of California, Los Angeles.}
+                {Teaching Assistant, University of California, Los Angeles.}
 
 \vitaitem   {2009-2013}
-                {Research Assistant, Department of Physics and Astronomy, University of California, Los Angeles.}
+                {Research Assistant, University of California, Los Angeles.}
 
 \vitaitem   {2009-2012}
                 {ORISE FES Fellow, University of California, Los Angeles.}
@@ -97,4 +97,27 @@ sister. And I especially acknowledge my grandparents, who have given me all of t
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Abstract
 
-\abstract{To be completed}
+\abstract{I model, simulate, and analyze the turbulence in a particular experiment on the Large Plasma Device (LAPD) at UCLA.
+The model is an electrostatic reduced Braginskii two-fluid model that describes the time evolution
+of density, electron temperature, electrostatic potential, and parallel electron velocity fluctuations in the edge region of LAPD. The spatial domain is annular, encompassing the radial coordinates
+over which a significant equilibrium density gradient exists.
+My model breaks the independent variables in the equations into time-independent equilibrium parts and time-dependent fluctuating parts, and I use experimentally obtained values as input for the
+equilibrium parts.
+
+After an initial exponential growth period due to a linear drift wave instability, the fluctuations saturate and the frequency and azimuthal wavenumber spectra become broadband
+with no visible coherent peaks, at which point the fluctuations become turbulent. The turbulence develops intermittent pressure and flow filamentary structures that grow and dissipate, but look much
+different than the unstable linear drift waves, primarily in the extremely long axial wavelengths that the filaments possess. An energy
+dynamics analysis that I derive reveals the mechanism that drives these structures. The long $k_\para \sim 0$ intermittent potential 
+filaments convect equilibrium density
+across the equilibrium density gradient, setting up local density filaments. These density filaments, also with $k_\para \sim 0$, produce azimuthal density gradients, which drive radially
+propagating secondary drift waves. These finite $k_\para$ drift waves nonlinearly couple to one another and reinforce the original convective filament, allowing the process to bootstrap itself. The growth
+of these structures is by nonlinear instability because they require a finite amplitude to start, and they require nonlinear terms in the equations to sustain their growth.
+
+The reason why $k_\para \sim 0$ structures can grow and support themselves in a dynamical system with no $k_\para = 0$ linear instability is because the linear eigenmodes of the
+system are nonorthogonal. Nonorthogonal eigenmodes that individually decay under linear dynamics can transiently inject energy into the system, allowing for instability.
+The instability, however, can only occur when the fluctuations have a finite starting amplitude, and nonlinearities are available to mix energy among eigenmodes.
+
+Finally, I attempt to figure out how many effective degrees of freedom control the turbulence to determine whether it is stochastic or deterministic. 
+Using two different methods -- permutation entropy analysis by means of time delay trajectory reconstruction and Proper Orthogonal Decomposition -- I determine that
+more than a few degrees of freedom, possibly even dozens or hundreds, are all active. The turbulence, therefore, is not a manifestation of low-dimensional chaos -- it is stochastic.
+}
